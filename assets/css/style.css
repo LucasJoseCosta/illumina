@@ -1,0 +1,1 @@
+:root{--bg: #f8f0e3}body.dark-mode{--bg: #f8f0e3}body.light-mode .light{display:block}body.light-mode .dark{display:none}body.dark-mode{background-color:var(--bg)}body.dark-mode .dark{display:block}.dark{display:none}body.dark-mode .light{display:none}
