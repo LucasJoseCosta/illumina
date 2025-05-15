@@ -30,7 +30,7 @@ if (!empty($initials)) {
 ?>
 
 <?php if (!empty($initials)) : ?>
-<div class="wrapper-banner-home">
+<div class="wrapper-banner-home" style="margin-top: 133px;">
     <div class="container">
         <div class="banner-content">
             <h1 class="banner-title"><?php echo $titulo_banner ?></h1>
@@ -65,7 +65,7 @@ $conteudo_segunda_sessao = get_field('conteudo_segunda_sessao', $initial->ID);
 $cards = get_field('cards', $initial->ID);
 $info_cards = get_field('info_cards', $initial->ID);
 ?>
-<section class="section-our-brands-cards">
+<section class="section-our-brands-cards" style="height: 2000px;">
     <div class="container">
         <div class="our-brands-cards-wrapper">
             <div class="our-brands-header">

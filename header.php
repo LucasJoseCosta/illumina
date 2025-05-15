@@ -57,38 +57,60 @@ $menus_header = get_field('menus', $initial_menus->ID);
     <div id="page" class="site">
         <a class="skip-link screen-reader-text" href="#content"><?php _e('Skip to content', 'twentynineteen'); ?></a>
         <header>
-            <div class="container-header container">
-                <a href="/" class="link-logo">
-                    <img src="<?php echo $logo_header ?>" alt="logo" class="custom-logo light">
-                    <!-- <img src="<?php echo $logo_header_branca ?>" alt="logo" class="custom-logo dark"> -->
-                </a>
-
-                <div class="wrapper-menu-desktop">
-                    <div class="wrapper-menu-custom">
-                        <?php if(isset($menus_header) && count($menus_header) > 0) : ?>
-                            <nav>
-                                <ul>
-                                    <?php foreach ($menus_header as $menu) : ?>
-                                        <li class="menu-item-has-children">
-                                            <a href="<?php echo esc_url($menu['link_id']); ?>" class="link">
-                                                <?php echo esc_html($menu['titulo_menu']); ?>
-                                            </a>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            </nav>
-                        <?php else : ?>
-                            <span>Não possui menus cadastrados</span>
-                        <?php endif; ?>
+            <div class="header-wrapper">
+                <div class="header-container container">
+                    <div class="header-logo">
+                        <a href="/" class="link-logo">
+                            <img src="<?php echo $logo_header ?>" alt="logo" class="logo light">
+                            <!-- <img src="<?php echo $logo_header_branca ?>" alt="logo" class="custom-logo dark"> -->
+                        </a>
                     </div>
-                </div>
+                    
 
-                <div class="header-button">
-                    <a href="">
-                        <span>Entre em contato</span>
-                    </a>
+                    <div class="header-menu-wrapper">
+                        <div class="header-menu">
+                            <?php if(isset($menus_header) && count($menus_header) > 0) : ?>
+                                <nav>
+                                    <ul class="menu">
+                                        <?php foreach ($menus_header as $menu) : ?>
+                                            <li class="menu-item">
+                                                <div class="menu-container">
+                                                    <?php if ($menu['tipo_de_link'] == 'ID') : ?>
+                                                        <a href="<?php echo esc_url($menu['link_id']); ?>" class="link">
+                                                            <?php echo esc_html($menu['titulo_menu']); ?>
+                                                        </a>
+                                                    <?php elseif ($menu['tipo_de_link'] == 'Link de pagina') : ?>
+                                                        <a href="<?php echo esc_url($menu['link_de_pagina']); ?>" class="link">
+                                                            <?php echo esc_html($menu['titulo_menu']); ?>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </nav>
+                            <?php else : ?>
+                                <span>Não possui menus cadastrados</span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <div class="header-actions">
+                        <div class="header-button">
+                            <a href="#">
+                                <span>Entre em contato</span>
+                            </a>
+                        </div>
+                        <div class="header-button">
+                            <button>
+                                <img src="<?php echo get_template_directory_uri() ?>/assets/img/toggle-mode.svg" alt="" srcset="">
+                            </button>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
+            
         </header>
     </div>
 </body>

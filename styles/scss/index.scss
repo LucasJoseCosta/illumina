@@ -14,6 +14,11 @@ body.light-mode .light {
 body.light-mode .dark {
   display: none;
 }
+
+body {
+  background-color: var(--bg);
+}
+
 body.dark-mode {
   background-color: var(--bg);
 }
