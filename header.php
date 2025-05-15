@@ -26,58 +26,30 @@
 <?php
 $current_lang = function_exists('pll_current_language') ? pll_current_language() : '';
 $args = array(
-    'post_type'      => 'info_contact',
+    'post_type'      => 'menu_custom',
+    'lang'           => $current_lang,
+    'posts_per_page' => -1,
+);
+$args_misc = array(
+    'post_type'      => 'misc_info_contato',
     'lang'           => $current_lang,
     'posts_per_page' => -1,
 );
 
-$initials = get_posts($args);
-$initial = $initials[0] ?? null;
+$menus = get_posts($args);
+$misc = get_posts($args_misc);
 
-$logo_header = get_field('logo_header', $initial->ID);
-$logo_header_branca = get_field('logo_header_branca', $initial->ID);
+$initial_menus = $menus[0] ?? null;
+$initial_misc = $misc[0] ?? null;
 
-// Definir o caminho da página de eventos para cada idioma
-if ($current_lang == 'en') {
-    $eventos_page_slug = 'events';
-    $title_claro = 'Light Mode';
-    $title_escuro = 'Dark Mode';
-    $busca = "Search";
-    $text_btn = 'View calendar';
-} elseif ($current_lang == 'es') {
-    $eventos_page_slug = 'eventos-es';
-    $title_claro = 'Modo Claro';
-    $title_escuro = 'Modo Oscuro';
-    $busca = "Buscar";
-    $text_btn = 'Ver calendario';
-} else {
-    $eventos_page_slug = 'eventos';
-    $title_claro = 'Modo Claro';
-    $title_escuro = 'Modo Escuro';
-    $busca = "Busca";
-    $text_btn = 'Ver calendário';
-}
+$logo_header = get_field('logo_header', $initial_misc->ID);
+$menus_header = get_field('menus', $initial_menus->ID);
+
 // Passando as variáveis PHP para o JavaScript de forma segura
-$title_claro_js = json_encode($title_claro);
-$title_escuro_js = json_encode($title_escuro);
+// $title_claro_js = json_encode($title_claro);
+// $title_escuro_js = json_encode($title_escuro);
 ?>
 
-
-<?php
-$current_lang = function_exists('pll_current_language') ? pll_current_language() : '';
-$args = array(
-    'post_type'      => 'info_contact',
-    'lang'           => $current_lang,
-    'posts_per_page' => -1,
-);
-
-$initials = get_posts($args);
-$initial = $initials[0] ?? null;
-
-$numero_wpp = get_field('numero_wpp', $initial->ID);
-
-
-?>
 
 
 <body <?php body_class(); ?>>
@@ -85,279 +57,44 @@ $numero_wpp = get_field('numero_wpp', $initial->ID);
     <div id="page" class="site">
         <a class="skip-link screen-reader-text" href="#content"><?php _e('Skip to content', 'twentynineteen'); ?></a>
         <header>
-            <div class="wrapper-wpp">
-                <a href="<?= $numero_wpp ?>" class="link" target="_blank">
-                    <img class="wpp light" src="<?php echo get_template_directory_uri() ?>/assets/img/wpp.png">
-                    <img class="wpp dark" src="<?php echo get_template_directory_uri() ?>/assets/img/wpp-w.png">
-                </a>
-            </div>
-            <div class="container-header">
-                <a href="/" class="link">
+            <div class="container-header container">
+                <a href="/" class="link-logo">
                     <img src="<?php echo $logo_header ?>" alt="logo" class="custom-logo light">
-                    <img src="<?php echo $logo_header_branca ?>" alt="logo" class="custom-logo dark">
+                    <!-- <img src="<?php echo $logo_header_branca ?>" alt="logo" class="custom-logo dark"> -->
                 </a>
 
                 <div class="wrapper-menu-desktop">
                     <div class="wrapper-menu-custom">
-                        <div class="related-posts">
-                            <?php
-
-                            $custom_posts_args = [
-                                'post_type' => 'menu_custom',
-                                'posts_per_page' => -1,
-                                'lang'           => $current_lang,
-                                'orderby' => 'date',
-                                'order' => 'ASC',
-                            ];
-
-                            $custom_posts_query = new WP_Query($custom_posts_args);
-
-                            if ($custom_posts_query->have_posts()) :
-                                while ($custom_posts_query->have_posts()) : $custom_posts_query->the_post();
-                                    $link_principal = get_field('link_principal', get_the_ID());
-                                    $lista_de_menu = get_field('lista_de_menu', get_the_ID());
-                            ?>
-                                    <?php if ($lista_de_menu) : ?>
-                                        <div class="related-post-item">
-                                            <a href="<?php echo $link_principal ?>" class="link-principal">
-                                                <p class="title"><?php the_title(); ?></p>
-
+                        <?php if(isset($menus_header) && count($menus_header) > 0) : ?>
+                            <nav>
+                                <ul>
+                                    <?php foreach ($menus_header as $menu) : ?>
+                                        <li class="menu-item-has-children">
+                                            <a href="<?php echo esc_url($menu['link_id']); ?>" class="link">
+                                                <?php echo esc_html($menu['titulo_menu']); ?>
                                             </a>
-                                            <img class="arrow light"
-                                                src="<?php echo get_template_directory_uri() ?>/assets/img/arrow.svg">
-                                            <img class="arrow dark"
-                                                src="<?php echo get_template_directory_uri() ?>/assets/img/arrow-white.svg">
-
-                                            <div class="wrapper-absolute">
-                                                <div class="wrapper-left">
-                                                    <div class="wrapper-list-menu">
-                                                        <?php foreach ($lista_de_menu as $item_menu) : ?>
-                                                            <a href="<?php echo $item_menu["link"]; ?>" class="link">
-                                                                <div class="item">
-                                                                    <p class="title"><?php echo $item_menu["nome"]; ?></p>
-                                                                </div>
-                                                            </a>
-                                                        <?php endforeach; ?>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    <?php else : ?>
-                                        <div class="related-post-item">
-                                            <a href="<?php echo $link_principal ?>" class="link-principal">
-                                                <p class="title"><?php the_title(); ?></p>
-
-                                            </a>
-                                        </div>
-
-                                    <?php endif; ?>
-
-                                <?php endwhile;
-                                wp_reset_postdata();
-                            else : ?>
-                                <p>Nenhum menu encontrado.</p>
-                            <?php endif; ?>
-                        </div>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </nav>
+                        <?php else : ?>
+                            <span>Não possui menus cadastrados</span>
+                        <?php endif; ?>
                     </div>
                 </div>
-                <div class="wrapper-search-bar">
-                    <form role="search" method="get" class="search-form" action="<?php echo esc_url(home_url('/')); ?>">
-                        <label for="search-field">
-                            <input type="search" id="search-field" class="search-field" placeholder="<?= $busca ?>"
-                                value="<?php echo esc_attr(get_search_query()); ?>" name="s" required />
-                        </label>
-                        <button type="submit" class="search-submit">
-                            <img class="light"
-                                src="<?php echo get_template_directory_uri() ?>/assets/img/search-button.svg" alt=""
-                                srcset="">
-                            <img class="dark"
-                                src="<?php echo get_template_directory_uri() ?>/assets/img/search-button-white.svg"
-                                alt="" srcset="">
-                        </button>
-                    </form>
-                </div>
-                <!-- <div class="wrapper-settings-desktop">
-                    <div class="wrapper-settings">
-                        <div class="theme-toggle">
-                            <input type="checkbox" id="theme-toggle-checkbox-desktop">
-                            <label for="theme-toggle-checkbox-desktop" class="toggle-label">
 
-                                <span class="toggle-text"><?php $title_claro ?></span>
-                            </label>
-                        </div>
-                        <ul class="translate">
-                            <li
-                                class="<?php echo (get_locale() == 'pt' || (isset($_GET['lang']) && $_GET['lang'] == 'pt')) ? 'ativa' : ''; ?>">
-                                <a href="?lang=pt">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/img/pt-br.svg" alt="pt-BR" srcset="">
-                                </a>
-                            </li>
-                            <li
-                                class="<?php echo (get_locale() == 'en' || (isset($_GET['lang']) && $_GET['lang'] == 'en')) ? 'ativa' : ''; ?>">
-                                <a href="?lang=en"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/en-us.svg" alt="en-US" srcset=""></a>
-                            </li>
-                            <li
-                                class="<?php echo (get_locale() == 'es' || (isset($_GET['lang']) && $_GET['lang'] == 'es')) ? 'ativa' : ''; ?>">
-                                <a href="?lang=es"><img src="<?php echo get_template_directory_uri(); ?>/assets/img/es.svg" alt="es" srcset=""></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div> -->
-                <div id="control-menu">
-                    <a id="burger-3">
-                        <img class="light" src="<?php echo get_template_directory_uri() ?>/assets/img/buguer.svg">
-                        <img class="dark" src="<?php echo get_template_directory_uri() ?>/assets/img/burguer-white.svg">
+                <div class="header-button">
+                    <a href="">
+                        <span>Entre em contato</span>
                     </a>
                 </div>
             </div>
-            <div class="menu-toggle" id="menu-drawer">
-                <div class="wrapper-top-menu">
-                    <div class="logo-menu">
-                        <img src="<?php echo $logo_header ?>" alt="logo" class="custom-logo light">
-                        <img src="<?php echo $logo_header_branca ?>" alt="logo" class="custom-logo dark">
-                    </div>
-                    <div id="control-menu-4">
-                        <a id="close-button-1">
-                            <img class="light" src="<?php echo get_template_directory_uri() ?>/assets/img/close.svg">
-                            <img class="dark"
-                                src="<?php echo get_template_directory_uri() ?>/assets/img/close-white.svg">
-                        </a>
-                    </div>
-                </div>
-                <div class="wrapper-settings">
-                    <div class="theme-toggle">
-                        <input type="checkbox" id="theme-toggle-checkbox">
-                        <label for="theme-toggle-checkbox" class="toggle-label">
-
-                            <span class="toggle-text"><?php $title_claro ?></span>
-                        </label>
-                    </div>
-
-                    <ul class="translate">
-                        <li class="<?php echo pll_current_language() === 'pt' ? 'ativa' : ''; ?>">
-                            <a href="<?php echo pll_the_languages(array('raw' => 1))['pt']['url']; ?>"><img
-                                    class="bandeira"
-                                    src="<?php echo get_template_directory_uri() ?>/assets/img/pt-br.svg"></a>
-                        </li>
-                        <li class="<?php echo pll_current_language() === 'en' ? 'ativa' : ''; ?>">
-                            <a href="<?php echo pll_the_languages(array('raw' => 1))['en']['url']; ?>"><img
-                                    class="bandeira"
-                                    src="<?php echo get_template_directory_uri() ?>/assets/img/en-us.svg"></a>
-                        </li>
-                        <li class="<?php echo pll_current_language() === 'es' ? 'ativa' : ''; ?>">
-                            <a href="<?php echo pll_the_languages(array('raw' => 1))['es']['url']; ?>"><img
-                                    class="bandeira"
-                                    src="<?php echo get_template_directory_uri() ?>/assets/img/es.svg"></a>
-                        </li>
-                    </ul>
-                </div>
-                <?php
-                wp_nav_menu(array(
-                    [
-                        'menu_class' => 'main_menu',
-                        'container' => false,
-                        'theme_location' => 'primary',
-                        'depth' => 4,
-                    ]
-                ));
-                ?>
-            </div>
-
-    </div>
-
-
-
-    <?php
-    $current_lang = function_exists('pll_current_language') ? pll_current_language() : '';
-
-    // Encontrar a página de eventos
-    $eventos_page = get_page_by_path($eventos_page_slug);
-
-    // Buscar os campos personalizados da página de eventos
-    $banner = get_field('banner_modal', $eventos_page->ID);
-    $banner_mb = get_field('banner_modal_mb', $eventos_page->ID);
-    $titulo_modal = get_field('titulo_modal', $eventos_page->ID);
-    $link_modal = get_field('link_modal', $eventos_page->ID);
-
-    // O resto do seu código para buscar eventos futuros permanece o mesmo
-    $args = array(
-        'post_type'      => 'eventos',
-        'lang'           => $current_lang,
-        'posts_per_page' => -1,
-        'orderby'        => 'meta_value',
-        'meta_key'       => 'data_do_evento',
-        'order'          => 'ASC',
-    );
-
-    $eventos = get_posts($args);
-
-    $hoje = strtotime(date('Y-m-d'));
-    $limite = strtotime("+30 days");
-
-    $eventos_futuros = array_filter($eventos, function ($evento) use ($hoje, $limite) {
-        $data_evento = get_post_meta($evento->ID, 'data_do_evento', true);
-
-        if ($data_evento) {
-            $data_formatada = DateTime::createFromFormat('Y-m-d H:i:s', $data_evento);
-            if ($data_formatada) {
-                $timestamp_evento = $data_formatada->getTimestamp();
-                return $timestamp_evento >= $hoje && $timestamp_evento <= $limite;
-            }
-        }
-        return false;
-    });
-
-    $has_eventos = !empty($eventos_futuros);
-
-    // Passar informação para o JavaScript
-    echo '<script>var hasEventos = ' . json_encode($has_eventos) . ';</script>';
-    ?>
-
-    <div class="modal" id="modal-events">
-        <div class="wrapper-modal">
-            <div class="close">
-                <img class="light" src="<?php echo get_template_directory_uri() ?>/assets/img/close.svg">
-                <img class="dark" src="<?php echo get_template_directory_uri() ?>/assets/img/close-white.svg">
-            </div>
-            <div class="wrapper-banner">
-                <!-- Usar os banners da página de eventos -->
-                <img src="<?php echo esc_url($banner); ?>" alt="Banner do Evento" class="banner">
-                <img src="<?php echo esc_url($banner_mb); ?>" alt="Banner do Evento Mobile" class="banner-mb">
-            </div>
-            <div class="event-list">
-                <div class="wrapper-top">
-                    <p class="title">
-                        <?php echo esc_html($titulo_modal); ?>
-                    </p>
-                    <?php if ($has_eventos): ?>
-                        <?php foreach ($eventos_futuros as $evento): ?>
-                            <?php
-                            $data_evento = get_post_meta($evento->ID, 'data_do_evento', true);
-                            $data_formatada = DateTime::createFromFormat('Y-m-d H:i:s', $data_evento);
-                            $data_somente = $data_formatada ? $data_formatada->format('d/m/Y') : '';
-                            ?>
-                            <div class="event-item" data-date="<?php echo esc_attr($data_somente); ?>">
-                                <span class="event-date"><?php echo esc_html($data_somente); ?></span>
-                                <span class="event-title"><?php echo esc_html(get_the_title($evento)); ?></span>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </div>
-                <a href="<?php echo esc_url($link_modal); ?>" class="link"><?php echo $text_btn; ?></a>
-            </div>
-        </div>
-    </div>
-
-
-
-    </header>
+        </header>
     </div>
 </body>
 
 </html>
-<script>
+<!-- <script>
     document.addEventListener("DOMContentLoaded", function() {
         const header = document.querySelector("header");
 
@@ -500,4 +237,4 @@ $numero_wpp = get_field('numero_wpp', $initial->ID);
             }
         }
     });
-</script>
+</script> -->
