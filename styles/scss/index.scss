@@ -1,10 +1,18 @@
 /* Tema Claro */
 :root {
+  // backgrounds
   --bg: #f8f0e3;
+  --bg-black: #000;
+  // colors
+  --color-primary: #000;
 }
 
 body.dark-mode {
+  // backgrounds
   --bg: #f8f0e3;
+  --bg-black: #000;
+  // colors
+  --color-primary: #000;
 }
 
 body.light-mode .light {
@@ -35,7 +43,12 @@ body.dark-mode .light {
   display: none;
 }
 
+html {
+  font-family: "Noka Trial", sans-serif;
+}
+
 .container {
-  width: 1280px;
+  max-width: 1280px;
+  width: 100%;
   margin: 0 auto;
 }

@@ -60,7 +60,7 @@ $menus_header = get_field('menus', $initial_menus->ID);
             <div class="header-wrapper">
                 <div class="header-container container">
                     <div class="header-logo">
-                        <a href="/" class="link-logo">
+                        <a href="#" class="link-logo">
                             <img src="<?php echo $logo_header ?>" alt="logo" class="logo light">
                             <!-- <img src="<?php echo $logo_header_branca ?>" alt="logo" class="custom-logo dark"> -->
                         </a>
@@ -101,162 +101,84 @@ $menus_header = get_field('menus', $initial_menus->ID);
                                 <span>Entre em contato</span>
                             </a>
                         </div>
-                        <div class="header-button">
+                        <div class="header-button-ld">
                             <button>
                                 <img src="<?php echo get_template_directory_uri() ?>/assets/img/toggle-mode.svg" alt="" srcset="">
                             </button>
                         </div>
+                        <div class="header-button-burger">
+                            <button id="burger" class="burger">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
                     </div>
-                    
                 </div>
             </div>
-            
         </header>
+
+        <div class="mobile-drawer" id="mobileDrawer">
+            <div class="mobile-drawer-inner">
+                <div class="mobile-drawer-header">
+                    <div class="header-button-ld">
+                        <button>
+                            <img src="<?php echo get_template_directory_uri() ?>/assets/img/toggle-mode.svg" alt="" srcset="">
+                        </button>
+                    </div>
+                    <div class="header-close-button">
+                        <button id="closeDrawer" class="close-drawer">×</button>
+                    </div>
+                </div>
+                
+                <nav class="mobile-menu">
+                    <ul>
+                        <?php if(isset($menus_header) && count($menus_header) > 0) : ?>
+                            <?php foreach ($menus_header as $menu) : ?>
+                                <li>
+                                    <?php if ($menu['tipo_de_link'] == 'ID') : ?>
+                                        <a href="<?php echo esc_url($menu['link_id']); ?>">
+                                            <?php echo esc_html($menu['titulo_menu']); ?>
+                                        </a>
+                                    <?php elseif ($menu['tipo_de_link'] == 'Link de pagina') : ?>
+                                        <a href="<?php echo esc_url($menu['link_de_pagina']); ?>">
+                                            <?php echo esc_html($menu['titulo_menu']); ?>
+                                        </a>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </ul>
+                </nav>
+               <div class="header-drawer-actions">
+                    <div class="header-button">
+                        <a href="#">
+                            <span>Entre em contato</span>
+                        </a>
+                    </div>
+               </div>
+            </div>
+        </div>
     </div>
 </body>
 
 </html>
-<!-- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const header = document.querySelector("header");
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const burger = document.getElementById("burger");
+        const drawer = document.getElementById("mobileDrawer");
+        const closeBtn = document.getElementById("closeDrawer");
 
-        window.addEventListener("scroll", function() {
-            if (window.scrollY > 0) {
-                header.classList.add("border-bottom");
-            } else {
-                header.classList.remove("border-bottom");
-            }
-        });
-    });
-    document.addEventListener("DOMContentLoaded", function() {
-        const menuToggle = document.getElementById("menu-drawer");
-        const burgerButton = document.getElementById("burger-3");
-        const closeButton = document.getElementById("close-button-1");
-
-        burgerButton.addEventListener("click", function() {
-            menuToggle.classList.add("open");
+        burger.addEventListener("click", function () {
+            burger.classList.toggle("active");
+            drawer.classList.toggle("open");
+            document.body.classList.toggle("drawer-open");
         });
 
-        closeButton.addEventListener("click", function() {
-            menuToggle.classList.remove("open");
+        closeBtn.addEventListener("click", function () {
+            drawer.classList.remove("open");
+            burger.classList.remove("active");
+            document.body.classList.remove("drawer-open");
         });
     });
-
-    document.addEventListener("DOMContentLoaded", function() {
-        const menuItems = document.querySelectorAll(".menu-item-has-children");
-
-        // Abrir submenus por padrão apenas no mobile
-        function openSubMenusByDefault() {
-            if (window.innerWidth <= 768) {
-                menuItems.forEach(item => {
-                    item.classList.add("active");
-                });
-            }
-        }
-
-        function toggleSubMenu() {
-            if (window.innerWidth <= 768) {
-                menuItems.forEach(item => {
-                    const link = item.querySelector("a");
-
-                    link.addEventListener("click", (e) => {
-                        e.preventDefault();
-                        item.classList.toggle("active");
-
-                    });
-                });
-            }
-        }
-
-
-        openSubMenusByDefault();
-        toggleSubMenu();
-
-        window.addEventListener("resize", () => {
-
-            if (window.innerWidth > 768) {
-                menuItems.forEach(item => item.classList.remove("active"));
-            }
-
-            menuItems.forEach(item => {
-                const link = item.querySelector("a");
-                link.replaceWith(link.cloneNode(true));
-            });
-
-            openSubMenusByDefault();
-            toggleSubMenu();
-        });
-    });
-
-
-
-    function scrollToSection(sectionId) {
-        const targetElement = document.getElementById(sectionId);
-
-        if (targetElement) {
-            // Define uma altura fixa de 100px para o ajuste
-            const fixedHeight = 100;
-            const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
-            const offsetPosition = elementPosition - fixedHeight;
-
-            // Suaviza a rolagem até a posição ajustada
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
-        }
-    }
-
-    // Adiciona o listener a todos os botões que levam à seção "contato"
-    document.querySelectorAll('.scroll-to-contact').forEach(button => {
-        button.addEventListener('click', function() {
-            scrollToSection('contato');
-        });
-    });
-
-    // // Initialize the state based on user's preference or default
-    // const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    // toggleDarkMode({
-    //     checked: prefersDarkMode
-    // });
-
-
-
-
-    document.addEventListener("DOMContentLoaded", function() {
-
-        if (typeof hasEventos !== 'undefined' && hasEventos === true) {
-            const modal = document.getElementById("modal-events");
-
-            if (modal) {
-                const closeModal = modal.querySelector(".close");
-
-                let lastShownDate = localStorage.getItem("modalShownDate");
-                let today = new Date().toLocaleDateString();
-
-                if (lastShownDate !== today) {
-                    setTimeout(function() {
-                        modal.classList.add("active");
-                        document.body.style.overflow = "hidden";
-                    }, 2000);
-                }
-
-                function closeModalFunction() {
-                    modal.classList.remove("active");
-                    document.body.style.overflow = "";
-                    localStorage.setItem("modalShownDate", today);
-                }
-
-                if (closeModal) {
-                    closeModal.addEventListener("click", closeModalFunction);
-                }
-
-                modal.addEventListener("click", function(event) {
-                    if (event.target === modal) {
-                        closeModalFunction();
-                    }
-                });
-            }
-        }
-    });
-</script> -->
+</script>
