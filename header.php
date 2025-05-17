@@ -3,11 +3,6 @@
 
 <head>
     <title><?php custom_meta_title(); ?></title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Protest+Strike&display=swap"
-        rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
@@ -26,13 +21,13 @@
 <?php
 
 $args = array(
-    'post_type'      => 'menu_custom',
-    'lang'           => $current_lang,
+    'post_type' => 'menu_custom',
+    'lang' => $current_lang,
     'posts_per_page' => -1,
 );
 $args_misc = array(
-    'post_type'      => 'misc_info_contato',
-    'lang'           => $current_lang,
+    'post_type' => 'misc_info_contato',
+    'lang' => $current_lang,
     'posts_per_page' => -1,
 );
 
@@ -62,21 +57,21 @@ $menus_header = get_field('menus', $initial_menus->ID);
                             <!-- <img src="<?php echo $logo_header_branca ?>" alt="logo" class="custom-logo dark"> -->
                         </a>
                     </div>
-                    
+
 
                     <div class="header-menu-wrapper">
                         <div class="header-menu">
-                            <?php if(isset($menus_header) && count($menus_header) > 0) : ?>
+                            <?php if (isset($menus_header) && count($menus_header) > 0): ?>
                                 <nav>
                                     <ul class="menu">
-                                        <?php foreach ($menus_header as $menu) : ?>
+                                        <?php foreach ($menus_header as $menu): ?>
                                             <li class="menu-item">
                                                 <div class="menu-container">
-                                                    <?php if ($menu['tipo_de_link'] == 'ID') : ?>
+                                                    <?php if ($menu['tipo_de_link'] == 'ID'): ?>
                                                         <a href="<?php echo esc_url($menu['link_id']); ?>" class="link">
                                                             <?php echo esc_html($menu['titulo_menu']); ?>
                                                         </a>
-                                                    <?php elseif ($menu['tipo_de_link'] == 'Link de pagina') : ?>
+                                                    <?php elseif ($menu['tipo_de_link'] == 'Link de pagina'): ?>
                                                         <a href="<?php echo esc_url($menu['link_de_pagina']); ?>" class="link">
                                                             <?php echo esc_html($menu['titulo_menu']); ?>
                                                         </a>
@@ -86,7 +81,7 @@ $menus_header = get_field('menus', $initial_menus->ID);
                                         <?php endforeach; ?>
                                     </ul>
                                 </nav>
-                            <?php else : ?>
+                            <?php else: ?>
                                 <span>Não possui menus cadastrados</span>
                             <?php endif; ?>
                         </div>
@@ -94,34 +89,34 @@ $menus_header = get_field('menus', $initial_menus->ID);
 
                     <div class="header-actions">
                         <div class="lang-switcher-wrapper">
-                                <?php if ( function_exists('pll_the_languages') ) : 
-                                    // Pega dados brutos de cada idioma
-                                    $langs = pll_the_languages([
-                                    'raw'       => 1,
+                            <?php if (function_exists('pll_the_languages')):
+                                // Pega dados brutos de cada idioma
+                                $langs = pll_the_languages([
+                                    'raw' => 1,
                                     'hide_if_empty' => 0
-                                    ]);
-                                    $current = pll_current_language();  // slug do idioma atual, ex: "pt" ou "en"
+                                ]);
+                                $current = pll_current_language();  // slug do idioma atual, ex: "pt" ou "en"
                                 ?>
                                 <div class="lang-dropdown">
                                     <button class="lang-dropdown-toggle" aria-label="Mudar idioma">
-                                    <img src="<?php echo esc_url( $langs[ $current ]['flag'] ); ?>"
-                                        alt="<?php echo esc_attr( $langs[ $current ]['name'] ); ?>"
-                                        width="16" height="11">
+                                        <img src="<?php echo esc_url($langs[$current]['flag']); ?>"
+                                            alt="<?php echo esc_attr($langs[$current]['name']); ?>" width="16"
+                                            height="11">
                                     </button>
                                     <ul class="lang-dropdown-menu">
-                                    <?php foreach ( $langs as $lang_slug => $lang ) : ?>
-                                        <?php if ( $lang_slug === $current ) continue; // pula o atual ?>
-                                        <li>
-                                        <a href="<?php echo esc_url( $lang['url'] ); ?>">
-                                            <img src="<?php echo esc_url( $lang['flag'] ); ?>"
-                                                alt="<?php echo esc_attr( $lang['name'] ); ?>"
-                                                width="16" height="11">
-                                        </a>
-                                        </li>
-                                    <?php endforeach; ?>
+                                        <?php foreach ($langs as $lang_slug => $lang): ?>
+                                            <?php if ($lang_slug === $current)
+                                                continue; // pula o atual ?>
+                                            <li>
+                                                <a href="<?php echo esc_url($lang['url']); ?>">
+                                                    <img src="<?php echo esc_url($lang['flag']); ?>"
+                                                        alt="<?php echo esc_attr($lang['name']); ?>" width="16" height="11">
+                                                </a>
+                                            </li>
+                                        <?php endforeach; ?>
                                     </ul>
                                 </div>
-                                <?php endif; ?>
+                            <?php endif; ?>
                         </div>
                         <div class="header-button">
                             <a href="#">
@@ -130,7 +125,8 @@ $menus_header = get_field('menus', $initial_menus->ID);
                         </div>
                         <div class="header-button-ld">
                             <button>
-                                <img src="<?php echo get_template_directory_uri() ?>/assets/img/toggle-mode.svg" alt="" srcset="">
+                                <img src="<?php echo get_template_directory_uri() ?>/assets/img/toggle-mode.svg" alt=""
+                                    srcset="">
                             </button>
                         </div>
                         <div class="header-button-burger">
@@ -161,56 +157,57 @@ $menus_header = get_field('menus', $initial_menus->ID);
                     </div> -->
                     <div class="mobile-drawer-header-actions">
                         <div class="lang-switcher-wrapper">
-                                <?php if ( function_exists('pll_the_languages') ) : 
-                                    // Pega dados brutos de cada idioma
-                                    $langs = pll_the_languages([
-                                    'raw'       => 1,
+                            <?php if (function_exists('pll_the_languages')):
+                                // Pega dados brutos de cada idioma
+                                $langs = pll_the_languages([
+                                    'raw' => 1,
                                     'hide_if_empty' => 0
-                                    ]);
-                                    $current = pll_current_language();  // slug do idioma atual, ex: "pt" ou "en"
+                                ]);
+                                $current = pll_current_language();  // slug do idioma atual, ex: "pt" ou "en"
                                 ?>
                                 <div class="lang-dropdown">
                                     <button class="lang-dropdown-toggle" aria-label="Mudar idioma">
-                                    <img src="<?php echo esc_url( $langs[ $current ]['flag'] ); ?>"
-                                        alt="<?php echo esc_attr( $langs[ $current ]['name'] ); ?>"
-                                        width="16" height="11">
+                                        <img src="<?php echo esc_url($langs[$current]['flag']); ?>"
+                                            alt="<?php echo esc_attr($langs[$current]['name']); ?>" width="16"
+                                            height="11">
                                     </button>
                                     <ul class="lang-dropdown-menu">
-                                    <?php foreach ( $langs as $lang_slug => $lang ) : ?>
-                                        <?php if ( $lang_slug === $current ) continue; // pula o atual ?>
-                                        <li>
-                                        <a href="<?php echo esc_url( $lang['url'] ); ?>">
-                                            <img src="<?php echo esc_url( $lang['flag'] ); ?>"
-                                                alt="<?php echo esc_attr( $lang['name'] ); ?>"
-                                                width="16" height="11">
-                                        </a>
-                                        </li>
-                                    <?php endforeach; ?>
+                                        <?php foreach ($langs as $lang_slug => $lang): ?>
+                                            <?php if ($lang_slug === $current)
+                                                continue; // pula o atual ?>
+                                            <li>
+                                                <a href="<?php echo esc_url($lang['url']); ?>">
+                                                    <img src="<?php echo esc_url($lang['flag']); ?>"
+                                                        alt="<?php echo esc_attr($lang['name']); ?>" width="16" height="11">
+                                                </a>
+                                            </li>
+                                        <?php endforeach; ?>
                                     </ul>
                                 </div>
-                                <?php endif; ?>
+                            <?php endif; ?>
                         </div>
                         <div class="header-button-ld">
                             <button>
-                                <img src="<?php echo get_template_directory_uri() ?>/assets/img/toggle-mode.svg" alt="" srcset="">
+                                <img src="<?php echo get_template_directory_uri() ?>/assets/img/toggle-mode.svg" alt=""
+                                    srcset="">
                             </button>
                         </div>
                         <div class="mobile-drawer-close">
-                                <button id="closeDrawer" class="close-drawer">×</button>
+                            <button id="closeDrawer" class="close-drawer">×</button>
                         </div>
                     </div>
                 </div>
-                
+
                 <nav class="mobile-menu">
                     <ul>
-                        <?php if(isset($menus_header) && count($menus_header) > 0) : ?>
-                            <?php foreach ($menus_header as $menu) : ?>
+                        <?php if (isset($menus_header) && count($menus_header) > 0): ?>
+                            <?php foreach ($menus_header as $menu): ?>
                                 <li>
-                                    <?php if ($menu['tipo_de_link'] == 'ID') : ?>
+                                    <?php if ($menu['tipo_de_link'] == 'ID'): ?>
                                         <a href="<?php echo esc_url($menu['link_id']); ?>">
                                             <?php echo esc_html($menu['titulo_menu']); ?>
                                         </a>
-                                    <?php elseif ($menu['tipo_de_link'] == 'Link de pagina') : ?>
+                                    <?php elseif ($menu['tipo_de_link'] == 'Link de pagina'): ?>
                                         <a href="<?php echo esc_url($menu['link_de_pagina']); ?>">
                                             <?php echo esc_html($menu['titulo_menu']); ?>
                                         </a>
@@ -220,13 +217,13 @@ $menus_header = get_field('menus', $initial_menus->ID);
                         <?php endif; ?>
                     </ul>
                 </nav>
-               <div class="header-drawer-actions">
+                <div class="header-drawer-actions">
                     <div class="header-button">
                         <a href="#">
                             <span>Entre em contato</span>
                         </a>
                     </div>
-               </div>
+                </div>
             </div>
         </div>
     </div>
@@ -252,11 +249,11 @@ $menus_header = get_field('menus', $initial_menus->ID);
         // 2) Ao clicar, alterna e salva no localStorage
         toggleButton.addEventListener('click', () => {
             if (body.classList.contains('dark-mode')) {
-            body.classList.replace('dark-mode', 'light-mode');
-            localStorage.setItem('theme', 'light');
+                body.classList.replace('dark-mode', 'light-mode');
+                localStorage.setItem('theme', 'light');
             } else {
-            body.classList.replace('light-mode', 'dark-mode');
-            localStorage.setItem('theme', 'dark');
+                body.classList.replace('light-mode', 'dark-mode');
+                localStorage.setItem('theme', 'dark');
             }
         });
 
@@ -272,7 +269,7 @@ $menus_header = get_field('menus', $initial_menus->ID);
         dropdowns.forEach((dd, idx) => {
             const btn = dd.querySelector('.lang-dropdown-toggle');
             if (!btn) return;
-            btn.addEventListener('click',    e => toggleDropdown(e, idx));
+            btn.addEventListener('click', e => toggleDropdown(e, idx));
             // btn.addEventListener('touchend', e => toggleDropdown(e, idx));
         });
 
@@ -282,7 +279,7 @@ $menus_header = get_field('menus', $initial_menus->ID);
             if (e.target.closest('.lang-dropdown')) return;
             dropdowns.forEach(dd => dd.classList.remove('open'));
         }
-        document.addEventListener('click',     closeAll);
+        document.addEventListener('click', closeAll);
         // document.addEventListener('touchend',  closeAll);
 
         // Manipula drawer mobile
