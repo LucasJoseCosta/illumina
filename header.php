@@ -24,7 +24,7 @@
 
 
 <?php
-$current_lang = function_exists('pll_current_language') ? pll_current_language() : '';
+
 $args = array(
     'post_type'      => 'menu_custom',
     'lang'           => $current_lang,
@@ -45,9 +45,6 @@ $initial_misc = $misc[0] ?? null;
 $logo_header = get_field('logo_header', $initial_misc->ID);
 $menus_header = get_field('menus', $initial_menus->ID);
 
-// Passando as variáveis PHP para o JavaScript de forma segura
-// $title_claro_js = json_encode($title_claro);
-// $title_escuro_js = json_encode($title_escuro);
 ?>
 
 
@@ -96,6 +93,36 @@ $menus_header = get_field('menus', $initial_menus->ID);
                     </div>
 
                     <div class="header-actions">
+                        <div class="lang-switcher-wrapper">
+                                <?php if ( function_exists('pll_the_languages') ) : 
+                                    // Pega dados brutos de cada idioma
+                                    $langs = pll_the_languages([
+                                    'raw'       => 1,
+                                    'hide_if_empty' => 0
+                                    ]);
+                                    $current = pll_current_language();  // slug do idioma atual, ex: "pt" ou "en"
+                                ?>
+                                <div class="lang-dropdown">
+                                    <button class="lang-dropdown-toggle" aria-label="Mudar idioma">
+                                    <img src="<?php echo esc_url( $langs[ $current ]['flag'] ); ?>"
+                                        alt="<?php echo esc_attr( $langs[ $current ]['name'] ); ?>"
+                                        width="16" height="11">
+                                    </button>
+                                    <ul class="lang-dropdown-menu">
+                                    <?php foreach ( $langs as $lang_slug => $lang ) : ?>
+                                        <?php if ( $lang_slug === $current ) continue; // pula o atual ?>
+                                        <li>
+                                        <a href="<?php echo esc_url( $lang['url'] ); ?>">
+                                            <img src="<?php echo esc_url( $lang['flag'] ); ?>"
+                                                alt="<?php echo esc_attr( $lang['name'] ); ?>"
+                                                width="16" height="11">
+                                        </a>
+                                        </li>
+                                    <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                                <?php endif; ?>
+                        </div>
                         <div class="header-button">
                             <a href="#">
                                 <span>Entre em contato</span>
@@ -121,13 +148,56 @@ $menus_header = get_field('menus', $initial_menus->ID);
         <div class="mobile-drawer" id="mobileDrawer">
             <div class="mobile-drawer-inner">
                 <div class="mobile-drawer-header">
-                    <div class="header-button-ld">
+                    <div class="header-logo">
+                        <a href="#" class="link-logo">
+                            <img src="<?php echo $logo_header ?>" alt="logo" class="logo light">
+                            <!-- <img src="<?php echo $logo_header_branca ?>" alt="logo" class="custom-logo dark"> -->
+                        </a>
+                    </div>
+                    <!-- <div class="header-button-ld">
                         <button>
                             <img src="<?php echo get_template_directory_uri() ?>/assets/img/toggle-mode.svg" alt="" srcset="">
                         </button>
-                    </div>
-                    <div class="header-close-button">
-                        <button id="closeDrawer" class="close-drawer">×</button>
+                    </div> -->
+                    <div class="mobile-drawer-header-actions">
+                        <div class="lang-switcher-wrapper">
+                                <?php if ( function_exists('pll_the_languages') ) : 
+                                    // Pega dados brutos de cada idioma
+                                    $langs = pll_the_languages([
+                                    'raw'       => 1,
+                                    'hide_if_empty' => 0
+                                    ]);
+                                    $current = pll_current_language();  // slug do idioma atual, ex: "pt" ou "en"
+                                ?>
+                                <div class="lang-dropdown">
+                                    <button class="lang-dropdown-toggle" aria-label="Mudar idioma">
+                                    <img src="<?php echo esc_url( $langs[ $current ]['flag'] ); ?>"
+                                        alt="<?php echo esc_attr( $langs[ $current ]['name'] ); ?>"
+                                        width="16" height="11">
+                                    </button>
+                                    <ul class="lang-dropdown-menu">
+                                    <?php foreach ( $langs as $lang_slug => $lang ) : ?>
+                                        <?php if ( $lang_slug === $current ) continue; // pula o atual ?>
+                                        <li>
+                                        <a href="<?php echo esc_url( $lang['url'] ); ?>">
+                                            <img src="<?php echo esc_url( $lang['flag'] ); ?>"
+                                                alt="<?php echo esc_attr( $lang['name'] ); ?>"
+                                                width="16" height="11">
+                                        </a>
+                                        </li>
+                                    <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                                <?php endif; ?>
+                        </div>
+                        <div class="header-button-ld">
+                            <button>
+                                <img src="<?php echo get_template_directory_uri() ?>/assets/img/toggle-mode.svg" alt="" srcset="">
+                            </button>
+                        </div>
+                        <div class="mobile-drawer-close">
+                                <button id="closeDrawer" class="close-drawer">×</button>
+                        </div>
                     </div>
                 </div>
                 
@@ -165,6 +235,57 @@ $menus_header = get_field('menus', $initial_menus->ID);
 </html>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        // LD theme switcher
+        const body = document.body;
+        const toggleButton = document.querySelector('.header-button-ld button');
+
+        // 1) Inicializa o tema a partir do localStorage (ou default para light)
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            body.classList.remove('light-mode');
+        } else {
+            body.classList.add('light-mode');
+            body.classList.remove('dark-mode');
+        }
+
+        // 2) Ao clicar, alterna e salva no localStorage
+        toggleButton.addEventListener('click', () => {
+            if (body.classList.contains('dark-mode')) {
+            body.classList.replace('dark-mode', 'light-mode');
+            localStorage.setItem('theme', 'light');
+            } else {
+            body.classList.replace('light-mode', 'dark-mode');
+            localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Dropdown language switcher
+        const dropdowns = Array.from(document.querySelectorAll('.lang-dropdown'));
+
+        function toggleDropdown(e, idx) {
+            e.stopPropagation();
+            dropdowns[idx].classList.toggle('open');
+        }
+
+        // Registra listeners de abertura
+        dropdowns.forEach((dd, idx) => {
+            const btn = dd.querySelector('.lang-dropdown-toggle');
+            if (!btn) return;
+            btn.addEventListener('click',    e => toggleDropdown(e, idx));
+            // btn.addEventListener('touchend', e => toggleDropdown(e, idx));
+        });
+
+        // Fecha **só** se o clique/touch for fora de **todos** os dropdowns
+        function closeAll(e) {
+            // se veio de dentro de algum dropdown, ignora
+            if (e.target.closest('.lang-dropdown')) return;
+            dropdowns.forEach(dd => dd.classList.remove('open'));
+        }
+        document.addEventListener('click',     closeAll);
+        // document.addEventListener('touchend',  closeAll);
+
+        // Manipula drawer mobile
         const burger = document.getElementById("burger");
         const drawer = document.getElementById("mobileDrawer");
         const closeBtn = document.getElementById("closeDrawer");
