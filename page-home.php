@@ -18,6 +18,11 @@ $initials = get_posts($args);
 if (!empty($initials)) {
     $initial = $initials[0];
     $banners = get_field('slider_home', $initial->ID);
+    $titulo_marca = get_field('titulo_marcas', $initial->ID);
+    $marcas = get_field('marcas', $initial->ID);
+    $titulo_trafego = get_field('titulo_trafego', $initial->ID);
+    $conteudo_trafego = get_field('conteudo_trafego', $initial->ID);
+    $img_conteudo_trafego = get_field('imagem_conteudo_trafego', $initial->ID);
 } else {
     echo '<p>Nenhum post encontrado para o idioma atual.</p>';
     $banners = [];
@@ -68,6 +73,92 @@ if (!empty($initials)) {
 
 <div class="section-divider container"></div>
 
+<section class="home-brands">
+    <div class="home-brands-wrapper container">
+        <div class="home-brands-header">
+            <h2 class="home-brands-title">
+                <?php if (!empty($titulo_marca)): ?>
+                    <?php echo esc_html($titulo_marca); ?>
+                <?php else: ?>
+                    <?php esc_html_e('Marcas', 'text-domain'); ?>
+                <?php endif; ?>
+            </h2>
+        </div>
+
+        <div class="home-brands-content">
+            <div class="home-brands-content-wrapper">
+                <div class="home-brands-list">
+                    <?php if (isset($marcas) && count($marcas) > 0): ?>
+                        <?php foreach ($marcas as $marca): ?>
+                            <div class="home-brands-item" style="max-width: <?php echo $marca['largura_img_marca'] ?>px;">
+                                <div class="home-brands-item-image">
+                                    <a href="<?php echo esc_url($marca['link_marca']) ?>" class="home-brands-item-link"
+                                        target="_blank" rel="noopener noreferrer">
+                                        <picture>
+                                            <source srcset="<?php echo esc_url($marca['logo_marca']) ?>">
+                                            <img src="<?php echo esc_url($marca['logo_marca']) ?>"
+                                                alt="<?php echo esc_attr($marca['titulo_marca']) ?>">
+                                        </picture>
+                                    </a>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p><?php esc_html_e('No brands available', 'text-domain'); ?></p>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider container"></div>
+
+<section class="home-traffic">
+    <div class="home-traffic-wrapper container">
+        <div class="home-traffic-content">
+            <div class="home-traffic-content-wrapper">
+                <div class="home-traffic-image">
+                    <picture>
+                        <source srcset="<?php echo get_template_directory_uri() ?>/assets/img/traffic-paid.svg">
+                        <img src="<?php echo get_template_directory_uri() ?>/assets/img/traffic-paid.svg"
+                            alt="<?php esc_attr_e('Tráfico pago', 'text-domain'); ?>">
+                    </picture>
+                </div>
+                <div class="home-traffic-text">
+                    <h2 class="home-traffic-title">
+                        <?php if (!empty($titulo_trafego)): ?>
+                            <?php echo esc_html($titulo_trafego); ?>
+                        <?php else: ?>
+                            <?php esc_html_e('Traffic', 'text-domain'); ?>
+                        <?php endif; ?>
+                    </h2>
+                    <?php if (!empty($conteudo_trafego)): ?>
+                        <?php echo $conteudo_trafego; ?>
+                    <?php else: ?>
+                        <?php esc_html_e('No traffic content available', 'text-domain'); ?>
+                    <?php endif; ?>
+                </div>
+                <div class="home-traffic-button">
+                    <a href="#" class="btn-home-traffic">
+                        <span class="btn-home-traffic-text">Quero Saber Mais →</span>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="home-traffic-img">
+            <div class="home-traffic-img-wrapper">
+                <picture>
+                    <source srcset="<?php echo esc_url($img_conteudo_trafego) ?>">
+                    <img src="<?php echo esc_url($img_conteudo_trafego) ?>"
+                        alt="<?php esc_attr_e('Tráfico pago', 'text-domain'); ?>">
+                </picture>
+            </div>
+        </div>
+    </div>
+</section>
+
 <script>
     $(document).ready(function () {
         $('.owl-home-slider-banner').owlCarousel({
@@ -83,4 +174,4 @@ if (!empty($initials)) {
     });
 </script>
 
-<?php get_footer(); ?>
+<!-- <?php get_footer(); ?>
