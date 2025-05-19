@@ -271,6 +271,8 @@
     }
 
     .home-traffic-img {
+      display: flex;
+      justify-content: end;
       .home-traffic-img-wrapper {
         width: calc(100% - 16px);
         height: auto;
