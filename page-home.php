@@ -46,7 +46,7 @@ if (!empty($initials)) {
                     </a>
                 </div>
                 <div class="owl-home-slider-banner owl-carousel owl-theme">
-                    <?php if (isset($banners) && count($banners) > 0): ?>
+                    <?php if (is_array($banners) && count($banners) > 0): ?>
                         <?php foreach ($banners as $banner): ?>
                             <div class="banner-item">
                                 <div class="banner-item-image">
@@ -95,7 +95,7 @@ if (!empty($initials)) {
         <div class="home-brands-content">
             <div class="home-brands-content-wrapper">
                 <div class="home-brands-list">
-                    <?php if (isset($marcas) && count($marcas) > 0): ?>
+                    <?php if (is_array($marcas) && count($marcas) > 0): ?>
                         <?php foreach ($marcas as $marca): ?>
                             <div class="home-brands-item" style="max-width: <?php echo $marca['largura_img_marca'] ?>px;">
                                 <div class="home-brands-item-image">
@@ -181,7 +181,7 @@ if (!empty($initials)) {
         <div class="home-portifolio-terms">
             <div class="home-portifolio-terms-wrapper">
                 <div class="home-portifolio-terms-content">
-                    <?php if (isset($termos_portifolio) && count($termos_portifolio) > 0): ?>
+                    <?php if (is_array($termos_portifolio) && count($termos_portifolio) > 0): ?>
                         <?php foreach ($termos_portifolio as $termo): ?>
                             <div class="home-portifolio-terms-item">
                                 <div class="home-portifolio-terms-item-button">
@@ -222,7 +222,7 @@ if (!empty($initials)) {
     <div class="home-budget-wrapper container">
         <div class="home-budget-form">
             <div class="home-budget-form-wrapper">
-                form
+                <?php echo do_shortcode('[contact-form-7 id="fd7222c" title="Contato"]'); ?>
             </div>
         </div>
 
