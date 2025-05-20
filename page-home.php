@@ -23,6 +23,13 @@ if (!empty($initials)) {
     $titulo_trafego = get_field('titulo_trafego', $initial->ID);
     $conteudo_trafego = get_field('conteudo_trafego', $initial->ID);
     $img_conteudo_trafego = get_field('imagem_conteudo_trafego', $initial->ID);
+    $titulo_portifolio = get_field('titulo_portifolio', $initial->ID);
+    $termos_portifolio = get_field('termos_portifolio', $initial->ID);
+    $imagem_portifolio = get_field('imagem_portifolio', $initial->ID);
+    $titulo_orcamento = get_field('titulo_orcamento', $initial->ID);
+    $texto_orcamento = get_field('texto_orcamento', $initial->ID);
+    $banner_final = get_field('banner_final', $initial->ID);
+    $link_banner_final = get_field('link_banner_final', $initial->ID);
 } else {
     echo '<p>Nenhum post encontrado para o idioma atual.</p>';
     $banners = [];
@@ -155,6 +162,107 @@ if (!empty($initials)) {
                         alt="<?php esc_attr_e('Tráfico pago', 'text-domain'); ?>">
                 </picture>
             </div>
+        </div>
+    </div>
+</section>
+
+<section class="home-portifolio">
+    <div class="home-portifolio-wrapper container">
+        <div class="home-portifolio-header">
+            <h2 class="home-portifolio-title">
+                <?php if (!empty($titulo_portifolio)): ?>
+                    <?php echo esc_html($titulo_portifolio); ?>
+                <?php else: ?>
+                    <?php esc_html_e('Portfolio', 'text-domain'); ?>
+                <?php endif; ?>
+            </h2>
+        </div>
+
+        <div class="home-portifolio-terms">
+            <div class="home-portifolio-terms-wrapper">
+                <div class="home-portifolio-terms-content">
+                    <?php if (isset($termos_portifolio) && count($termos_portifolio) > 0): ?>
+                        <?php foreach ($termos_portifolio as $termo): ?>
+                            <div class="home-portifolio-terms-item">
+                                <div class="home-portifolio-terms-item-button">
+                                    <a href="#" class="btn-home-portifolio-terms">
+                                        <span
+                                            class="btn-home-portifolio-terms-text"><?php echo esc_html($termo['termo']); ?></span>
+                                    </a>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p><?php esc_html_e('No portfolio terms available', 'text-domain'); ?></p>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="home-portifolio-banner">
+            <div class="home-portifolio-banner-img">
+                <picture>
+                    <source srcset="<?php echo esc_url($imagem_portifolio) ?>">
+                    <img src="<?php echo esc_url($imagem_portifolio) ?>"
+                        alt="<?php esc_attr_e('Portfolio', 'text-domain'); ?>">
+                </picture>
+            </div>
+            <div class="home-portifolio-banner-button">
+                <a href="#" class="home-portifolio-banner-button-link">
+                    <span class="home-portifolio-banner-button-text">
+                        IDEIAS BRILHANTES
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="home-budget">
+    <div class="home-budget-wrapper container">
+        <div class="home-budget-form">
+            <div class="home-budget-form-wrapper">
+                form
+            </div>
+        </div>
+
+        <div class="home-budget-content">
+            <div class="home-budget-content-wrapper">
+                <div class="home-budget-content-title">
+                    <h2 class="home-budget-content-title-text">
+                        <?php if (!empty($titulo_orcamento)): ?>
+                            <?php echo esc_html($titulo_orcamento); ?>
+                        <?php else: ?>
+                            <?php esc_html_e('Budget', 'text-domain'); ?>
+                        <?php endif; ?>
+                    </h2>
+                </div>
+                <div class="home-budget-content-text">
+                    <?php if (!empty($texto_orcamento)): ?>
+                        <?php echo $texto_orcamento; ?>
+                    <?php else: ?>
+                        <?php esc_html_e('No budget content available', 'text-domain'); ?>
+                    <?php endif; ?>
+                </div>
+                <div class="home-budget-content-button">
+                    <a href="#" class="btn-home-budget">
+                        <span class="btn-home-budget-text">Enviar Orçamento →</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+</section>
+
+<section class="home-last-banner">
+    <div class="home-last-banner-wrapper container">
+        <div class="home-last-banner-img">
+            <a href="<? echo esc_url($link_banner_final) ?>">
+                <picture>
+                    <source srcset="<?php echo esc_url($banner_final) ?>">
+                    <img src="<?php echo esc_url($banner_final) ?>"
+                        alt="<?php esc_attr_e('Métrica', 'text-domain'); ?>">
+                </picture>
+            </a>
         </div>
     </div>
 </section>
