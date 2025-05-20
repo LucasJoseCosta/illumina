@@ -7,8 +7,11 @@
   --bg-light-brown: #e8e0d3;
   // colors
   --color-primary: #000;
+  --color-secundary: #f8f0e3;
   //divider
   --divider: #989084;
+  // shadow
+  --shadow: rgba(0, 0, 0, 0.25);
 }
 
 .dark {
@@ -29,8 +32,11 @@ body.dark-mode {
   --bg-light-brown: #e8e0d3;
   // colors
   --color-primary: #000;
+  --color-secundary: ##f8f0e3;
   //divider
   --divider: #989084;
+  // shadow
+  --shadow: rgba(0, 0, 0, 0.25);
 }
 
 body.dark-mode .dark {
@@ -38,6 +44,12 @@ body.dark-mode .dark {
 }
 body.dark-mode .light {
   display: none;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
 }
 
 body {
