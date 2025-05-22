@@ -12,15 +12,15 @@
  * @since Twenty Twenty-One 1.0
  */
 $current_lang = function_exists('pll_current_language') ? pll_current_language() : '';
- if ($current_lang == 'en') {
-    $title_claro = 'Light Mode';
-    $title_escuro = 'Dark Mode';
+if ($current_lang == 'en') {
+  $title_claro = 'Light Mode';
+  $title_escuro = 'Dark Mode';
 } elseif ($current_lang == 'es') {
-    $title_claro = 'Modo Claro';
-    $title_escuro = 'Modo Oscuro';
+  $title_claro = 'Modo Claro';
+  $title_escuro = 'Modo Oscuro';
 } else {
-    $title_claro = 'Modo Claro';
-    $title_escuro = 'Modo Escuro';
+  $title_claro = 'Modo Claro';
+  $title_escuro = 'Modo Escuro';
 }
 
 // Passando as variáveis PHP para o JavaScript de forma segura
@@ -33,9 +33,9 @@ $title_escuro_js = json_encode($title_escuro);
 <?php
 $current_lang = function_exists('pll_current_language') ? pll_current_language() : '';
 $args = array(
-    'post_type'      => 'info_contact',
-    'lang'           => $current_lang,
-    'posts_per_page' => -1,
+  'post_type' => 'info_contact',
+  'lang' => $current_lang,
+  'posts_per_page' => -1,
 );
 
 $initials = get_posts($args);
@@ -53,42 +53,43 @@ $social_media = get_field('redes_socias', $initial->ID);
 $current_lang = function_exists('pll_current_language') ? pll_current_language() : 'pt';
 
 $text_links = array(
-    'title_m12' => [ 'text' => 'A TBR', 'link' => '/tbr/sobre-nos' ],
-    'title_governance' => [ 'text' => 'Perguntas frequentes', 'link' => '/tbr/perguntas-frequentes' ],
-    'title_investors' => [ 'text' => 'Contato', 'link' => '/tbr/contato' ],
-    'title_gallery' => [ 'text' => 'Galeria', 'link' => '/tbr/galeria' ],
-    'title_documents' => [ 'text' => 'Marcas', 'link' => '#' ],
-    'title_institutional' => [ 'text' => 'Institucional', 'link' => '#' ]
+  'title_m12' => ['text' => 'A TBR', 'link' => '/tbr/sobre-nos'],
+  'title_governance' => ['text' => 'Perguntas frequentes', 'link' => '/tbr/perguntas-frequentes'],
+  'title_investors' => ['text' => 'Contato', 'link' => '/tbr/contato'],
+  'title_gallery' => ['text' => 'Galeria', 'link' => '/tbr/galeria'],
+  'title_documents' => ['text' => 'Marcas', 'link' => '#'],
+  'title_institutional' => ['text' => 'Institucional', 'link' => '#']
 );
 
-function getFooterLink($current_lang, $text_links) {
-    if ($current_lang == 'en') {
-        $text_links['title_m12']['text'] = 'TBR';
-        $text_links['title_governance']['text'] = 'FAQ';
-        $text_links['title_investors']['text'] = 'Contact';
-        $text_links['title_gallery']['text'] = 'Gallery';
-        $text_links['title_documents']['text'] = 'Brands';
-        $text_links['title_institutional']['text'] = 'Institutional';
+function getFooterLink($current_lang, $text_links)
+{
+  if ($current_lang == 'en') {
+    $text_links['title_m12']['text'] = 'TBR';
+    $text_links['title_governance']['text'] = 'FAQ';
+    $text_links['title_investors']['text'] = 'Contact';
+    $text_links['title_gallery']['text'] = 'Gallery';
+    $text_links['title_documents']['text'] = 'Brands';
+    $text_links['title_institutional']['text'] = 'Institutional';
 
-        $text_links['title_m12']['link'] = '/tbr/about-us';
-        $text_links['title_governance']['link'] = '/tbr/frequently-asked-questions';
-        $text_links['title_investors']['link'] = '/tbr/contact';
-        $text_links['title_gallery']['link'] = '/tbr/gallery';
-    } elseif ($current_lang == 'es') {
-        $text_links['title_m12']['text'] = 'La TBR';
-        $text_links['title_governance']['text'] = 'Preguntas frecuentes';
-        $text_links['title_investors']['text'] = 'Contacto';
-        $text_links['title_gallery']['text'] = 'Galeria';
-        $text_links['title_documents']['text'] = 'Marcas';
-        $text_links['title_institutional']['text'] = 'Institucional';
+    $text_links['title_m12']['link'] = '/tbr/about-us';
+    $text_links['title_governance']['link'] = '/tbr/frequently-asked-questions';
+    $text_links['title_investors']['link'] = '/tbr/contact';
+    $text_links['title_gallery']['link'] = '/tbr/gallery';
+  } elseif ($current_lang == 'es') {
+    $text_links['title_m12']['text'] = 'La TBR';
+    $text_links['title_governance']['text'] = 'Preguntas frecuentes';
+    $text_links['title_investors']['text'] = 'Contacto';
+    $text_links['title_gallery']['text'] = 'Galeria';
+    $text_links['title_documents']['text'] = 'Marcas';
+    $text_links['title_institutional']['text'] = 'Institucional';
 
-        $text_links['title_m12']['link'] = '/tbr/sobre-nosotros';
-        $text_links['title_governance']['link'] = '/tbr/preguntas-frecuentes';
-        $text_links['title_investors']['link'] = '/tbr/contacto';
-        $text_links['title_galeria']['link'] = '/tbr/galeria-es';
-    }
+    $text_links['title_m12']['link'] = '/tbr/sobre-nosotros';
+    $text_links['title_governance']['link'] = '/tbr/preguntas-frecuentes';
+    $text_links['title_investors']['link'] = '/tbr/contacto';
+    $text_links['title_galeria']['link'] = '/tbr/galeria-es';
+  }
 
-    return $text_links;
+  return $text_links;
 }
 
 $text_links = getFooterLink($current_lang, $text_links);
@@ -102,35 +103,35 @@ $text_links = getFooterLink($current_lang, $text_links);
           <img src="<?php echo $logo_header; ?>" alt="logo" class="custom-logo light">
           <img src="<?php echo $logo_header_branca; ?>" alt="logo" class="custom-logo dark">
         </a>
-        <?php if (isset($social_media) && count($social_media) > 0) : ?>
-        <div class="social-media-wrapper">
-          <?php foreach ($social_media as $social) : ?>
-          <div class="social-media-item">
-            <a href="<?= $social['link_da_rede'] ?>">
-              <?php if ($social['titulo'] == "Instagram") : ?>
-              <img class="light" src="<?php echo get_template_directory_uri() ?>/assets/img/instagram.svg"
-                alt="Instagram">
-              <img class="dark" src="<?php echo get_template_directory_uri() ?>/assets/img/instagram-white.svg"
-                alt="Instagram">
-              <?php elseif ($social['titulo'] == "Facebook") : ?>
-              <img class="light" src="<?php echo get_template_directory_uri() ?>/assets/img/facebook.svg"
-                alt="Facebook">
-              <img class="dark" src="<?php echo get_template_directory_uri() ?>/assets/img/facebook-white.svg"
-                alt="Facebook">
-              <?php elseif ($social['titulo'] == "Youtube") : ?>
-              <img class="light" src="<?php echo get_template_directory_uri() ?>/assets/img/youtube.svg" alt="Youtube">
-              <img class="dark" src="<?php echo get_template_directory_uri() ?>/assets/img/youtube-white.svg"
-                alt="Youtube">
-              <?php elseif ($social['titulo'] == "WhatsApp") : ?>
-              <img class="light" src="<?php echo get_template_directory_uri() ?>/assets/img/whatsapp.svg"
-                alt="WhatsApp">
-              <img class="dark" src="<?php echo get_template_directory_uri() ?>/assets/img/whatsapp-white.svg"
-                alt="WhatsApp">
-              <?php endif; ?>
-            </a>
+        <?php if (isset($social_media) && count($social_media) > 0): ?>
+          <div class="social-media-wrapper">
+            <?php foreach ($social_media as $social): ?>
+              <div class="social-media-item">
+                <a href="<?= $social['link_da_rede'] ?>">
+                  <?php if ($social['titulo'] == "Instagram"): ?>
+                    <img class="light" src="<?php echo get_template_directory_uri() ?>/assets/img/instagram.svg"
+                      alt="Instagram">
+                    <img class="dark" src="<?php echo get_template_directory_uri() ?>/assets/img/instagram-white.svg"
+                      alt="Instagram">
+                  <?php elseif ($social['titulo'] == "Facebook"): ?>
+                    <img class="light" src="<?php echo get_template_directory_uri() ?>/assets/img/facebook.svg"
+                      alt="Facebook">
+                    <img class="dark" src="<?php echo get_template_directory_uri() ?>/assets/img/facebook-white.svg"
+                      alt="Facebook">
+                  <?php elseif ($social['titulo'] == "Youtube"): ?>
+                    <img class="light" src="<?php echo get_template_directory_uri() ?>/assets/img/youtube.svg" alt="Youtube">
+                    <img class="dark" src="<?php echo get_template_directory_uri() ?>/assets/img/youtube-white.svg"
+                      alt="Youtube">
+                  <?php elseif ($social['titulo'] == "WhatsApp"): ?>
+                    <img class="light" src="<?php echo get_template_directory_uri() ?>/assets/img/whatsapp.svg"
+                      alt="WhatsApp">
+                    <img class="dark" src="<?php echo get_template_directory_uri() ?>/assets/img/whatsapp-white.svg"
+                      alt="WhatsApp">
+                  <?php endif; ?>
+                </a>
+              </div>
+            <?php endforeach; ?>
           </div>
-          <?php endforeach; ?>
-        </div>
         <?php endif; ?>
       </div>
       <div class="footer-top desktop">
@@ -138,44 +139,44 @@ $text_links = getFooterLink($current_lang, $text_links);
           <p class="title-footer has-sub-menu"><?php echo $text_links['title_documents']['text']; ?></p>
           <div class="menu-footer">
             <?php
-                        $current_lang = function_exists('pll_current_language') ? pll_current_language() : 'pt';
-                        // Verificar qual idioma está ativo e definir o nome do menu
-                        $menu_name = '';
-                        if ($current_lang == 'pt') {
-                            $menu_name = 'marcas';
-                        } elseif ($current_lang == 'es') {
-                            $menu_name = 'marcas-es';
-                        } else {
-                            $menu_name = 'marcas-en';
-                        }
-                        wp_nav_menu(array(
-                            'menu' => $menu_name,
-                            'menu_class' => 'menu-footer',
-                            'container' => false,
-                            'depth' => 4,
-                        ));
-                        ?>
+            $current_lang = function_exists('pll_current_language') ? pll_current_language() : 'pt';
+            // Verificar qual idioma está ativo e definir o nome do menu
+            $menu_name = '';
+            if ($current_lang == 'pt') {
+              $menu_name = 'marcas';
+            } elseif ($current_lang == 'es') {
+              $menu_name = 'marcas-es';
+            } else {
+              $menu_name = 'marcas-en';
+            }
+            wp_nav_menu(array(
+              'menu' => $menu_name,
+              'menu_class' => 'menu-footer',
+              'container' => false,
+              'depth' => 4,
+            ));
+            ?>
           </div>
         </div>
         <div class="menu">
           <p class="title-footer"><?php echo $text_links['title_institutional']['text']; ?></p>
           <div class="menu-footer">
             <?php
-                        $menu_name = '';
-                        if ($current_lang == 'pt') {
-                            $menu_name = 'institucional';
-                        } elseif ($current_lang == 'es') {
-                            $menu_name = 'institucional-es';
-                        } else {
-                            $menu_name = 'institucional-en';
-                        }
-                        wp_nav_menu(array(
-                            'menu' => $menu_name,
-                            'menu_class' => 'menu-footer',
-                            'container' => false,
-                            'depth' => 4,
-                        ));
-                        ?>
+            $menu_name = '';
+            if ($current_lang == 'pt') {
+              $menu_name = 'institucional';
+            } elseif ($current_lang == 'es') {
+              $menu_name = 'institucional-es';
+            } else {
+              $menu_name = 'institucional-en';
+            }
+            wp_nav_menu(array(
+              'menu' => $menu_name,
+              'menu_class' => 'menu-footer',
+              'container' => false,
+              'depth' => 4,
+            ));
+            ?>
           </div>
         </div>
       </div>
@@ -224,22 +225,22 @@ $text_links = getFooterLink($current_lang, $text_links);
         <p class="title-footer has-sub-menu"><?php echo $text_links['title_documents']['text']; ?></p>
         <div class="menu-footer">
           <?php
-                    $current_lang = function_exists('pll_current_language') ? pll_current_language() : 'pt';
-                    $menu_name = '';
-                    if ($current_lang == 'pt') {
-                            $menu_name = 'marcas';
-                        } elseif ($current_lang == 'es') {
-                            $menu_name = 'marcas-es';
-                        } else {
-                            $menu_name = 'marcas-en';
-                        }
-                    wp_nav_menu(array(
-                        'menu' => $menu_name,
-                        'menu_class' => 'menu-footer',
-                        'container' => false,
-                        'depth' => 4,
-                    ));
-                    ?>
+          $current_lang = function_exists('pll_current_language') ? pll_current_language() : 'pt';
+          $menu_name = '';
+          if ($current_lang == 'pt') {
+            $menu_name = 'marcas';
+          } elseif ($current_lang == 'es') {
+            $menu_name = 'marcas-es';
+          } else {
+            $menu_name = 'marcas-en';
+          }
+          wp_nav_menu(array(
+            'menu' => $menu_name,
+            'menu_class' => 'menu-footer',
+            'container' => false,
+            'depth' => 4,
+          ));
+          ?>
         </div>
       </div>
     </div>
@@ -257,46 +258,46 @@ $text_links = getFooterLink($current_lang, $text_links);
   </div>
 </footer><!-- #colophon -->
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const titles = document.querySelectorAll('.title-footer.has-sub-menu');
+<!-- <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const titles = document.querySelectorAll('.title-footer.has-sub-menu');
 
-  // Adiciona a classe 'active' a todos os menus por padrão
-  /*menus.forEach(menu => {
-      menu.classList.add('active');
-  });*/
+    // Adiciona a classe 'active' a todos os menus por padrão
+    /*menus.forEach(menu => {
+        menu.classList.add('active');
+    });*/
 
-  titles.forEach(title => {
-    title.addEventListener('click', () => {
-      const menu = title.closest('.menu');
-      const submenu = menu.querySelector('.menu-footer')
+    titles.forEach(title => {
+      title.addEventListener('click', () => {
+        const menu = title.closest('.menu');
+        const submenu = menu.querySelector('.menu-footer')
 
-      if (menu.classList.contains('active')) {
-        submenu.style.height = submenu.scrollHeight + 'px';
-        requestAnimationFrame(() => {
-          submenu.style.height = '0';
-        })
-      } else {
-        submenu.style.height = '0';
-        requestAnimationFrame(() => {
+        if (menu.classList.contains('active')) {
           submenu.style.height = submenu.scrollHeight + 'px';
-        });
-      }
-
-      menu.classList.toggle('active');
-      title.classList.toggle('active');
-
-      submenu.addEventListener('transitionend', () => {
-        if (!menu.classList.contains('active')) {
-          submenu.style.height = '';
+          requestAnimationFrame(() => {
+            submenu.style.height = '0';
+          })
+        } else {
+          submenu.style.height = '0';
+          requestAnimationFrame(() => {
+            submenu.style.height = submenu.scrollHeight + 'px';
+          });
         }
+
+        menu.classList.toggle('active');
+        title.classList.toggle('active');
+
+        submenu.addEventListener('transitionend', () => {
+          if (!menu.classList.contains('active')) {
+            submenu.style.height = '';
+          }
+        });
       });
     });
   });
-});
-</script>
+</script> -->
 
-<script>
+<!-- <script>
 const titleClaro = <?php echo $title_claro_js; ?>;
 const titleEscuro = <?php echo $title_escuro_js; ?>;
 
@@ -333,7 +334,7 @@ function toggleDarkMode(source) {
 // Adicionar os eventos de mudança nos checkboxes
 checkbox.addEventListener('change', () => toggleDarkMode(checkbox));
 checkboxDesk.addEventListener('change', () => toggleDarkMode(checkboxDesk));
-</script>
+</script> -->
 
 <!-- <script>
     document.addEventListener('DOMContentLoaded', function() {

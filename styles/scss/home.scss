@@ -319,10 +319,25 @@
         .home-portifolio-terms-content {
           display: flex;
           flex-wrap: wrap;
-          gap: 32px;
+          justify-content: center;
           .home-portifolio-terms-item {
+            margin-left: 32px;
+            margin-bottom: 16px;
+            &:first-child {
+              margin-left: 74px;
+            }
+            &:nth-child(3) {
+              margin-right: 79px;
+            }
+            &:nth-child(7) {
+              margin-left: 65px;
+            }
+            &:nth-child(n + 7) {
+              margin-bottom: 0;
+            }
             .home-portifolio-terms-item-button {
               .btn-home-portifolio-terms {
+                display: inline-block;
                 padding: 12px 24px;
                 font-size: 24px;
                 font-weight: 500;
@@ -438,7 +453,7 @@
                   textarea {
                     background: var(--bg);
                     border: 2px solid var(--border);
-                    width: calc(100% - 24px);
+                    width: calc(100% - 28px);
                     padding: 12px 0 12px 24px;
                     border-radius: 21.5px;
                     font-weight: 500;
@@ -459,8 +474,14 @@
                   }
                   select {
                     width: 100%;
+                    color: var(--color-light-brown);
+                    appearance: none;
+                    -webkit-appearance: none;
+                    border: none !important;
+                    background: transparent !important;
+                    padding: 0 !important;
+                    display: none;
                     option {
-                      color: var(--color-light-brown);
                       font-weight: 500;
                       font-size: 16px;
                       line-height: 100%;
@@ -534,6 +555,47 @@
     }
   }
 }
+
+.choices-container {
+  border: 2px solid #a06fdf;
+  border-radius: 16px;
+  background-color: #fef6ee;
+  font-family: "Inter", sans-serif;
+  padding: 0;
+  position: relative;
+}
+
+.choices-inner {
+  border: none;
+  border-radius: 16px;
+  background-color: #fef6ee;
+  padding: 10px 16px;
+}
+
+.choices[data-type*="select-one"]::after {
+  border-color: #a06fdf transparent transparent;
+  border-width: 6px;
+  top: 50%;
+  right: 16px;
+}
+
+.choices-dropdown {
+  background: #fef6ee;
+  border: 1px solid #a06fdf;
+  border-radius: 0 0 16px 16px;
+  padding: 10px;
+  margin-top: 0;
+}
+
+.choices-item {
+  padding: 8px 12px;
+  font-size: 16px;
+  color: #000;
+  &:hover {
+    background-color: #f1e9de;
+  }
+}
+
 // -----------------------------------------
 .home-last-banner {
   margin-bottom: 64px;

@@ -280,6 +280,23 @@ if (!empty($initials)) {
             }
         });
     });
+    document.addEventListener('DOMContentLoaded', function () {
+        const selects = document.querySelectorAll('.wpcf7-select');
+        selects.forEach(function (select) {
+            new Choices(select, {
+                searchEnabled: false,
+                itemSelectText: '',
+                classNames: {
+                    containerOuter: 'choices-container',
+                    containerInner: 'choices-inner',
+                    listDropdown: 'choices-dropdown',
+                    itemChoice: 'choices-item',
+                }
+            });
+        });
+    });
+
+
 </script>
 
-<!-- <?php get_footer(); ?>
+<?php get_footer(); ?>
