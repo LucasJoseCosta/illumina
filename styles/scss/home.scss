@@ -402,6 +402,7 @@
   position: relative;
   z-index: 1;
   border-radius: 0 0 56px 56px;
+  margin-bottom: 64px;
   .home-budget-wrapper {
     padding: 128px 0 64px;
     display: flex;
@@ -414,6 +415,63 @@
         padding: 48px;
         padding-bottom: 74px;
         border-radius: 28px;
+        .wpcf7 {
+          .wpcf7-form {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            .form-group {
+              p {
+                margin: 0;
+                label {
+                  display: inline-block;
+                  font-weight: 600;
+                  font-size: 20px;
+                  line-height: 100%;
+                  letter-spacing: 0%;
+                  margin-left: 24px;
+                  margin-bottom: 8px;
+                }
+                .wpcf7-form-control-wrap {
+                  input,
+                  select,
+                  textarea {
+                    background: var(--bg);
+                    border: 2px solid var(--border);
+                    width: calc(100% - 24px);
+                    padding: 12px 0 12px 24px;
+                    border-radius: 21.5px;
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 100%;
+                    letter-spacing: 0%;
+                    &::placeholder {
+                      font-weight: 500;
+                      font-size: 16px;
+                      line-height: 100%;
+                      letter-spacing: 0%;
+                      color: var(--color-light-brown);
+                    }
+                  }
+                  textarea {
+                    height: 128px;
+                    resize: none;
+                  }
+                  select {
+                    width: 100%;
+                    option {
+                      color: var(--color-light-brown);
+                      font-weight: 500;
+                      font-size: 16px;
+                      line-height: 100%;
+                      letter-spacing: 0%;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
 
@@ -455,6 +513,7 @@
             line-height: 100%;
             color: var(--color-secundary);
             border: 2px solid var(--color-secundary);
+            background: transparent;
             border-radius: 30px;
             text-align: center;
             text-decoration: none;
@@ -471,6 +530,18 @@
             }
           }
         }
+      }
+    }
+  }
+}
+// -----------------------------------------
+.home-last-banner {
+  margin-bottom: 64px;
+  .home-last-banner-wrapper {
+    .home-last-banner-img {
+      img {
+        width: 100%;
+        height: auto;
       }
     }
   }

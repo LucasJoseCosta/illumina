@@ -245,9 +245,9 @@ if (!empty($initials)) {
                     <?php endif; ?>
                 </div>
                 <div class="home-budget-content-button">
-                    <a href="#" class="btn-home-budget">
+                    <button class="btn-home-budget">
                         <span class="btn-home-budget-text">Enviar Orçamento →</span>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>

@@ -8,10 +8,13 @@
   // colors
   --color-primary: #000;
   --color-secundary: #f8f0e3;
-  //divider
+  --color-light-brown: #989084;
+  // divider
   --divider: #989084;
   // shadow
   --shadow: rgba(0, 0, 0, 0.25);
+  // border
+  --border: #989084;
 }
 
 .dark {
@@ -33,10 +36,13 @@ body.dark-mode {
   // colors
   --color-primary: #000;
   --color-secundary: ##f8f0e3;
-  //divider
+  --color-light-brown: #989084;
+  // divider
   --divider: #989084;
   // shadow
   --shadow: rgba(0, 0, 0, 0.25);
+  // border
+  --border: #989084;
 }
 
 body.dark-mode .dark {
