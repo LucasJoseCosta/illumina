@@ -20,6 +20,8 @@
 
 <?php
 
+$current_lang = function_exists('pll_current_language') ? pll_current_language() : '';
+
 $args = array(
     'post_type' => 'menu_custom',
     'lang' => $current_lang,
@@ -100,8 +102,7 @@ $menus_header = get_field('menus', $initial_menus->ID);
                                 <div class="lang-dropdown">
                                     <button class="lang-dropdown-toggle" aria-label="Mudar idioma">
                                         <img src="<?php echo esc_url($langs[$current]['flag']); ?>"
-                                            alt="<?php echo esc_attr($langs[$current]['name']); ?>" width="16"
-                                            height="11">
+                                            alt="<?php echo esc_attr($langs[$current]['name']); ?>" width="16" height="11">
                                     </button>
                                     <ul class="lang-dropdown-menu">
                                         <?php foreach ($langs as $lang_slug => $lang): ?>
@@ -168,8 +169,7 @@ $menus_header = get_field('menus', $initial_menus->ID);
                                 <div class="lang-dropdown">
                                     <button class="lang-dropdown-toggle" aria-label="Mudar idioma">
                                         <img src="<?php echo esc_url($langs[$current]['flag']); ?>"
-                                            alt="<?php echo esc_attr($langs[$current]['name']); ?>" width="16"
-                                            height="11">
+                                            alt="<?php echo esc_attr($langs[$current]['name']); ?>" width="16" height="11">
                                     </button>
                                     <ul class="lang-dropdown-menu">
                                         <?php foreach ($langs as $lang_slug => $lang): ?>
