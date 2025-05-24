@@ -3,6 +3,9 @@
   width: 100%;
   height: 2px;
   background: var(--divider);
+  @media screen and (max-width: 1024px) {
+    padding: 0 15px;
+  }
 }
 // ----------------------------------------
 .home-slider-banner {
@@ -11,6 +14,7 @@
   margin-bottom: 64px;
   @media screen and (max-width: 1024px) {
     margin-top: 100px;
+    padding: 0 15px;
   }
   @media screen and (max-width: 768px) {
     margin-top: 53px;
@@ -149,6 +153,9 @@
 // -----------------------------------------
 .home-brands {
   margin: 64px 0;
+  @media screen and (max-width: 1024px) {
+    padding: 0 15px;
+  }
   .home-brands-wrapper {
     .home-brands-header {
       display: flex;
@@ -165,6 +172,13 @@
         color: var(--color-primary);
         text-align: center;
         margin: 0;
+
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+          font-size: 32px;
+        }
+        @media screen and (max-width: 767px) {
+          font-size: 24px;
+        }
       }
     }
 
@@ -173,7 +187,7 @@
         background: var(--bg-light-brown);
         padding: 48px 42px;
         border-radius: 28px;
-        .home-brands-list {
+        .home-brands-list-wrapper {
           display: flex;
           justify-content: center;
           align-items: center;
@@ -192,6 +206,34 @@
               width: 100%;
               height: auto;
             }
+          }
+        }
+      }
+    }
+
+    .home-brands-list {
+      display: flex;
+      @media screen and (max-width: 1024px) {
+        display: none;
+      }
+    }
+
+    .home-brands-list-mobile {
+      display: none;
+      @media screen and (max-width: 1024px) {
+        display: flex;
+      }
+
+      .owl-home-brands-mobile {
+        .owl-stage {
+          display: flex;
+          align-items: center;
+        }
+        .owl-item {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .home-brands-item {
           }
         }
       }

@@ -104,7 +104,7 @@ if (!empty($initials)) {
 
                         <div class="home-brands-content">
                             <div class="home-brands-content-wrapper">
-                                <div class="home-brands-list linha-1">
+                                <div class="home-brands-list-wrapper linha-1">
                                     <?php foreach ($primeira_linha as $marca): ?>
                                         <div class="home-brands-item"
                                             style="max-width: <?php echo $marca['largura_img_marca'] ?>px;">
@@ -122,7 +122,7 @@ if (!empty($initials)) {
                                     <?php endforeach; ?>
                                 </div>
 
-                                <div class="home-brands-list linha-2">
+                                <div class="home-brands-list-wrapper linha-2">
                                     <?php foreach ($segunda_linha as $marca): ?>
                                         <div class="home-brands-item"
                                             style="max-width: <?php echo $marca['largura_img_marca'] ?>px;">
@@ -140,6 +140,29 @@ if (!empty($initials)) {
                                     <?php endforeach; ?>
                                 </div>
                             </div>
+                        </div>
+                    <?php else: ?>
+                        <p><?php esc_html_e('No brands available', 'text-domain'); ?></p>
+                    <?php endif; ?>
+                </div>
+
+                <div class="home-brands-list-mobile">
+                    <?php if (is_array($marcas) && count($marcas) > 0): ?>
+                        <div class="owl-home-brands-mobile owl-carousel owl-theme">
+                            <?php foreach ($marcas as $marca): ?>
+                                <div class="home-brands-item" style="max-width: <?php echo $marca['largura_img_marca'] ?>px;">
+                                    <div class="home-brands-item-image">
+                                        <a href="<?php echo esc_url($marca['link_marca']) ?>" class="home-brands-item-link"
+                                            target="_blank" rel="noopener noreferrer">
+                                            <picture>
+                                                <source srcset="<?php echo esc_url($marca['logo_marca']) ?>">
+                                                <img src="<?php echo esc_url($marca['logo_marca']) ?>"
+                                                    alt="<?php echo esc_attr($marca['titulo_marca']) ?>">
+                                            </picture>
+                                        </a>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
                     <?php else: ?>
                         <p><?php esc_html_e('No brands available', 'text-domain'); ?></p>
@@ -310,6 +333,20 @@ if (!empty($initials)) {
                 },
             }
         });
+
+        $('.owl-home-brands-mobile').owlCarousel({
+            nav: false,
+            dots: false,
+            responsive: {
+                0: {
+                    items: 2
+                },
+                767: {
+                    items: 4
+                }
+            }
+        });
+
     });
     document.addEventListener('DOMContentLoaded', function () {
         const selects = document.querySelectorAll('.wpcf7-select');
