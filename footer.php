@@ -3,10 +3,8 @@ $current_lang = function_exists('pll_current_language') ? pll_current_language()
 
 $args_footer = array(
   'post_type' => 'misc_info_contato',
-  'posts_per_page' => 1,
-  'orderby' => 'date',
-  'order' => 'DESC',
   'lang' => $current_lang,
+  'posts_per_page' => 1,
 );
 
 $footers = get_posts($args_footer);
@@ -18,41 +16,56 @@ if (!$initial_footer) {
 }
 $logo_footer = get_field('logo_footer', $initial_footer->ID);
 $contatos = get_field('contatos', $initial_footer->ID);
-$redes_sociais = get_field('redes_sociais', $initial_footer->ID);
+$redes_sociais = get_field('redes_socias', $initial_footer->ID);
 
 ?>
 <footer>
-  <div class="footer-wrapper">
-    <div class="footer-container container">
+  <div class="footer-wrapper container">
+    <div class="footer-container ">
       <div class="footer-image">
         <?php if (!empty($logo_footer)): ?>
-          <img src="<?php echo esc_url($logo_footer); ?>" alt="Logo Ilumina Design Studio" class="logo-footer">
+          <a href="<?php echo get_home_url() ?>">
+            <picture>
+              <source src="<?php echo esc_url($logo_footer); ?>">
+              <img src="<?php echo esc_url($logo_footer); ?>" alt="Logo Ilumina Design Studio" class="logo-footer">
+            </picture>
+          </a>
         <?php endif; ?>
-
       </div>
 
       <div class="footer-info">
         <h3 class="title-ideias">IDEIAS BRILHANTES</h3>
         <div class="contact-details">
-          <h3 class="email">illuminadesingstudio@gmail.com</h3>
-          <h3 class="number">+ 55 45 99101-6622</h3>
+          <?php if (is_array($contatos) && count($contatos) > 0): ?>
+            <?php foreach ($contatos as $contato): ?>
+              <div class="contact-detail">
+                <a href="<?php echo $contato["link_contato"] ?>">
+                  <span class="contact-detail-text"><?php echo $contato["contato"] ?></span>
+                </a>
+              </div>
+            <?php endforeach; ?>
+          <?php else: ?>
+            <p>Nenhum contato disponível.</p>
+          <?php endif; ?>
         </div>
       </div>
 
       <div class="footer-social">
         <div class="contact-container">
-          <a href="#contato" class="contact-link">Entre em Contato</a>
+          <a href="#" class="contact-link"><span>Entre em Contato</span></a>
         </div>
         <div class="itens-footer">
           <h3 class="text-footer">SEGUE A GENTE</h3>
           <ul class="socials-list">
-            <?php if (!empty($redes_sociais) && is_array($redes_sociais)): ?>
+            <?php if (is_array($redes_sociais) && count($redes_sociais) > 0): ?>
               <?php foreach ($redes_sociais as $rede): ?>
                 <li>
-                  <a href="<?php echo esc_url($rede['link']); ?>" target="_blank" rel="noopener noreferrer">
-                    <?php if (!empty($rede['icone'])): ?>
-                      <img src="<?php echo esc_url($rede['icone']); ?>"
-                        alt="<?php echo esc_attr(!empty($rede['nome']) ? $rede['nome'] : 'Ícone rede social'); ?>">
+                  <a href="<?php echo esc_url($rede['link_social']); ?>" target="_blank" rel="noopener noreferrer">
+                    <?php if (!empty($rede['icone_social'])): ?>
+                      <picture>
+                        <source src="<?php echo esc_url($rede['icone_social']); ?>">
+                        <img src="<?php echo esc_url($rede['icone_social']); ?>">
+                      </picture>
                     <?php endif; ?>
                   </a>
                 </li>
@@ -63,13 +76,11 @@ $redes_sociais = get_field('redes_sociais', $initial_footer->ID);
           </ul>
         </div>
       </div>
-     
     </div>
-     <div class="info-company">
-        <h4 class="text-company">@ 2025 Illumina Design Studio. Todos os direitos reservados</h4>
-      </div>
+    <div class="info-company">
+      <h4 class="text-company">@ 2025 Illumina Design Studio. Todos os direitos reservados</h4>
+    </div>
   </div>
-
 </footer>
 
 <?php wp_footer(); ?>
