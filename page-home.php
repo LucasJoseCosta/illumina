@@ -73,12 +73,12 @@ if (!empty($initials)) {
                 </div>
             </div>
         </div>
+
+        <div class="section-divider"></div>
     </section>
 <?php else: ?>
     <p><?php esc_html_e('No banners available', 'text-domain'); ?></p>
 <?php endif; ?>
-
-<div class="section-divider container"></div>
 
 <section class="home-brands">
     <div class="home-brands-wrapper container">
@@ -171,9 +171,9 @@ if (!empty($initials)) {
             </div>
         </div>
     </div>
-</section>
 
-<div class="section-divider container"></div>
+    <div class="section-divider"></div>
+</section>
 
 <section class="home-traffic">
     <div class="home-traffic-wrapper container">
@@ -262,6 +262,24 @@ if (!empty($initials)) {
                     <?php else: ?>
                         <p><?php esc_html_e('No portfolio terms available', 'text-domain'); ?></p>
                     <?php endif; ?>
+                </div>
+                <div class="home-portifolio-terms-content-mobile">
+                    <div class="owl-home-portifolio-terms owl-carousel owl-theme">
+                        <?php if (is_array($termos_portifolio) && count($termos_portifolio) > 0): ?>
+                            <?php foreach ($termos_portifolio as $termo): ?>
+                                <div class="home-portifolio-terms-item">
+                                    <div class="home-portifolio-terms-item-button">
+                                        <a href="#" class="btn-home-portifolio-terms">
+                                            <span
+                                                class="btn-home-portifolio-terms-text"><?php echo esc_html($termo['termo']); ?></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p><?php esc_html_e('No portfolio terms available', 'text-domain'); ?></p>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -356,6 +374,20 @@ if (!empty($initials)) {
                 },
                 767: {
                     items: 4
+                }
+            }
+        });
+
+        $('.owl-home-portifolio-terms').owlCarousel({
+            nav: false,
+            dots: false,
+            margin: 10,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                767: {
+                    items: 2
                 }
             }
         });

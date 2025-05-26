@@ -3,15 +3,12 @@
   width: 100%;
   height: 2px;
   background: var(--divider);
-  @media screen and (max-width: 1024px) {
-    padding: 0 15px;
-  }
+  margin-top: 64px;
 }
 // ----------------------------------------
 .home-slider-banner {
   margin-top: 133px;
   padding-top: 48px;
-  margin-bottom: 64px;
   @media screen and (max-width: 1024px) {
     margin-top: 100px;
     padding: 0 15px;
@@ -392,6 +389,10 @@
     flex-direction: column;
     align-items: center;
 
+    @media screen and (max-width: 1024px) {
+      align-items: unset;
+    }
+
     .home-portifolio-header {
       max-width: 518px;
       width: 100%;
@@ -414,14 +415,20 @@
       .home-portifolio-terms-wrapper {
         display: flex;
         justify-content: center;
+        @media screen and (max-width: 767px) {
+          display: block;
+        }
         .home-portifolio-terms-content {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
           width: 93%;
 
-          @media screen and (max-width: 1024px) {
+          @media screen and (min-width: 768px) and (max-width: 1024px) {
             width: 95%;
+          }
+          @media screen and (max-width: 767px) {
+            display: none;
           }
 
           .home-portifolio-terms-item {
@@ -439,6 +446,44 @@
               margin-bottom: 0;
             }
             .home-portifolio-terms-item-button {
+              .btn-home-portifolio-terms {
+                display: inline-block;
+                padding: 12px 24px;
+                font-size: 24px;
+                font-weight: 500;
+                line-height: 100%;
+                color: var(--color-primary);
+                background: var(--bg-light-brown);
+                border: 2px solid var(--color-primary);
+                border-radius: 30px;
+                text-align: center;
+                text-decoration: none;
+                transition: all 0.3s ease-in-out;
+
+                @media screen and (max-width: 1024px) {
+                  font-size: 16px;
+                  padding: 8px 12px;
+                }
+
+                &:hover {
+                  background-color: var(--color-primary);
+                  color: #fff;
+                }
+              }
+            }
+          }
+        }
+
+        .home-portifolio-terms-content-mobile {
+          display: none;
+          @media screen and (max-width: 767px) {
+            display: block;
+            .owl-item {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+            .home-portifolio-terms-item {
               .btn-home-portifolio-terms {
                 display: inline-block;
                 padding: 12px 24px;
