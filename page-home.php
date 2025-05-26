@@ -179,13 +179,26 @@ if (!empty($initials)) {
     <div class="home-traffic-wrapper container">
         <div class="home-traffic-content">
             <div class="home-traffic-content-wrapper">
-                <div class="home-traffic-image">
-                    <picture>
-                        <source srcset="<?php echo get_template_directory_uri() ?>/assets/img/traffic-paid.svg">
-                        <img src="<?php echo get_template_directory_uri() ?>/assets/img/traffic-paid.svg"
-                            alt="<?php esc_attr_e('Tráfico pago', 'text-domain'); ?>">
-                    </picture>
+                <div class="home-traffic-image-wrapper">
+                    <div class="home-traffic-image">
+                        <picture>
+                            <source srcset="<?php echo get_template_directory_uri() ?>/assets/img/traffic-paid.svg">
+                            <img src="<?php echo get_template_directory_uri() ?>/assets/img/traffic-paid.svg"
+                                alt="<?php esc_attr_e('Tráfico pago', 'text-domain'); ?>">
+                        </picture>
+
+                    </div>
+                    <div class="home-traffic-text-mobile">
+                        <h2 class="home-traffic-title">
+                            <?php if (!empty($titulo_trafego)): ?>
+                                <?php echo esc_html($titulo_trafego); ?>
+                            <?php else: ?>
+                                <?php esc_html_e('Traffic', 'text-domain'); ?>
+                            <?php endif; ?>
+                        </h2>
+                    </div>
                 </div>
+
                 <div class="home-traffic-text">
                     <h2 class="home-traffic-title">
                         <?php if (!empty($titulo_trafego)): ?>

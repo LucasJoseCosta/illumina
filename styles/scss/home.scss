@@ -173,11 +173,8 @@
         text-align: center;
         margin: 0;
 
-        @media screen and (min-width: 768px) and (max-width: 1024px) {
-          font-size: 32px;
-        }
         @media screen and (max-width: 767px) {
-          font-size: 24px;
+          font-size: 32px;
         }
       }
     }
@@ -243,22 +240,58 @@
 // -----------------------------------------
 .home-traffic {
   margin: 21px 0 23px 0;
+  @media screen and (max-width: 1024px) {
+    padding: 0 15px;
+  }
   .home-traffic-wrapper {
     display: flex;
     justify-content: space-between;
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+    }
+    @media screen and (max-width: 767px) {
+      flex-direction: column;
+    }
     .home-traffic-content {
       margin-top: 43px;
       max-width: 384px;
       width: 100%;
-      .home-traffic-image {
-        max-width: 98px;
-        width: 100%;
-        height: auto;
+      .home-traffic-image-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 16px;
         margin-bottom: 37px;
-        img {
-          max-width: 100%;
+
+        @media screen and (max-width: 1024px) {
+          margin-bottom: 27px;
+        }
+
+        .home-traffic-image {
+          max-width: 98px;
           width: 100%;
           height: auto;
+
+          @media screen and (max-width: 767px) {
+            margin: 0;
+          }
+
+          img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+          }
+        }
+        .home-traffic-text-mobile {
+          display: none;
+          @media screen and (max-width: 1024px) {
+            display: block;
+            .home-traffic-title {
+              font-weight: 800;
+              font-size: 32px;
+              line-height: 100%;
+              letter-spacing: 0%;
+              margin: 0;
+            }
+          }
         }
       }
 
@@ -271,6 +304,9 @@
           letter-spacing: 0%;
           margin: 0;
           margin-bottom: 24px;
+          @media screen and (max-width: 1024px) {
+            display: none;
+          }
         }
 
         p {
@@ -287,6 +323,9 @@
         max-width: 273px;
         width: 100%;
         margin-top: 24px;
+        @media screen and (max-width: 1024px) {
+          max-width: 100%;
+        }
         .btn-home-traffic {
           display: inline-block;
           width: 100%;
@@ -323,6 +362,9 @@
       .home-traffic-img-wrapper {
         width: calc(100% - 16px);
         height: auto;
+        @media screen and (max-width: 767px) {
+          width: 100%;
+        }
         img {
           max-width: 100%;
           width: 100%;
@@ -341,11 +383,15 @@
   -moz-box-shadow: 0px -10px 40px 0px var(--shadow);
   position: relative;
   z-index: 2;
+  @media screen and (max-width: 1024px) {
+    padding: 0 15px;
+  }
   .home-portifolio-wrapper {
     padding: 64px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+
     .home-portifolio-header {
       max-width: 518px;
       width: 100%;
@@ -357,20 +403,35 @@
         line-height: 100%;
         letter-spacing: 0%;
         text-align: center;
+        @media screen and (max-width: 767px) {
+          font-size: 32px;
+        }
       }
     }
 
     .home-portifolio-terms {
       margin-bottom: 64px;
       .home-portifolio-terms-wrapper {
+        display: flex;
+        justify-content: center;
         .home-portifolio-terms-content {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
           width: 93%;
+
+          @media screen and (max-width: 1024px) {
+            width: 95%;
+          }
+
           .home-portifolio-terms-item {
             margin-left: 32px;
             margin-bottom: 16px;
+
+            @media screen and (max-width: 1024px) {
+              margin-left: 14px;
+            }
+
             &:first-child {
               margin-left: 0;
             }
@@ -394,7 +455,7 @@
 
                 @media screen and (max-width: 1024px) {
                   font-size: 16px;
-                  padding: 8px 0;
+                  padding: 8px 12px;
                 }
 
                 &:hover {
@@ -423,6 +484,9 @@
         position: absolute;
         right: 1px;
         bottom: 21px;
+        @media screen and (max-width: 1024px) {
+          bottom: 14px;
+        }
         .home-portifolio-banner-button-link {
           padding: 12px 24px;
           font-size: 24px;
@@ -437,8 +501,8 @@
           transition: all 0.3s ease-in-out;
 
           @media screen and (max-width: 1024px) {
-            font-size: 16px;
-            padding: 8px 0;
+            font-size: 14px;
+            padding: 8px 12px;
           }
 
           &:hover {
@@ -545,6 +609,10 @@
         gap: 24px;
         max-width: 438px;
         width: 100%;
+        //feito so para melhorar a responsividade de momento
+        @media screen and (max-width: 1024px) {
+          display: none;
+        }
         .home-budget-content-title {
           margin-top: 32px;
           .home-budget-content-title-text {
@@ -554,6 +622,9 @@
             letter-spacing: 0%;
             color: var(--color-secundary);
             margin: 0;
+            @media screen and (max-width: 1024px) {
+              font-size: 32px;
+            }
           }
         }
         .home-budget-content-text {
