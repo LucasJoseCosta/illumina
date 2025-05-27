@@ -697,13 +697,6 @@ function register_polylang_strings()
 }
 add_action('init', 'register_polylang_strings');
 
-function enqueue_choices_script()
-{
-	wp_enqueue_style('choices-css', 'https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css');
-	wp_enqueue_script('choices-js', 'https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js', [], null, true);
-}
-add_action('wp_enqueue_scripts', 'enqueue_choices_script');
-
 
 add_action('phpmailer_init', 'my_phpmailer_smtp');
 function my_phpmailer_smtp($phpmailer)

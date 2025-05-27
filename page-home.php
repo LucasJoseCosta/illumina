@@ -304,38 +304,41 @@ if (!empty($initials)) {
 </section>
 
 <section class="home-budget">
-    <div class="home-budget-wrapper container">
-        <div class="home-budget-form">
-            <div class="home-budget-form-wrapper">
-                <?php echo do_shortcode('[contact-form-7 id="fd7222c" title="Contato"]'); ?>
+    <div class="home-budget-container container">
+        <div class="home-budget-wrapper">
+            <div class="home-budget-form">
+                <div class="home-budget-form-wrapper">
+                    <?php echo do_shortcode('[contact-form-7 id="fd7222c" title="Contato"]'); ?>
+                </div>
             </div>
-        </div>
 
-        <div class="home-budget-content">
-            <div class="home-budget-content-wrapper">
-                <div class="home-budget-content-title">
-                    <h2 class="home-budget-content-title-text">
-                        <?php if (!empty($titulo_orcamento)): ?>
-                            <?php echo esc_html($titulo_orcamento); ?>
+            <div class="home-budget-content">
+                <div class="home-budget-content-wrapper">
+                    <div class="home-budget-content-title">
+                        <h2 class="home-budget-content-title-text">
+                            <?php if (!empty($titulo_orcamento)): ?>
+                                <?php echo esc_html($titulo_orcamento); ?>
+                            <?php else: ?>
+                                <?php esc_html_e('Budget', 'text-domain'); ?>
+                            <?php endif; ?>
+                        </h2>
+                    </div>
+                    <div class="home-budget-content-text">
+                        <?php if (!empty($texto_orcamento)): ?>
+                            <?php echo $texto_orcamento; ?>
                         <?php else: ?>
-                            <?php esc_html_e('Budget', 'text-domain'); ?>
+                            <?php esc_html_e('No budget content available', 'text-domain'); ?>
                         <?php endif; ?>
-                    </h2>
-                </div>
-                <div class="home-budget-content-text">
-                    <?php if (!empty($texto_orcamento)): ?>
-                        <?php echo $texto_orcamento; ?>
-                    <?php else: ?>
-                        <?php esc_html_e('No budget content available', 'text-domain'); ?>
-                    <?php endif; ?>
-                </div>
-                <div class="home-budget-content-button">
-                    <button class="btn-home-budget">
-                        <span class="btn-home-budget-text">Enviar Orçamento →</span>
-                    </button>
+                    </div>
+                    <div class="home-budget-content-button">
+                        <button class="btn-home-budget">
+                            <span class="btn-home-budget-text">Enviar Orçamento →</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 </section>
 
 <section class="home-last-banner">
@@ -394,20 +397,24 @@ if (!empty($initials)) {
 
     });
     document.addEventListener('DOMContentLoaded', function () {
-        const selects = document.querySelectorAll('.wpcf7-select');
-        selects.forEach(function (select) {
-            new Choices(select, {
-                searchEnabled: false,
-                shouldSort: false,
-                itemSelectText: '',
-                classNames: {
-                    containerOuter: 'choices-container',
-                    containerInner: 'choices-inner',
-                    listDropdown: 'choices-dropdown',
-                    itemChoice: 'choices-item',
-                }
+        if (typeof Choices !== 'undefined') {
+            const selects = document.querySelectorAll('.wpcf7-select');
+            selects.forEach(function (select) {
+                new Choices(select, {
+                    searchEnabled: false,
+                    shouldSort: false,
+                    itemSelectText: '',
+                    classNames: {
+                        containerOuter: 'choices-container',
+                        containerInner: 'choices-inner',
+                        listDropdown: 'choices-dropdown',
+                        itemChoice: 'choices-item',
+                    }
+                });
             });
-        });
+        } else {
+            console.error('Choices is not defined yet.');
+        }
     });
 
 
