@@ -22,6 +22,7 @@ if (!empty($initials)) {
     $marcas = get_field('marcas', $initial->ID);
     $titulo_trafego = get_field('titulo_trafego', $initial->ID);
     $conteudo_trafego = get_field('conteudo_trafego', $initial->ID);
+    $modal_trafego_pago = get_field('modal_trafego_pago', $initial->ID);
     $img_conteudo_trafego = get_field('imagem_conteudo_trafego', $initial->ID);
     $titulo_portifolio = get_field('titulo_portifolio', $initial->ID);
     $termos_portifolio = get_field('termos_portifolio', $initial->ID);
@@ -214,10 +215,24 @@ if (!empty($initials)) {
                     <?php endif; ?>
                 </div>
                 <div class="home-traffic-button">
-                    <a href="#" class="btn-home-traffic">
-                        <span class="btn-home-traffic-text">Quero Saber Mais →</span>
-                    </a>
 
+                    <?php
+                    $modal_trafego_pago_item;
+
+                    if (is_array($modal_trafego_pago) && count($modal_trafego_pago) > 0) {
+                        $modal_trafego_pago_item = $modal_trafego_pago[0];
+                        $args_modal = array(
+                            'titulo_modal_trafego_pago' => $modal_trafego_pago_item['titulo_modal_trafego_pago'],
+                            'conteudo_modal_trafego_pago' => $modal_trafego_pago_item['conteudo_modal_trafego_pago'],
+                            'titulo_card_modal_trafego_pago' => $modal_trafego_pago_item['titulo_card_modal_trafego_pago'],
+                            'texto_card_modal_trafego_pago' => $modal_trafego_pago_item['texto_card_modal_trafego_pago'],
+                            'imagem__modal_trafego_pago' => $modal_trafego_pago_item['imagem__modal_trafego_pago'],
+                            'texto_destaque_modal_trafego_pago' => $modal_trafego_pago_item['texto_destaque_modal_trafego_pago']
+                        );
+
+                        get_template_part('components/paid-traffic-modal', null, $args_modal);
+                    }
+                    ?>
                 </div>
             </div>
         </div>
