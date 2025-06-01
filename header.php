@@ -6,6 +6,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bezier-easing@2.1.0/dist/bezier-easing.min.js"></script>
     <link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="<?php echo get_template_directory_uri() ?>/assets/css/owl.theme.default.min.css">
     <script src="<?php echo get_template_directory_uri() ?>/assets/js/owl.carousel.min.js"></script>
@@ -58,8 +59,8 @@ $menus_header = get_field('menus', $initial_menus->ID);
             <div class="header-wrapper">
                 <div class="header-container container">
                     <div class="header-logo">
-                        <a href="#" class="link-logo">
-                            <img src="<?php echo $logo_header ?>" alt="logo" class="logo light">
+                        <a href="<?php echo get_home_url(); ?>" class="link-logo">
+                            <img src="<?php echo $logo_header ;?>" alt="logo" class="logo light">
                             <!-- <img src="<?php echo $logo_header_branca ?>" alt="logo" class="custom-logo dark"> -->
                         </a>
                     </div>
@@ -124,7 +125,7 @@ $menus_header = get_field('menus', $initial_menus->ID);
                             <?php endif; ?>
                         </div>
                         <div class="header-button">
-                            <a href="#">
+                            <a href="#orcamento">
                                 <span>Entre em contato</span>
                             </a>
                         </div>
@@ -150,7 +151,7 @@ $menus_header = get_field('menus', $initial_menus->ID);
             <div class="mobile-drawer-inner">
                 <div class="mobile-drawer-header">
                     <div class="header-logo">
-                        <a href="#" class="link-logo">
+                        <a href="<?php echo get_home_url() ?>" class="link-logo">
                             <img src="<?php echo $logo_header ?>" alt="logo" class="logo light">
                             <!-- <img src="<?php echo $logo_header_branca ?>" alt="logo" class="custom-logo dark"> -->
                         </a>
@@ -223,7 +224,7 @@ $menus_header = get_field('menus', $initial_menus->ID);
                 </nav>
                 <div class="header-drawer-actions">
                     <div class="header-button">
-                        <a href="#">
+                        <a href="#orcamento">
                             <span>Entre em contato</span>
                         </a>
                     </div>
@@ -302,5 +303,52 @@ $menus_header = get_field('menus', $initial_menus->ID);
             burger.classList.remove("active");
             document.body.classList.remove("drawer-open");
         });
+
+        //-------
+
+
+        function scrollToElementWithOffset(el, offset = 0, duration = 800, easing = [0.7, -0.4, 0.4, 1.4]) {
+            const targetY = el.getBoundingClientRect().top + window.pageYOffset - offset;
+            const startY = window.pageYOffset;
+            const diff = targetY - startY;
+            let start;
+
+            const easingFn = window.BezierEasing(...easing);
+
+            function step(timestamp) {
+                if (!start) start = timestamp;
+                const time = Math.min(1, (timestamp - start) / duration);
+                const eased = easingFn(time);
+                window.scrollTo(0, startY + diff * eased);
+                if (time < 1) requestAnimationFrame(step);
+            }
+
+            requestAnimationFrame(step);
+        }
+
+        function getScrollOffset() {
+            const width = window.innerWidth;
+            if (width < 768) return 153;
+            if (width <= 1024) return 200;
+            return 220;
+        }
+
+
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener("click", function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute("href").substring(1);
+                const target = document.getElementById(targetId);
+                if (target) {
+                    scrollToElementWithOffset(target, getScrollOffset());
+                    if (closeBtn) closeBtn.click();
+                }
+            });
+        });
+
     });
+
+
+
+
 </script>

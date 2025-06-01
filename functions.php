@@ -727,6 +727,99 @@ function ativar_pesquisa_uma_letra($block_searches)
 }
 add_filter('relevanssi_block_one_letter_searches', 'ativar_pesquisa_uma_letra');
 
+// 1. Enfileirar o script e localizar o AJAX URL e outros dados
+function meu_tema_enqueue_scripts()
+{
+	// Substitua 'meu-script-portfolio' pelo handle do seu script e o caminho correto
+	wp_enqueue_script('meu-script-portfolio', get_template_directory_uri() . '/assets/js/portifolioFilter.js', array('jquery'), '1.0.0', true);
+
+	wp_localize_script('meu-script-portfolio', 'my_ajax_object', array(
+		'ajax_url' => admin_url('admin-ajax.php'),
+		'current_lang' => function_exists('pll_current_language') ? pll_current_language() : '',
+		// 'nonce' => wp_create_nonce('portfolio_filter_nonce') // Para segurança
+	));
+}
+add_action('wp_enqueue_scripts', 'meu_tema_enqueue_scripts');
+
+
+// 2. A função que lida com a requisição AJAX
+add_action('wp_ajax_filter_portfolio_posts', 'meu_tema_ajax_filter_portfolio_posts_handler');
+add_action('wp_ajax_nopriv_filter_portfolio_posts', 'meu_tema_ajax_filter_portfolio_posts_handler'); // Para usuários não logados
+
+function meu_tema_ajax_filter_portfolio_posts_handler()
+{
+	// // Verifique o nonce (segurança)
+	// if (!isset($_POST['security']) || !wp_verify_nonce($_POST['security'], 'portfolio_filter_nonce')) {
+	//     wp_send_json_error('Nonce inválido!', 403);
+	//     wp_die();
+	// }
+
+	$selected_term_slug = isset($_POST['term_slug']) ? sanitize_text_field($_POST['term_slug']) : '';
+	$current_lang = isset($_POST['current_lang']) ? sanitize_text_field($_POST['current_lang']) : '';
+
+	$prioritized_posts_output = [];
+	$other_posts_output = [];
+
+	$args_all_posts = array(
+		'post_type' => 'pag_portifolio', // Seu CPT
+		'lang' => $current_lang,
+		'posts_per_page' => -1,
+		'orderby' => 'date',
+		'order' => 'DESC',
+	);
+
+	$all_posts_query = new WP_Query($args_all_posts);
+
+	if ($all_posts_query->have_posts()) {
+		while ($all_posts_query->have_posts()) {
+			$all_posts_query->the_post(); // Importante para popular o objeto $post global se usar template tags como the_title() sem ID
+			$post_object = get_post();
+
+			$esta_no_termo = false;
+			if (!empty($selected_term_slug)) {
+				// Certifique-se de que 'category' é a taxonomia correta ou substitua pelo slug da sua taxonomia personalizada
+				$esta_no_termo = has_term($selected_term_slug, 'category', $post_object->ID);
+			}
+
+			if ($esta_no_termo) {
+				$prioritized_posts_output[] = $post_object;
+			} else {
+				$other_posts_output[] = $post_object;
+			}
+		}
+		// wp_reset_postdata(); // Necessário se você usou setup_postdata() ou modificou o loop global extensivamente
+	}
+
+	$final_posts_to_display = array_merge($prioritized_posts_output, $other_posts_output);
+
+	// Gerar o HTML para os posts e enviá-lo de volta
+	if (!empty($final_posts_to_display)) {
+		ob_start(); // Inicia o buffer de saída para capturar o HTML
+		foreach ($final_posts_to_display as $post_item) {
+			// Para usar template tags como get_permalink() e get_the_title() sem ID,
+			// você pode precisar configurar o post global para cada item do loop, ou passar o ID.
+			// É mais seguro passar o ID:
+			?>
+			<div class="portfolio-item">
+				<h4>
+					<a href="<?php echo esc_url(get_permalink($post_item->ID)); ?>">
+						<?php echo esc_html(get_the_title($post_item->ID)); // Ou $post_item->post_title ?>
+					</a>
+				</h4>
+				<?php if (has_post_thumbnail($post_item->ID)): ?>
+					<?php // echo get_the_post_thumbnail($post_item->ID, 'medium'); ?>
+				<?php endif; ?>
+			</div>
+			<?php
+		}
+		echo ob_get_clean(); // Envia o HTML capturado
+	} else {
+		echo '<p>' . esc_html__('Nenhum item de portfólio encontrado para este termo.', 'text-domain') . '</p>';
+	}
+
+	wp_die(); // Essencial para terminar corretamente a requisição AJAX do WordPress
+}
+
 
 // add_action('init', function () {
 //     if (isset($_GET['lang'])) {

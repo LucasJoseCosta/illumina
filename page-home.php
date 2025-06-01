@@ -72,15 +72,15 @@ if (!empty($initials)) {
                     </a>
                 </div>
             </div>
-        </div>
 
-        <div class="section-divider"></div>
+            <div class="section-divider"></div>
+        </div>
     </section>
 <?php else: ?>
     <p><?php esc_html_e('No banners available', 'text-domain'); ?></p>
 <?php endif; ?>
 
-<section class="home-brands">
+<section id="clientes" class="home-brands">
     <div class="home-brands-wrapper container">
         <div class="home-brands-header">
             <h2 class="home-brands-title">
@@ -170,12 +170,12 @@ if (!empty($initials)) {
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="section-divider"></div>
+        <div class="section-divider"></div>
+    </div>
 </section>
 
-<section class="home-traffic">
+<section id="servicos" class="home-traffic">
     <div class="home-traffic-wrapper container">
         <div class="home-traffic-content">
             <div class="home-traffic-content-wrapper">
@@ -250,9 +250,14 @@ if (!empty($initials)) {
                 <div class="home-portifolio-terms-content">
                     <?php if (is_array($termos_portifolio) && count($termos_portifolio) > 0): ?>
                         <?php foreach ($termos_portifolio as $termo): ?>
+                            <?php
+                            $base_portfolio_url = get_home_url(null, 'portifolio');
+                            $base_url_no_trailing_slash = untrailingslashit($base_portfolio_url);
+                            $term_link = add_query_arg('cat_slug', $termo["categoria_do_termo"], $base_url_no_trailing_slash);
+                            ?>
                             <div class="home-portifolio-terms-item">
                                 <div class="home-portifolio-terms-item-button">
-                                    <a href="#" class="btn-home-portifolio-terms">
+                                    <a href="<?php echo esc_url($term_link); ?>" class="btn-home-portifolio-terms">
                                         <span
                                             class="btn-home-portifolio-terms-text"><?php echo esc_html($termo['termo']); ?></span>
                                     </a>
@@ -267,9 +272,14 @@ if (!empty($initials)) {
                     <div class="owl-home-portifolio-terms owl-carousel owl-theme">
                         <?php if (is_array($termos_portifolio) && count($termos_portifolio) > 0): ?>
                             <?php foreach ($termos_portifolio as $termo): ?>
+                                <?php
+                                $portfolio_archive_url = get_post_type_archive_link('pag_portifolio');
+
+                                $term_link = add_query_arg('cat_slug', $termo["categoria_do_termo"], get_home_url() . '/portifolio');
+                                ?>
                                 <div class="home-portifolio-terms-item">
                                     <div class="home-portifolio-terms-item-button">
-                                        <a href="#" class="btn-home-portifolio-terms">
+                                        <a href="<?php echo esc_url($term_link); ?>" class="btn-home-portifolio-terms">
                                             <span
                                                 class="btn-home-portifolio-terms-text"><?php echo esc_html($termo['termo']); ?></span>
                                         </a>
@@ -303,7 +313,7 @@ if (!empty($initials)) {
     </div>
 </section>
 
-<section class="home-budget">
+<section id="orcamento" class="home-budget">
     <div class="home-budget-container container">
         <div class="home-budget-wrapper">
             <div class="home-budget-form">
@@ -420,4 +430,4 @@ if (!empty($initials)) {
 
 </script>
 
-<?php get_footer(); ?>
+<!-- <?php get_footer(); ?> -->
