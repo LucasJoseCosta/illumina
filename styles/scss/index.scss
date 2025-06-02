@@ -30,21 +30,21 @@ body.light-mode .dark {
 
 body.dark-mode {
   // backgrounds
-  --bg: #000;
+  --bg: #2b2a28;
   --bg-black: #000;
-  --bg-orange: #d86907;
-  --bg-light-orange: #f99c15;
-  --bg-light-brown: #e8e0d3;
+  --bg-orange: #e07b1d;
+  --bg-light-orange: #ffae3c;
+  --bg-light-brown: #3c3a38;
   // colors
-  --color-primary: #000;
-  --color-secundary: ##f8f0e3;
-  --color-light-brown: #989084;
+  --color-primary: #eae0d5;
+  --color-secundary: #2b2a28;
+  --color-light-brown: #a8a094;
   // divider
-  --divider: #989084;
+  --divider: #504a44;
   // shadow
-  --shadow: rgba(0, 0, 0, 0.25);
+  --shadow: rgba(0, 0, 0, 0.45);
   // border
-  --border: #989084;
+  --border: #504a44;
 }
 
 body.dark-mode .dark {

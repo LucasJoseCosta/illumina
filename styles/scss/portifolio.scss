@@ -96,7 +96,7 @@
                 &:hover,
                 &.active-term {
                   background-color: var(--color-primary);
-                  color: #fff;
+                  color: var(--color-primary);
                 }
               }
             }
@@ -134,7 +134,7 @@
 
                 &:hover {
                   background-color: var(--color-primary);
-                  color: #fff;
+                  color: var(--color-primary);
                 }
               }
             }

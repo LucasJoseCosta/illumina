@@ -60,8 +60,7 @@ $menus_header = get_field('menus', $initial_menus->ID);
                 <div class="header-container container">
                     <div class="header-logo">
                         <a href="<?php echo get_home_url(); ?>" class="link-logo">
-                            <img src="<?php echo $logo_header; ?>" alt="logo" class="logo light">
-                            <!-- <img src="<?php echo $logo_header_branca ?>" alt="logo" class="custom-logo dark"> -->
+                            <img src="<?php echo $logo_header; ?>" alt="logo" class="logo">
                         </a>
                     </div>
 
