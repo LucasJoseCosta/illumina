@@ -54,7 +54,7 @@
 
           &:hover {
             background-color: var(--color-primary);
-            color: var(--color-primary);
+            color: var(--color-white);
           }
         }
       }
@@ -140,7 +140,7 @@
 
           &:hover {
             background-color: var(--color-primary);
-            color: var(--color-primary);
+            color: var(--color-white);
           }
         }
       }
@@ -289,6 +289,7 @@
               line-height: 100%;
               letter-spacing: 0%;
               margin: 0;
+              color: var(--color-secundary);
             }
           }
         }
@@ -303,6 +304,7 @@
           letter-spacing: 0%;
           margin: 0;
           margin-bottom: 24px;
+          color: var(--color-primary);
           @media screen and (max-width: 1024px) {
             display: none;
           }
@@ -315,6 +317,7 @@
           line-height: 100%;
           letter-spacing: 0%;
           text-align: justify;
+          color: var(--color-primary);
         }
       }
 
@@ -349,7 +352,7 @@
 
           &:hover {
             background-color: var(--color-primary);
-            color: var(--color-primary);
+            color: var(--color-white);
           }
         }
       }
@@ -409,6 +412,7 @@
         line-height: 100%;
         letter-spacing: 0%;
         text-align: center;
+        color: var(--color-primary);
         @media screen and (max-width: 767px) {
           font-size: 32px;
         }
@@ -472,7 +476,7 @@
 
                 &:hover {
                   background-color: var(--color-primary);
-                  color: var(--color-primary);
+                  color: var(--color-white);
                 }
               }
             }
@@ -510,7 +514,7 @@
 
                 &:hover {
                   background-color: var(--color-primary);
-                  color: var(--color-primary);
+                  color: var(--color-white);
                 }
               }
             }
@@ -557,7 +561,7 @@
 
           &:hover {
             background-color: var(--color-primary);
-            color: var(--color-primary);
+            color: var(--color-white);
           }
         }
       }
@@ -624,7 +628,7 @@
                   letter-spacing: 0%;
                   margin-left: 24px;
                   margin-bottom: 8px;
-
+                  color: var(--color-primary);
                   @media screen and (max-width: 767px) {
                     font-size: 18px;
                     margin-left: 12px;
@@ -711,7 +715,7 @@
 
                 &:hover {
                   background-color: var(--color-primary);
-                  color: var(--color-primary);
+                  color: var(--color-white);
                 }
               }
             }
@@ -784,7 +788,7 @@
 
             &:hover {
               background-color: var(--color-secundary);
-              color: var(--color-primary);
+              color: var(--color-white);
             }
           }
         }
