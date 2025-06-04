@@ -852,6 +852,10 @@
   }
 }
 
+.choices__list[aria-expanded] .choices__item--selectable.is-highlighted {
+  background: none !important;
+}
+
 .choices[data-type*="select-one"]::after {
   border-width: 6px;
   top: 50%;
