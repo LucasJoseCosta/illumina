@@ -130,7 +130,11 @@ $menus_header = get_field('menus', $initial_menus->ID);
                         </div>
                         <div class="header-button-ld">
                             <button>
-                                <img src="<?php echo get_template_directory_uri() ?>/assets/img/toggle-mode.svg" alt=""
+                                <img class="light"
+                                    src="<?php echo get_template_directory_uri() ?>/assets/img/light-mode.svg" alt=""
+                                    srcset="">
+                                <img class="dark"
+                                    src="<?php echo get_template_directory_uri() ?>/assets/img/dark-mode.svg" alt=""
                                     srcset="">
                             </button>
                         </div>
@@ -152,7 +156,6 @@ $menus_header = get_field('menus', $initial_menus->ID);
                     <div class="header-logo">
                         <a href="<?php echo get_home_url() ?>" class="link-logo">
                             <img src="<?php echo $logo_header ?>" alt="logo" class="logo light">
-                            <!-- <img src="<?php echo $logo_header_branca ?>" alt="logo" class="custom-logo dark"> -->
                         </a>
                     </div>
                     <!-- <div class="header-button-ld">
@@ -192,7 +195,9 @@ $menus_header = get_field('menus', $initial_menus->ID);
                         </div>
                         <div class="header-button-ld">
                             <button>
-                                <img src="<?php echo get_template_directory_uri() ?>/assets/img/toggle-mode.svg" alt=""
+                                <img src="<?php echo get_template_directory_uri() ?>/assets/img/light-mode.svg" alt=""
+                                    srcset="">
+                                <img src="<?php echo get_template_directory_uri() ?>/assets/img/dark-mode.svg" alt=""
                                     srcset="">
                             </button>
                         </div>
