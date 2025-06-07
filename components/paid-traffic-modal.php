@@ -10,7 +10,7 @@ if (isset($args) && !empty($args)) {
 }
 ?>
 
-<a href="#" class="btn-home-traffic">
+<a class="btn-home-traffic">
     <span class="btn-home-traffic-text">Quero Saber Mais →</span>
 </a>
 
@@ -90,8 +90,8 @@ if (isset($args) && !empty($args)) {
 
         function getScrollOffset() {
             const width = window.innerWidth;
-            if (width < 768) return 153;
-            if (width <= 1024) return 200;
+            if (width < 768) return -20;
+            if (width <= 1024) return 20;
             return 50;
         }
 
@@ -119,6 +119,21 @@ if (isset($args) && !empty($args)) {
                 scrollToElementWithOffset(orcamentoElement, getScrollOffset());
             }, 500);
         });
+
+        document.addEventListener('click', function (e) {
+            if (
+                modal.classList.contains('open') &&
+                !modal.querySelector('.paid-traffic-modal-wrapper').contains(e.target) &&
+                !openBtn.contains(e.target)
+            ) {
+                modal.classList.remove('open');
+                modal.classList.add('close');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    modal.classList.remove('close');
+                }, 500);
+            }
+        })
     });
 
 </script>

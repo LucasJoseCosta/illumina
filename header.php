@@ -130,12 +130,14 @@ $menus_header = get_field('menus', $initial_menus->ID);
                         </div>
                         <div class="header-button-ld">
                             <button>
-                                <img class="light"
-                                    src="<?php echo get_template_directory_uri() ?>/assets/img/light-mode.svg" alt=""
-                                    srcset="">
-                                <img class="dark"
-                                    src="<?php echo get_template_directory_uri() ?>/assets/img/dark-mode.svg" alt=""
-                                    srcset="">
+                                <div class="theme-toggle-flip">
+                                    <img class="light"
+                                        src="<?php echo get_template_directory_uri() ?>/assets/img/light-mode.svg"
+                                        alt="">
+                                    <img class="dark"
+                                        src="<?php echo get_template_directory_uri() ?>/assets/img/dark-mode.svg"
+                                        alt="">
+                                </div>
                             </button>
                         </div>
                         <div class="header-button-burger">
@@ -279,7 +281,6 @@ $menus_header = get_field('menus', $initial_menus->ID);
             const btn = dd.querySelector('.lang-dropdown-toggle');
             if (!btn) return;
             btn.addEventListener('click', e => toggleDropdown(e, idx));
-            // btn.addEventListener('touchend', e => toggleDropdown(e, idx));
         });
 
         // Fecha **só** se o clique/touch for fora de **todos** os dropdowns
@@ -289,7 +290,6 @@ $menus_header = get_field('menus', $initial_menus->ID);
             dropdowns.forEach(dd => dd.classList.remove('open'));
         }
         document.addEventListener('click', closeAll);
-        // document.addEventListener('touchend',  closeAll);
 
         // Manipula drawer mobile
         const burger = document.getElementById("burger");
@@ -308,9 +308,9 @@ $menus_header = get_field('menus', $initial_menus->ID);
             document.body.classList.remove("drawer-open");
         });
 
-        //-------
+        //------------
 
-
+        //Animação links menu
         function scrollToElementWithOffset(el, offset = 0, duration = 800, easing = [0.7, -0.4, 0.4, 1.4]) {
             const targetY = el.getBoundingClientRect().top + window.pageYOffset - offset;
             const startY = window.pageYOffset;
@@ -330,13 +330,12 @@ $menus_header = get_field('menus', $initial_menus->ID);
             requestAnimationFrame(step);
         }
 
-        function getScrollOffset() {
+        function getScrollOffset(id) {
             const width = window.innerWidth;
-            if (width < 768) return 153;
-            if (width <= 1024) return 200;
-            return 220;
+            if (width < 768) return id != 'orcamento' ? 153 : -20;
+            if (width <= 1024) return id != 'orcamento' ? 200 : 20;
+            return id != 'orcamento' ? 220 : 50;
         }
-
 
         document.querySelectorAll('a[href^="#"]').forEach(link => {
             link.addEventListener("click", function (e) {
@@ -344,15 +343,11 @@ $menus_header = get_field('menus', $initial_menus->ID);
                 const targetId = this.getAttribute("href").substring(1);
                 const target = document.getElementById(targetId);
                 if (target) {
-                    scrollToElementWithOffset(target, getScrollOffset());
+                    scrollToElementWithOffset(target, getScrollOffset(target.id));
                     if (closeBtn) closeBtn.click();
                 }
             });
         });
-
     });
-
-
-
 
 </script>
