@@ -197,10 +197,14 @@ $menus_header = get_field('menus', $initial_menus->ID);
                         </div>
                         <div class="header-button-ld">
                             <button>
-                                <img src="<?php echo get_template_directory_uri() ?>/assets/img/light-mode.svg" alt=""
-                                    srcset="">
-                                <img src="<?php echo get_template_directory_uri() ?>/assets/img/dark-mode.svg" alt=""
-                                    srcset="">
+                                <div class="theme-toggle-flip">
+                                    <img class="light"
+                                        src="<?php echo get_template_directory_uri() ?>/assets/img/light-mode.svg"
+                                        alt="">
+                                    <img class="dark"
+                                        src="<?php echo get_template_directory_uri() ?>/assets/img/dark-mode.svg"
+                                        alt="">
+                                </div>
                             </button>
                         </div>
                         <div class="mobile-drawer-close">
@@ -245,7 +249,7 @@ $menus_header = get_field('menus', $initial_menus->ID);
     document.addEventListener("DOMContentLoaded", function () {
         // LD theme switcher
         const body = document.body;
-        const toggleButton = document.querySelector('.header-button-ld button');
+        const toggleButton = document.querySelectorAll('.header-button-ld button');
 
         // 1) Inicializa o tema a partir do localStorage (ou default para light)
         const savedTheme = localStorage.getItem('theme');
@@ -258,14 +262,16 @@ $menus_header = get_field('menus', $initial_menus->ID);
         }
 
         // 2) Ao clicar, alterna e salva no localStorage
-        toggleButton.addEventListener('click', () => {
-            if (body.classList.contains('dark-mode')) {
-                body.classList.replace('dark-mode', 'light-mode');
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.classList.replace('light-mode', 'dark-mode');
-                localStorage.setItem('theme', 'dark');
-            }
+        toggleButton.forEach(element => {
+            element.addEventListener('click', () => {
+                if (body.classList.contains('dark-mode')) {
+                    body.classList.replace('dark-mode', 'light-mode');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    body.classList.replace('light-mode', 'dark-mode');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
         });
 
         // Dropdown language switcher

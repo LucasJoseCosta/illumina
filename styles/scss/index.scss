@@ -107,6 +107,10 @@ body.dark-mode .home-budget-content-button {
   height: 48px;
   transition: transform 0.6s;
   transform-style: preserve-3d;
+  @media screen and (max-width: 1024px) {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .theme-toggle-flip img {
