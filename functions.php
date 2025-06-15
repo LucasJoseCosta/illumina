@@ -687,12 +687,19 @@ add_filter('show_admin_bar', '__return_false');
 function register_polylang_strings()
 {
 	if (function_exists('pll_register_string')) {
-		pll_register_string('filter_h7', 'H-7', 'Filter Item');
-		pll_register_string('filter_tf7', 'TF-7', 'Filter Item');
-		pll_register_string('filter_revestik', 'Revestik', 'Filter Item');
-		pll_register_string('filter_xadrez', 'Pigmento em Pó Xadrez', 'Filter Item');
-		pll_register_string('filter_remox', 'Remox', 'Filter Item');
-		pll_register_string('filter_poxipol', 'Poxipol / Poxilina', 'Filter Item');
+		pll_register_string('no-item', 'Não possui menus cadastrados', 'No menu');
+		pll_register_string('entre-contato', 'Entre em contato', 'Btn text');
+		pll_register_string('ver-mais', 'Ver Mais', 'Btn text');
+		pll_register_string('ideias-brilhantes', 'IDEIAS BRILHANTES', 'Btn text');
+		pll_register_string('enviar-orcamento', 'Enviar Orçamento', 'Btn text');
+		pll_register_string('fazer-orcamento', 'Fazer um Orçamento', 'Btn text');
+		pll_register_string('trabalhos-destaques', 'Trabalhos Destaques', 'Btn text');
+		pll_register_string('quero-saber-mais', 'Quero Saber Mais', 'Btn text');
+		pll_register_string('segue-gente', 'SEGUE A GENTE', 'Footer social title');
+		pll_register_string('no-item-social', 'Nenhuma rede social disponível.', 'Footer social no item');
+		pll_register_string('no-item-contato', 'Nenhum contato disponível.', 'Footer contato no item');
+		pll_register_string('copyright', '2025 Illumina Design Studio. Todos os direitos reservados.', 'Copyright text');
+
 	}
 }
 add_action('init', 'register_polylang_strings');

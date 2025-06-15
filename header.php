@@ -89,7 +89,7 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
                                     </ul>
                                 </nav>
                             <?php else: ?>
-                                <span>Não possui menus cadastrados</span>
+                                <span><?php pll_e('Não possui menus cadastrados'); ?></span>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -126,7 +126,7 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
                         </div>
                         <div class="header-button">
                             <a href="#orcamento">
-                                <span>Entre em contato</span>
+                                <span><?php pll_e('Entre em contato'); ?></span>
                             </a>
                         </div>
                         <div class="header-button-ld">
@@ -236,7 +236,7 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
                 <div class="header-drawer-actions">
                     <div class="header-button">
                         <a href="#orcamento">
-                            <span>Entre em contato</span>
+                            <span><?php pll_e('Entre em contato'); ?></span>
                         </a>
                     </div>
                 </div>

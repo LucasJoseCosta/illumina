@@ -34,7 +34,7 @@ $redes_sociais = get_field('redes_socias', $initial_footer->ID);
       </div>
 
       <div class="footer-info">
-        <h3 class="title-ideias">IDEIAS BRILHANTES</h3>
+        <h3 class="title-ideias"><?php pll_e('IDEIAS BRILHANTES'); ?></h3>
         <div class="contact-details">
           <?php if (is_array($contatos) && count($contatos) > 0): ?>
             <?php foreach ($contatos as $contato): ?>
@@ -45,17 +45,17 @@ $redes_sociais = get_field('redes_socias', $initial_footer->ID);
               </div>
             <?php endforeach; ?>
           <?php else: ?>
-            <p>Nenhum contato disponível.</p>
+            <p><?php pll_e('Nenhum contato disponível.'); ?></p>
           <?php endif; ?>
         </div>
       </div>
 
       <div class="footer-social">
         <div class="contact-container">
-          <a href="#" class="contact-link"><span>Entre em Contato</span></a>
+          <a href="#" class="contact-link"><span><span><?php pll_e('Entre em contato'); ?></span></a>
         </div>
         <div class="itens-footer">
-          <h3 class="text-footer">SEGUE A GENTE</h3>
+          <h3 class="text-footer"><?php pll_e('SEGUE A GENTE'); ?></h3>
           <ul class="socials-list">
             <?php if (is_array($redes_sociais) && count($redes_sociais) > 0): ?>
               <?php foreach ($redes_sociais as $rede): ?>
@@ -71,7 +71,7 @@ $redes_sociais = get_field('redes_socias', $initial_footer->ID);
                 </li>
               <?php endforeach; ?>
             <?php else: ?>
-              <p>Nenhuma rede social disponível.</p>
+              <p><?php pll_e('Nenhuma rede social disponível.'); ?></p>
             <?php endif; ?>
           </ul>
         </div>
@@ -92,10 +92,10 @@ $redes_sociais = get_field('redes_socias', $initial_footer->ID);
         </div>
         <div class="footer-social">
           <div class="contact-container">
-            <a href="#" class="contact-link"><span>Entre em Contato</span></a>
+            <a href="#" class="contact-link"><span><?php pll_e('Entre em contato'); ?></span></a>
           </div>
           <div class="itens-footer">
-            <h3 class="text-footer">SEGUE A GENTE</h3>
+            <h3 class="text-footer"><?php pll_e('SEGUE A GENTE'); ?></h3>
             <ul class="socials-list">
               <?php if (is_array($redes_sociais) && count($redes_sociais) > 0): ?>
                 <?php foreach ($redes_sociais as $rede): ?>
@@ -111,7 +111,7 @@ $redes_sociais = get_field('redes_socias', $initial_footer->ID);
                   </li>
                 <?php endforeach; ?>
               <?php else: ?>
-                <p>Nenhuma rede social disponível.</p>
+                <p><?php pll_e('Nenhuma rede social disponível.'); ?></p>
               <?php endif; ?>
             </ul>
           </div>
@@ -120,7 +120,7 @@ $redes_sociais = get_field('redes_socias', $initial_footer->ID);
 
 
       <div class="footer-info">
-        <h3 class="title-ideias">IDEIAS BRILHANTES</h3>
+        <h3 class="title-ideias"><?php pll_e('IDEIAS BRILHANTES'); ?></h3>
         <div class="contact-details">
           <?php if (is_array($contatos) && count($contatos) > 0): ?>
             <?php foreach ($contatos as $contato): ?>
@@ -131,7 +131,7 @@ $redes_sociais = get_field('redes_socias', $initial_footer->ID);
               </div>
             <?php endforeach; ?>
           <?php else: ?>
-            <p>Nenhum contato disponível.</p>
+            <p><?php pll_e('Nenhum contato disponível.'); ?></p>
           <?php endif; ?>
         </div>
       </div>
@@ -139,7 +139,7 @@ $redes_sociais = get_field('redes_socias', $initial_footer->ID);
 
     </div>
     <div class="info-company">
-      <h4 class="text-company">@ 2025 Illumina Design Studio. Todos os direitos reservados</h4>
+      <h4 class="text-company">@ <?php pll_e('2025 Illumina Design Studio. Todos os direitos reservados.'); ?></h4>
     </div>
   </div>
 </footer>

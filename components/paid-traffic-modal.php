@@ -11,7 +11,7 @@ if (isset($args) && !empty($args)) {
 ?>
 
 <a class="btn-home-traffic">
-    <span class="btn-home-traffic-text">Quero Saber Mais →</span>
+    <span class="btn-home-traffic-text"><?php pll_e('Quero Saber Mais'); ?> →</span>
 </a>
 
 <div id="paid-traffic-modal" class="paid-traffic-modal-component container">
@@ -58,7 +58,7 @@ if (isset($args) && !empty($args)) {
                     </div>
                     <div class="paid-traffic-modal-body-footer-actions-btn">
                         <button id="modal-scroll-btn">
-                            <span>Fazer um Orçamento →</span>
+                            <span><?php pll_e('Fazer um Orçamento'); ?> →</span>
                         </button>
                     </div>
                 </div>

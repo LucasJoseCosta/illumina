@@ -322,16 +322,13 @@
       }
 
       .home-traffic-button {
-        max-width: 273px;
-        width: 100%;
         margin-top: 24px;
         @media screen and (max-width: 1024px) {
           max-width: 100%;
         }
         .btn-home-traffic {
           display: inline-block;
-          width: 100%;
-          padding: 12px 0;
+          padding: 12px 24px;
           background: var(--bg);
           border: 2px solid var(--color-primary);
           border-radius: 30px;
