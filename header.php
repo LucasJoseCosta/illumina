@@ -46,7 +46,8 @@ $initial_misc = $misc[0] ?? null;
 
 $logo_header = get_field('logo_header', $initial_misc->ID);
 $menus_header = get_field('menus', $initial_menus->ID);
-
+$whatsapp_text = get_field('texto_botao', $initial_misc->ID);
+$whatsapp_link = get_field('link_botao', $initial_misc->ID);
 ?>
 
 
@@ -241,6 +242,16 @@ $menus_header = get_field('menus', $initial_menus->ID);
                 </div>
             </div>
         </div>
+
+        <?php
+
+        $args_whats_btn = array(
+            'whatsapp_text' => $whatsapp_text,
+            'whatsapp_link' => $whatsapp_link,
+        );
+
+        get_template_part('components/whatsapp-button', null, $args_whats_btn);
+        ?>
     </div>
 </body>
 

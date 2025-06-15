@@ -398,7 +398,7 @@ if (!empty($initials)) {
             dots: false,
             responsive: {
                 0: {
-                    items: 2
+                    items: 3
                 },
                 767: {
                     items: 4
