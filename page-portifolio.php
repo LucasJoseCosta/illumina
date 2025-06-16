@@ -20,20 +20,14 @@ $args_home_page_content = array(
     'update_post_meta_cache' => false, // Otimização
 );
 
-
 // Buscar o post correspondente
 $initials = get_posts($args_home_page_content);
+$page_id = get_the_ID();
 
 if (!empty($initials)) {
     $initial_post_id = $initials[0]->ID;
-    $acf_titulo = get_field('titulo_portifolio', $initial_post_id);
-    if ($acf_titulo) {
-        $titulo_portifolio = $acf_titulo;
-    }
-    $acf_termos = get_field('termos_portifolio', $initial_post_id);
-    if ($acf_termos) {
-        $termos_portifolio = $acf_termos;
-    }
+    $titulo_portifolio = get_field('titulo_portifolio', $page_id);
+    $termos_portifolio = get_field('termos_portifolio', $initial_post_id);
 }
 
 $current_page_url = get_permalink();
@@ -154,8 +148,23 @@ $current_page_url = get_permalink();
         if (!empty($final_posts_to_display)) {
             echo '<div class="portfolio-items-container">';
             foreach ($final_posts_to_display as $post_item) {
+                $post_item = get_post($post_item->ID);
+                $post_title = $post_item->post_title;
+                $post_content = $post_item->post_content;
+                $post_img_highlight = get_field('imagem_destaque', $post_item->ID);
+                $post_img_modal_highlight = get_field('imagem_destaque_modal', $post_item->ID);
+                $post_data = get_field('data_execucao', $post_item->ID);
+                $post_category = get_the_terms($post_item->ID, 'category');
                 ?>
                 <div class="portfolio-item">
+                    <?php
+                    echo $post_title;
+                    echo $post_content;
+                    echo $post_img_highlight;
+                    echo $post_img_modal_highlight;
+                    echo $post_data;
+                    echo $post_category[0]->name;
+                    ?>
                     <h4>
                         <a href="<?php echo esc_url(get_permalink($post_item->ID)); ?>">
                             <?php echo esc_html($post_item->post_title); ?>
@@ -174,7 +183,6 @@ $current_page_url = get_permalink();
         ?>
     </div>
 </section>
-
 
 <script>
     $(document).ready(function () {
