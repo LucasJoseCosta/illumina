@@ -33,7 +33,7 @@ if (!empty($initials)) {
 $current_page_url = get_permalink();
 
 ?>
-<p><?php echo $selected_term_slug ?></p>
+
 <section class="portifolio">
     <div class="portifolio-wrapper container">
         <div class="portifolio-header">
@@ -147,6 +147,7 @@ $current_page_url = get_permalink();
 
         if (!empty($final_posts_to_display)) {
             echo '<div class="portfolio-items-container">';
+            $index = 0;
             foreach ($final_posts_to_display as $post_item) {
                 $post_item = get_post($post_item->ID);
                 $post_title = $post_item->post_title;
@@ -155,26 +156,28 @@ $current_page_url = get_permalink();
                 $post_img_modal_highlight = get_field('imagem_destaque_modal', $post_item->ID);
                 $post_data = get_field('data_execucao', $post_item->ID);
                 $post_category = get_the_terms($post_item->ID, 'category');
+
                 ?>
-                <div class="portfolio-item">
-                    <?php
-                    echo $post_title;
-                    echo $post_content;
-                    echo $post_img_highlight;
-                    echo $post_img_modal_highlight;
-                    echo $post_data;
-                    echo $post_category[0]->name;
-                    ?>
-                    <h4>
-                        <a href="<?php echo esc_url(get_permalink($post_item->ID)); ?>">
-                            <?php echo esc_html($post_item->post_title); ?>
-                        </a>
-                    </h4>
-                    <?php if (has_post_thumbnail($post_item->ID)): ?>
-                        <?php // echo get_the_post_thumbnail($post_item->ID, 'medium'); ?>
-                    <?php endif; ?>
+                <div class="portfolio-item" arial-index="<?php echo esc_attr($index); ?>">
+                    <div class="portifolio-img-highlight">
+                        <picture>
+                            <source src="<?php echo $post_img_highlight ?>">
+                            <img src="<?php echo esc_url($post_img_highlight); ?>" alt="<?php echo esc_attr($post_title); ?>">
+                        </picture>
+                    </div>
+                    <?PHP echo $post_title ?>
+                    <div class="portifolio-btn-modal" data-index="<?php echo esc_attr($index); ?>">
+                        <button>
+                            <img class="light" src="<?php echo get_template_directory_uri(); ?>/assets/img/portifolio-arrow.svg"
+                                alt="" srcset="">
+                            <img class="dark"
+                                src="<?php echo get_template_directory_uri(); ?>/assets/img/portifolio-arrow-white.svg" alt=""
+                                srcset="">
+                        </button>
+                    </div>
                 </div>
                 <?php
+                $index++;
             }
             echo '</div>';
         } else {
@@ -183,6 +186,40 @@ $current_page_url = get_permalink();
         ?>
     </div>
 </section>
+
+
+<div id="portfolio-modals-container">
+    <?php
+    if (!empty($final_posts_to_display)) {
+        $index = 0;
+        foreach ($final_posts_to_display as $post_item) {
+            $post_item = get_post($post_item->ID);
+            $post_title = $post_item->post_title;
+            $post_content = $post_item->post_content;
+            $post_img_highlight = get_field('imagem_destaque', $post_item->ID);
+            $post_img_modal_highlight = get_field('imagem_destaque_modal', $post_item->ID);
+            $post_data = get_field('data_execucao', $post_item->ID);
+            $post_category = get_the_terms($post_item->ID, 'category');
+            ?>
+
+
+            <?php
+            $modal_trafego_pago_item = $modal_trafego_pago[0];
+            $args_modal = array(
+                'index' => $index,
+                'titulo_portifolio' => $post_title,
+            );
+
+            get_template_part('components/portifolio-modal', null, $args_modal);
+            ?>
+            <?php
+            $index++;
+        }
+    } else {
+        echo '<p>' . esc_html__('Nenhum item de portfólio encontrado.', 'text-domain') . '</p>';
+    }
+    ?>
+</div>
 
 <script>
     $(document).ready(function () {

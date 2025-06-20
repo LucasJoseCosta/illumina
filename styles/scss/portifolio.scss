@@ -3,6 +3,7 @@
   position: relative;
   z-index: 2;
   margin-top: 133px;
+  margin-bottom: 64px;
   @media screen and (max-width: 1024px) {
     margin-top: 100px;
     padding: 0 15px;
@@ -136,6 +137,49 @@
                 }
               }
             }
+          }
+        }
+      }
+    }
+
+    .portfolio-items-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      width: 100%;
+
+      .portfolio-item {
+        width: 100%;
+        position: relative;
+        z-index: 1;
+
+        .portifolio-img-highlight {
+          width: 100%;
+          overflow: hidden;
+
+          picture,
+          img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+          }
+        }
+
+        .portifolio-btn-modal {
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          z-index: 2;
+          button {
+            background: none;
+            border: 2px solid var(--color-primary);
+            border-radius: 30px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
           }
         }
       }

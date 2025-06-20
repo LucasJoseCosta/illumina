@@ -32,6 +32,7 @@ jQuery(document).ready(function ($) {
     $.ajax({
       url: my_ajax_object.ajax_url, // Definido via wp_localize_script
       type: "POST",
+      dataType: "json",
       data: {
         action: "filter_portfolio_posts", // Nome da nossa ação AJAX no PHP
         term_slug: termSlug,
@@ -40,12 +41,13 @@ jQuery(document).ready(function ($) {
       },
       success: function (response) {
         if (response) {
-          portfolioContainer.html(response);
-          // Re-inicializar plugins JS se necessário (ex: lightbox nos novos itens)
+          $(".portfolio-items-container").html(response.data.items);
+          $("#portfolio-modals-container").html(response.data.modals);
         } else {
-          portfolioContainer.html(
+          $(".portfolio-items-container").html(
             "<p>Nenhum item de portfólio encontrado para este termo.</p>"
           );
+          $("#portfolio-modals-container").empty();
         }
       },
       error: function (errorThrown) {
@@ -110,14 +112,41 @@ jQuery(document).ready(function ($) {
     loadPortfolioPosts(termSlugToLoad, false); // false para não adicionar ao histórico novamente
   });
 
-  // Carregar o estado inicial baseado na URL no primeiro carregamento da página (se houver ?cat_slug=)
-  // A classe 'active-term' já deve ter sido definida pelo PHP no carregamento inicial.
-  // Se você quiser que o AJAX carregue o conteúdo mesmo no primeiro load se um filtro estiver ativo:
-  // var initialUrlParams = new URLSearchParams(window.location.search);
-  // if (initialUrlParams.has('cat_slug')) {
-  //     var initialTerm = initialUrlParams.get('cat_slug');
-  //     loadPortfolioPosts(initialTerm, false); // Não atualiza o histórico, pois já estamos nessa URL
-  //     $('.btn-portifolio-terms').removeClass('active-term');
-  //     $('.btn-portifolio-terms[data-term-slug="' + initialTerm + '"]').addClass('active-term');
-  // }
+  jQuery(function ($) {
+    // abrir modal por delegação
+    $(document).on("click", ".portifolio-btn-modal button", function (e) {
+      e.preventDefault();
+      const idx = $(this).closest(".portifolio-btn-modal").data("index");
+      const modal = document.getElementById(`portifolio-modal-${idx}`);
+      if (!modal) return;
+      modal.classList.remove("close");
+      modal.classList.add("open");
+      modal.style.display = "block";
+    });
+
+    // fechar modal clicando fora
+    $(document).on("click", function (e) {
+      console.log("Click event triggered:", e.target);
+      const $open = $(".portifolio-modal-component.open");
+      console.log($open);
+      if (!$open.length) return;
+      console.log("ta aqui");
+
+      const wrapper = $open.find(".portifolio-modal-wrapper")[0];
+      const clickedInside = wrapper.contains(e.target);
+      const clickedBtn = Boolean(
+        $(e.target).closest(".portifolio-btn-modal button").length
+      );
+
+      console.log("Clicked inside:", clickedInside);
+      console.log("Clicked button:", clickedBtn);
+
+      if (!clickedInside && !clickedBtn) {
+        $open.removeClass("open").addClass("close");
+        setTimeout(() => {
+          $open.hide().removeClass("close");
+        }, 500);
+      }
+    });
+  });
 });

@@ -802,29 +802,59 @@ function meu_tema_ajax_filter_portfolio_posts_handler()
 	// Gerar o HTML para os posts e enviá-lo de volta
 	if (!empty($final_posts_to_display)) {
 		ob_start(); // Inicia o buffer de saída para capturar o HTML
+		$index = 0;
 		foreach ($final_posts_to_display as $post_item) {
-			// Para usar template tags como get_permalink() e get_the_title() sem ID,
-			// você pode precisar configurar o post global para cada item do loop, ou passar o ID.
-			// É mais seguro passar o ID:
+			$post_item = get_post($post_item->ID);
+			$post_title = $post_item->post_title;
+			$post_content = $post_item->post_content;
+			$post_img_highlight = get_field('imagem_destaque', $post_item->ID);
+			$post_img_modal_highlight = get_field('imagem_destaque_modal', $post_item->ID);
+			$post_data = get_field('data_execucao', $post_item->ID);
+			$post_category = get_the_terms($post_item->ID, 'category');
 			?>
-			<div class="portfolio-item">
-				<h4>
-					<a href="<?php echo esc_url(get_permalink($post_item->ID)); ?>">
-						<?php echo esc_html(get_the_title($post_item->ID)); // Ou $post_item->post_title ?>
-					</a>
-				</h4>
-				<?php if (has_post_thumbnail($post_item->ID)): ?>
-					<?php // echo get_the_post_thumbnail($post_item->ID, 'medium'); ?>
-				<?php endif; ?>
+			<div class="portfolio-item" arial-index="<?php echo esc_attr($index); ?>">
+				<div class="portifolio-img-highlight">
+					<picture>
+						<source src="<?php echo $post_img_highlight ?>">
+						<img src="<?php echo esc_url($post_img_highlight); ?>" alt="<?php echo esc_attr($post_title); ?>">
+					</picture>
+				</div>
+							<?PHP echo $post_title ?>
+				<div class="portifolio-btn-modal" data-index="<?php echo esc_attr($index); ?>">
+					<button>
+						<img class="light" src="<?php echo get_template_directory_uri(); ?>/assets/img/portifolio-arrow.svg" alt=""
+							srcset="">
+						<img class="dark" src="<?php echo get_template_directory_uri(); ?>/assets/img/portifolio-arrow-white.svg"
+							alt="" srcset="">
+					</button>
+				</div>
 			</div>
 			<?php
+			$index++;
 		}
-		echo ob_get_clean(); // Envia o HTML capturado
+		$items_html = ob_get_clean(); // Envia o HTML capturado
 	} else {
 		echo '<p>' . esc_html__('Nenhum item de portfólio encontrado para este termo.', 'text-domain') . '</p>';
 	}
 
-	wp_die(); // Essencial para terminar corretamente a requisição AJAX do WordPress
+	// 2) Buffer dos modais
+	ob_start();
+	$index = 0;
+	foreach ($final_posts_to_display as $post_item) {
+		get_template_part('components/portifolio-modal', null, [
+			'index' => $index,
+			'titulo_portifolio' => get_the_title($post_item->ID),
+			// outros args…
+		]);
+		$index++;
+	}
+	$modals_html = ob_get_clean();
+
+	wp_send_json_success([
+		'items' => $items_html,
+		'modals' => $modals_html,
+	]);
+	wp_die();
 }
 
 
