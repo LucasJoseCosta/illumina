@@ -1,62 +1,62 @@
 <?php
-/**
- * Template part para exibir o modal de tráfego pago.
- * Os argumentos passados via get_template_part() estão disponíveis na variável $args.
- */
+$idx = isset($args['index']) ? (int) $args['index'] : 0;
+$max_idx = isset($args['max_index']) ? (int) $args['max_index'] : 0;
+$post_title = !empty($args['post_title']) ? (string) $args['post_title'] : '';
+$post_content = !empty($args['post_content']) && is_string($args['post_content'])
+    ? $args['post_content']
+    : '';
+$post_img_modal_highlight = !empty($args['post_img_modal_highlight']) && is_string($args['post_img_modal_highlight'])
+    ? esc_url($args['post_img_modal_highlight'])
+    : '';
+$post_data = !empty($args['post_data']) ? (string) $args['post_data'] : '';
+$post_category = !empty($args['post_category']) ? (string) $args['post_category'] : '';
 
-// Para depurar os argumentos recebidos (opcional):
-if (isset($args) && !empty($args)) {
-    echo "";
-}
 ?>
-
-<div id="portifolio-modal-<?php echo $args['index']; ?>" class="portifolio-modal-component container">
+<div id="portifolio-modal-<?php echo $idx; ?>" class="portifolio-modal-component container">
     <div class="portifolio-modal-wrapper">
         <div class="portifolio-modal-header">
-            <div class="portifolio-modal-header-title">
-                <?php if (isset($args['titulo_portifolio'])): ?>
-                    <h3><?php echo esc_html($args['titulo_portifolio']) . $args['index']; ?></h3>
-                <?php endif; ?>
-            </div>
-            <div class="portifolio-modal-header-image">
+            <div class="portifolio-modal-img">
                 <picture>
-                    <source srcset="<?php echo get_template_directory_uri() ?>/assets/img/traffic-paid.svg">
-                    <img src="<?php echo get_template_directory_uri() ?>/assets/img/traffic-paid.svg"
-                        alt="<?php esc_attr_e('Tráfico pago', 'text-domain'); ?>">
+                    <source src="<?php echo $post_img_modal_highlight ?>" type="">
+                    <img src="<?php echo $post_img_modal_highlight ?>" alt="<?php echo $post_title ?>" srcset="">
                 </picture>
             </div>
         </div>
         <div class="portifolio-modal-body">
-            <div class="portifolio-modal-body-text-content">
-                <?php echo $args['conteudo_modal_trafego_pago'] ?>
-            </div>
-            <div class="portifolio-modal-body-card">
-                <div class="portifolio-modal-body-card-title">
-                    <h3>
-                        <?php echo $args['titulo_card_modal_trafego_pago'] ?>
-                    </h3>
-                </div>
-                <div class="portifolio-modal-body-card-content">
-                    <?php echo $args['texto_card_modal_trafego_pago'] ?>
-                </div>
-            </div>
-            <div class="portifolio-modal-body-footer">
-                <div class="portifolio-modal-body-footer-image">
-                    <picture>
-                        <source srcset="<?php echo $args['imagem__modal_trafego_pago'] ?>">
-                        <img src="<?php echo $args['imagem__modal_trafego_pago'] ?>"
-                            alt="<?php esc_attr_e('Tráfico pago', 'text-domain'); ?>">
-                    </picture>
-                </div>
-                <div class="portifolio-modal-body-footer-actions">
-                    <div class="portifolio-modal-body-footer-actions-text">
-                        <?php echo $args['texto_destaque_modal_trafego_pago'] ?>
+            <div class="portifolio-modal-content">
+                <div class="portifolio-modal-title-category">
+                    <div class="portifolio-modal-title">
+                        <h2><?php echo $post_title ?></h2>
                     </div>
-                    <div class="portifolio-modal-body-footer-actions-btn">
-                        <button id="modal-scroll-btn">
-                            <span><?php pll_e('Fazer um Orçamento'); ?> →</span>
-                        </button>
+                    <div class="portifolio-modal-category">
+                        <h3><?php echo $post_category ?></h3>
                     </div>
+                </div>
+                <div class="portifolio-modal-content-text">
+                    <h3><?php pll_e("Sobre:"); ?></h3>
+                    <?php echo $post_content ?>
+                </div>
+            </div>
+            <div class="portifolio-modal-date-actions">
+                <div class="portifolio-modal-date">
+                    <h4><?php echo $post_data ?></h4>
+                </div>
+                <div class="portifolio-modal-actions">
+                    <?php if ($idx > 0): // só exibe voltar se não for o primeiro ?>
+                        <div class="portifolio-modal-btn-previous-wrapper">
+                            <button class="portifolio-modal-btn-previous" data-prev="<?php echo $idx - 1; ?>">
+                                Voltar
+                            </button>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($idx < $max_idx): // só exibe próximo se não for o último ?>
+                        <div class="portifolio-modal-btn-next-wrapper">
+                            <button class="portifolio-modal-btn-next" data-next="<?php echo $idx + 1; ?>">
+                                Próximo
+                            </button>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

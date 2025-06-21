@@ -113,7 +113,6 @@ jQuery(document).ready(function ($) {
   });
 
   jQuery(function ($) {
-    // abrir modal por delegação
     $(document).on("click", ".portifolio-btn-modal button", function (e) {
       e.preventDefault();
       const idx = $(this).closest(".portifolio-btn-modal").data("index");
@@ -126,20 +125,14 @@ jQuery(document).ready(function ($) {
 
     // fechar modal clicando fora
     $(document).on("click", function (e) {
-      console.log("Click event triggered:", e.target);
       const $open = $(".portifolio-modal-component.open");
-      console.log($open);
       if (!$open.length) return;
-      console.log("ta aqui");
 
       const wrapper = $open.find(".portifolio-modal-wrapper")[0];
       const clickedInside = wrapper.contains(e.target);
       const clickedBtn = Boolean(
         $(e.target).closest(".portifolio-btn-modal button").length
       );
-
-      console.log("Clicked inside:", clickedInside);
-      console.log("Clicked button:", clickedBtn);
 
       if (!clickedInside && !clickedBtn) {
         $open.removeClass("open").addClass("close");
@@ -148,5 +141,41 @@ jQuery(document).ready(function ($) {
         }, 500);
       }
     });
+
+    function switchModal(targetIdx) {
+      const $openModal = $('.portifolio-modal-component.open');
+
+      if ($openModal.length) {
+        // Aplica animação de fechamento mais rápida
+        $openModal.addClass('close-fast').removeClass('open').addClass('close');
+
+        setTimeout(() => {
+          $openModal.hide().removeClass('close close-fast');
+
+          const $modalToOpen = $(`#portifolio-modal-${targetIdx}`);
+          if ($modalToOpen.length) {
+            $modalToOpen.removeClass('close').addClass('open').show();
+          }
+        }, 200); // tempo correspondente ao .close-fast
+      } else {
+        // Nenhum modal estava aberto
+        const $modalToOpen = $(`#portifolio-modal-${targetIdx}`);
+        if ($modalToOpen.length) {
+          $modalToOpen.removeClass('close').addClass('open').show();
+        }
+      }
+    }
+
+
+    $(document).on('click', '.portifolio-modal-btn-previous', function(e){
+      e.preventDefault();
+      switchModal($(this).data('prev'));
+    });
+
+    $(document).on('click', '.portifolio-modal-btn-next', function(e){
+      e.preventDefault();
+      switchModal($(this).data('next'));
+    });
+
   });
 });

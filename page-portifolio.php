@@ -165,7 +165,6 @@ $current_page_url = get_permalink();
                             <img src="<?php echo esc_url($post_img_highlight); ?>" alt="<?php echo esc_attr($post_title); ?>">
                         </picture>
                     </div>
-                    <?PHP echo $post_title ?>
                     <div class="portifolio-btn-modal" data-index="<?php echo esc_attr($index); ?>">
                         <button>
                             <img class="light" src="<?php echo get_template_directory_uri(); ?>/assets/img/portifolio-arrow.svg"
@@ -191,12 +190,12 @@ $current_page_url = get_permalink();
 <div id="portfolio-modals-container">
     <?php
     if (!empty($final_posts_to_display)) {
+        $total = count($final_posts_to_display);
         $index = 0;
         foreach ($final_posts_to_display as $post_item) {
             $post_item = get_post($post_item->ID);
             $post_title = $post_item->post_title;
             $post_content = $post_item->post_content;
-            $post_img_highlight = get_field('imagem_destaque', $post_item->ID);
             $post_img_modal_highlight = get_field('imagem_destaque_modal', $post_item->ID);
             $post_data = get_field('data_execucao', $post_item->ID);
             $post_category = get_the_terms($post_item->ID, 'category');
@@ -207,7 +206,12 @@ $current_page_url = get_permalink();
             $modal_trafego_pago_item = $modal_trafego_pago[0];
             $args_modal = array(
                 'index' => $index,
-                'titulo_portifolio' => $post_title,
+                'post_title' => $post_title,
+                'post_content' => $post_content,
+                'post_img_modal_highlight' => $post_img_modal_highlight,
+                'post_data' => $post_data,
+                'post_category' => $post_category[0]->name,
+                'max_index' => $total - 1,
             );
 
             get_template_part('components/portifolio-modal', null, $args_modal);

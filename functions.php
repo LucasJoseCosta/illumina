@@ -798,6 +798,7 @@ function meu_tema_ajax_filter_portfolio_posts_handler()
 	}
 
 	$final_posts_to_display = array_merge($prioritized_posts_output, $other_posts_output);
+	$total = count($final_posts_to_display);
 
 	// Gerar o HTML para os posts e enviá-lo de volta
 	if (!empty($final_posts_to_display)) {
@@ -819,7 +820,6 @@ function meu_tema_ajax_filter_portfolio_posts_handler()
 						<img src="<?php echo esc_url($post_img_highlight); ?>" alt="<?php echo esc_attr($post_title); ?>">
 					</picture>
 				</div>
-							<?PHP echo $post_title ?>
 				<div class="portifolio-btn-modal" data-index="<?php echo esc_attr($index); ?>">
 					<button>
 						<img class="light" src="<?php echo get_template_directory_uri(); ?>/assets/img/portifolio-arrow.svg" alt=""
@@ -841,10 +841,20 @@ function meu_tema_ajax_filter_portfolio_posts_handler()
 	ob_start();
 	$index = 0;
 	foreach ($final_posts_to_display as $post_item) {
+		$post_item = get_post($post_item->ID);
+		$post_title = $post_item->post_title;
+		$post_content = $post_item->post_content;
+		$post_img_modal_highlight = get_field('imagem_destaque_modal', $post_item->ID);
+		$post_data = get_field('data_execucao', $post_item->ID);
+		$post_category = get_the_terms($post_item->ID, 'category');
 		get_template_part('components/portifolio-modal', null, [
 			'index' => $index,
-			'titulo_portifolio' => get_the_title($post_item->ID),
-			// outros args…
+			'post_title' => $post_title,
+			'post_content' => $post_content,
+			'post_img_modal_highlight' => $post_img_modal_highlight,
+			'post_data' => $post_data,
+			'post_category' => $post_category[0]->name,
+			'max_index' => $total - 1,
 		]);
 		$index++;
 	}
