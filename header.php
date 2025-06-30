@@ -15,6 +15,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
 
+    <link rel="stylesheet" href="https://use.typekit.net/wqe2kav.css">
+
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="<?php bloginfo('charset'); ?>" />

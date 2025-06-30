@@ -748,124 +748,140 @@ function meu_tema_enqueue_scripts()
 }
 add_action('wp_enqueue_scripts', 'meu_tema_enqueue_scripts');
 
-
-// 2. A função que lida com a requisição AJAX
-add_action('wp_ajax_filter_portfolio_posts', 'meu_tema_ajax_filter_portfolio_posts_handler');
-add_action('wp_ajax_nopriv_filter_portfolio_posts', 'meu_tema_ajax_filter_portfolio_posts_handler'); // Para usuários não logados
-
+/**
+ * Handler AJAX para filtro de portfólio por categoria e cliente.
+ */
 function meu_tema_ajax_filter_portfolio_posts_handler()
 {
-	// // Verifique o nonce (segurança)
-	// if (!isset($_POST['security']) || !wp_verify_nonce($_POST['security'], 'portfolio_filter_nonce')) {
-	//     wp_send_json_error('Nonce inválido!', 403);
-	//     wp_die();
+	// Segurança (opcional):
+	// if ( ! isset( $_POST['security'] ) || ! wp_verify_nonce( $_POST['security'], 'portfolio_filter_nonce' ) ) {
+	//     wp_send_json_error( 'Nonce inválido!', 403 );
 	// }
 
+	// Captura filtros enviados
 	$selected_term_slug = isset($_POST['term_slug']) ? sanitize_text_field($_POST['term_slug']) : '';
+	$selected_client = isset($_POST['client']) ? sanitize_text_field($_POST['client']) : '';
 	$current_lang = isset($_POST['current_lang']) ? sanitize_text_field($_POST['current_lang']) : '';
 
-	$prioritized_posts_output = [];
-	$other_posts_output = [];
-
-	$args_all_posts = array(
-		'post_type' => 'pag_portifolio', // Seu CPT
+	// 1) Busca todos os posts do CPT
+	$all_query = new WP_Query([
+		'post_type' => 'pag_portifolio',
 		'lang' => $current_lang,
 		'posts_per_page' => -1,
 		'orderby' => 'date',
 		'order' => 'DESC',
-	);
+	]);
 
-	$all_posts_query = new WP_Query($args_all_posts);
+	$prioritized = []; // posts que batem na categoria
+	$others = []; // demais posts
 
-	if ($all_posts_query->have_posts()) {
-		while ($all_posts_query->have_posts()) {
-			$all_posts_query->the_post(); // Importante para popular o objeto $post global se usar template tags como the_title() sem ID
-			$post_object = get_post();
+	if ($all_query->have_posts()) {
+		while ($all_query->have_posts()) {
+			$all_query->the_post();
+			$p = get_post();
 
-			$esta_no_termo = false;
-			if (!empty($selected_term_slug)) {
-				// Certifique-se de que 'category' é a taxonomia correta ou substitua pelo slug da sua taxonomia personalizada
-				$esta_no_termo = has_term($selected_term_slug, 'category', $post_object->ID);
-			}
+			$in_term = $selected_term_slug
+				? has_term($selected_term_slug, 'category', $p->ID)
+				: false;
 
-			if ($esta_no_termo) {
-				$prioritized_posts_output[] = $post_object;
+			if ($in_term) {
+				$prioritized[] = $p;
 			} else {
-				$other_posts_output[] = $post_object;
+				$others[] = $p;
 			}
 		}
-		// wp_reset_postdata(); // Necessário se você usou setup_postdata() ou modificou o loop global extensivamente
+		wp_reset_postdata();
 	}
 
-	$final_posts_to_display = array_merge($prioritized_posts_output, $other_posts_output);
-	$total = count($final_posts_to_display);
+	// 2) Se escolheu “cliente”, filtra pelo título
+	if ($selected_client) {
+		// todos os posts cujo título bate com o cliente
+		$client_posts = array_filter(
+			array_merge($prioritized, $others),
+			function ($p) use ($selected_client) {
+				return get_the_title($p->ID) === $selected_client;
+			}
+		);
 
-	// Gerar o HTML para os posts e enviá-lo de volta
-	if (!empty($final_posts_to_display)) {
-		ob_start(); // Inicia o buffer de saída para capturar o HTML
-		$index = 0;
-		foreach ($final_posts_to_display as $post_item) {
-			$post_item = get_post($post_item->ID);
-			$post_title = $post_item->post_title;
-			$post_content = $post_item->post_content;
-			$post_img_highlight = get_field('imagem_destaque', $post_item->ID);
-			$post_img_modal_highlight = get_field('imagem_destaque_modal', $post_item->ID);
-			$post_data = get_field('data_execucao', $post_item->ID);
-			$post_category = get_the_terms($post_item->ID, 'category');
+		// se havia categoria mas nenhum post dessa categoria bateu com o cliente:
+		if ($selected_term_slug && empty($prioritized) && !empty($client_posts)) {
+			// remove filtro de categoria, mostra só o(s) post(s) do cliente
+			$prioritized = $client_posts;
+			$others = [];
+		} else {
+			// senão, aplica interseção cliente+categoria
+			$prioritized = array_filter($prioritized, function ($p) use ($selected_client) {
+				return get_the_title($p->ID) === $selected_client;
+			});
+			$others = array_filter($others, function ($p) use ($selected_client) {
+				return get_the_title($p->ID) === $selected_client;
+			});
+		}
+	}
+
+	// 3) Une os dois arrays e conta total
+	$all_posts = array_merge($prioritized, $others);
+	$total = count($all_posts);
+
+	// --- Buffer ITEMS ---
+	ob_start();
+	if ($total > 0) {
+		foreach ($all_posts as $idx => $p) {
+			$img = get_field('imagem_destaque', $p->ID);
 			?>
-			<div class="portfolio-item" arial-index="<?php echo esc_attr($index); ?>">
+			<div class="portfolio-item" data-index="<?php echo esc_attr($idx); ?>">
 				<div class="portifolio-img-highlight">
 					<picture>
-						<source src="<?php echo $post_img_highlight ?>">
-						<img src="<?php echo esc_url($post_img_highlight); ?>" alt="<?php echo esc_attr($post_title); ?>">
+						<source src="<?php echo esc_url($img); ?>">
+						<img src="<?php echo esc_url($img); ?>" alt="<?php echo esc_attr($p->post_title); ?>">
 					</picture>
 				</div>
-				<div class="portifolio-btn-modal" data-index="<?php echo esc_attr($index); ?>">
+				<div class="portifolio-btn-modal" data-index="<?php echo esc_attr($idx); ?>">
 					<button>
-						<img class="light" src="<?php echo get_template_directory_uri(); ?>/assets/img/portifolio-arrow.svg" alt=""
-							srcset="">
+						<img class="light" src="<?php echo get_template_directory_uri(); ?>/assets/img/portifolio-arrow.svg" alt="">
 						<img class="dark" src="<?php echo get_template_directory_uri(); ?>/assets/img/portifolio-arrow-white.svg"
-							alt="" srcset="">
+							alt="">
 					</button>
 				</div>
 			</div>
 			<?php
-			$index++;
 		}
-		$items_html = ob_get_clean(); // Envia o HTML capturado
 	} else {
-		echo '<p>' . esc_html__('Nenhum item de portfólio encontrado para este termo.', 'text-domain') . '</p>';
+		echo '<p>' . esc_html__('Nenhum item de portfólio encontrado.', 'text-domain') . '</p>';
 	}
+	$items_html = ob_get_clean();
 
-	// 2) Buffer dos modais
+	// --- Buffer MODAIS ---
 	ob_start();
-	$index = 0;
-	foreach ($final_posts_to_display as $post_item) {
-		$post_item = get_post($post_item->ID);
-		$post_title = $post_item->post_title;
-		$post_content = $post_item->post_content;
-		$post_img_modal_highlight = get_field('imagem_destaque_modal', $post_item->ID);
-		$post_data = get_field('data_execucao', $post_item->ID);
-		$post_category = get_the_terms($post_item->ID, 'category');
-		get_template_part('components/portifolio-modal', null, [
-			'index' => $index,
-			'post_title' => $post_title,
-			'post_content' => $post_content,
-			'post_img_modal_highlight' => $post_img_modal_highlight,
-			'post_data' => $post_data,
-			'post_category' => $post_category[0]->name,
-			'max_index' => $total - 1,
-		]);
-		$index++;
+	if ($total > 0) {
+		foreach ($all_posts as $idx => $p) {
+			$args_modal = [
+				'index' => $idx,
+				'titulo_portifolio' => get_the_title($p->ID),
+				'post_content' => get_post_field('post_content', $p->ID),
+				'post_img_modal_highlight' => get_field('imagem_destaque_modal', $p->ID),
+				'post_data' => get_field('data_execucao', $p->ID),
+				'post_category' => wp_list_pluck(get_the_terms($p->ID, 'category') ?: [], 'name')[0] ?? '',
+				'max_index' => $total - 1,
+			];
+			get_template_part('components/portifolio-modal', null, $args_modal);
+		}
 	}
 	$modals_html = ob_get_clean();
 
+	// 4) Retorna JSON com items, modals e cliente selecionado
 	wp_send_json_success([
 		'items' => $items_html,
 		'modals' => $modals_html,
+		'selected_client' => $selected_client,
 	]);
+
 	wp_die();
 }
+add_action('wp_ajax_filter_portfolio_posts', 'meu_tema_ajax_filter_portfolio_posts_handler');
+add_action('wp_ajax_nopriv_filter_portfolio_posts', 'meu_tema_ajax_filter_portfolio_posts_handler');
+
+
 
 
 // add_action('init', function () {

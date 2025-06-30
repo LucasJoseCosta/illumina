@@ -139,7 +139,7 @@ $redes_sociais = get_field('redes_socias', $initial_footer->ID);
 
     </div>
     <div class="info-company">
-      <h4 class="text-company">@ <?php pll_e('2025 Illumina Design Studio. Todos os direitos reservados.'); ?></h4>
+      <h4 class="text-company">© <?php pll_e('2025 Illumina Design Studio. Todos os direitos reservados.'); ?></h4>
     </div>
   </div>
 </footer>

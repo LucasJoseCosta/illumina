@@ -1,181 +1,187 @@
 jQuery(document).ready(function ($) {
-  var portfolioContainer = $(".portfolio-items-container"); // Certifique-se que este seletor corresponde ao seu contêiner de posts
-  var initialSelectedSlug = $("a.btn-portifolio-terms.active-term")
-    .first()
-    .data("term-slug");
-  if (typeof initialSelectedSlug === "undefined") {
-    initialSelectedSlug = ""; // Default to "all" if no term is pre-selected
-  }
+  var portfolioContainer = $(".portfolio-items-container");
+  var dropdownFilter = $(
+    ".portifolio-header-client-filter .portifolio-header-client-filter-wrapper"
+  );
+  var loadingHtml =
+    '<div class="loading-portfolio-items" style="text-align:center; padding:20px;">Carregando portfólio...</div>';
+  var initialSelectedSlug =
+    $(".btn-portifolio-terms.active-term").first().data("term-slug") || "";
 
-  // Função para carregar posts via AJAX
-  function loadPortfolioPosts(termSlug, updateHistory) {
-    if (typeof updateHistory === "undefined") {
-      updateHistory = true; // Atualizar histórico por padrão
-    }
+  // FUNÇÃO PRINCIPAL DE AJAX agora recebe também clientFilter
+  function loadPortfolioPosts(termSlug, clientFilter, updateHistory) {
+    if (typeof updateHistory === "undefined") updateHistory = true;
 
-    // Adiciona um indicador de carregamento (opcional, mas bom para UX)
-    portfolioContainer.html(
-      '<div class="loading-portfolio-items" style="text-align:center; padding:20px;">Carregando portfólio...</div>'
-    );
+    portfolioContainer.html(loadingHtml);
 
-    // Opcional: Atualizar URL no navegador sem recarregar a página
     if (updateHistory) {
-      var currentPath = window.location.pathname;
-      var newUrl = currentPath;
-      if (termSlug && termSlug !== "") {
-        newUrl = currentPath + "?cat_slug=" + termSlug;
-      }
-      // O terceiro parâmetro (title) é ignorado pela maioria dos navegadores
-      history.pushState({ term_slug: termSlug }, "", newUrl);
+      var params = new URLSearchParams();
+      if (termSlug) params.set("cat_slug", termSlug);
+      if (clientFilter) params.set("client", clientFilter);
+      var newUrl = window.location.pathname + "?" + params.toString();
+      history.pushState(
+        { term_slug: termSlug, client: clientFilter },
+        "",
+        newUrl
+      );
     }
 
     $.ajax({
-      url: my_ajax_object.ajax_url, // Definido via wp_localize_script
+      url: my_ajax_object.ajax_url,
       type: "POST",
       dataType: "json",
       data: {
-        action: "filter_portfolio_posts", // Nome da nossa ação AJAX no PHP
+        action: "filter_portfolio_posts",
         term_slug: termSlug,
-        current_lang: my_ajax_object.current_lang, // Passa o idioma atual
-        // security: my_ajax_object.nonce // Se você implementar nonces
+        client: clientFilter,
+        current_lang: my_ajax_object.current_lang,
       },
       success: function (response) {
-        if (response) {
-          $(".portfolio-items-container").html(response.data.items);
+        if (response.success) {
+          portfolioContainer.html(response.data.items);
           $("#portfolio-modals-container").html(response.data.modals);
+          syncClientDropdown(response.data.selected_client);
         } else {
-          $(".portfolio-items-container").html(
+          portfolioContainer.html(
             "<p>Nenhum item de portfólio encontrado para este termo.</p>"
           );
           $("#portfolio-modals-container").empty();
         }
       },
-      error: function (errorThrown) {
-        console.error("Erro ao buscar itens do portfólio:", errorThrown);
+      error: function () {
         portfolioContainer.html(
           "<p>Ocorreu um erro ao carregar os itens do portfólio.</p>"
         );
       },
-      complete: function () {
-        // Remover indicador de carregamento aqui, se necessário,
-        // mas a substituição do HTML já o remove.
-      },
     });
   }
 
-  // Evento de clique nos botões de termo
-  // Use delegação de evento se os botões estiverem dentro do Owl Carousel que se reinicializa
+  // SINCRONIZA o dropdown com o valor atual (chamada no AJAX e no popstate)
+  function syncClientDropdown(clientValue) {
+    var $items = dropdownFilter.find("li");
+    var $match = $items.filter('[data-client="' + clientValue + '"]');
+    if (!$match.length) $match = $items.filter('[data-client=""]');
+    $match.addClass("active").siblings().removeClass("active");
+    dropdownFilter.find(".client-filter-current").text($match.text());
+  }
+
+  // MODO DELEGAÇÃO: clique em botão de categoria
   $(document).on("click", ".btn-portifolio-terms", function (e) {
     e.preventDefault();
-
-    var $thisButton = $(this);
-    var termSlug = $thisButton.data("term-slug");
-
-    // Atualizar estado ativo dos botões
+    var termSlug = $(this).data("term-slug") || "";
     $(".btn-portifolio-terms").removeClass("active-term");
-    $thisButton.addClass("active-term");
-
-    // Sincronizar botões desktop e mobile se tiverem o mesmo data-term-slug
-    $('.btn-portifolio-terms[data-term-slug="' + termSlug + '"]')
-      .not($thisButton)
-      .addClass("active-term");
-
-    loadPortfolioPosts(termSlug, true); // true para atualizar o histórico
+    $('.btn-portifolio-terms[data-term-slug="' + termSlug + '"]').addClass(
+      "active-term"
+    );
+    // pega cliente ativo
+    var clientValue = dropdownFilter.find("li.active").data("client") || "";
+    loadPortfolioPosts(termSlug, clientValue, true);
   });
 
-  // Lidar com botões de voltar/avançar do navegador
+  // POPSTATE: navegador volta/avança
   $(window).on("popstate", function (event) {
-    var state = event.originalEvent.state;
-    var termSlugToLoad = ""; // Padrão para "todos"
-
-    if (state && typeof state.term_slug !== "undefined") {
-      termSlugToLoad = state.term_slug;
-    } else {
-      // Se não houver estado, pode ser o estado inicial.
-      // Tenta ler da URL caso o usuário tenha chegado diretamente com um ?cat_slug=
-      var urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has("cat_slug")) {
-        termSlugToLoad = urlParams.get("cat_slug");
-      }
-    }
-
-    // Atualizar classe ativa dos botões
+    var state = event.originalEvent.state || {};
+    var termSlug =
+      state.term_slug ||
+      new URLSearchParams(window.location.search).get("cat_slug") ||
+      "";
+    var clientValue =
+      state.client ||
+      new URLSearchParams(window.location.search).get("client") ||
+      "";
+    // atualiza UI
     $(".btn-portifolio-terms").removeClass("active-term");
-    if (termSlugToLoad === "") {
-      $('.btn-portifolio-terms[data-term-slug=""]').addClass("active-term"); // Botão "Todos"
+    $('.btn-portifolio-terms[data-term-slug="' + termSlug + '"]').addClass(
+      "active-term"
+    );
+    syncClientDropdown(clientValue);
+    loadPortfolioPosts(termSlug, clientValue, false);
+  });
+
+  // DROPDOWN CUSTOM: toggle open/close
+  $(document).on("click", ".client-filter-toggle", function (e) {
+    e.stopPropagation();
+    dropdownFilter.toggleClass("open");
+  });
+  $(document).on("click", function () {
+    dropdownFilter.removeClass("open");
+  });
+
+  // Seleção de cliente no dropdown
+  $(document).on("click", ".client-filter-list li", function (e) {
+    e.stopPropagation();
+    var clientValue = $(this).data("client") || "";
+    syncClientDropdown(clientValue);
+
+    // mantém a categoria selecionada
+    var termSlug =
+      $(".btn-portifolio-terms.active-term").data("term-slug") || "";
+    loadPortfolioPosts(termSlug, clientValue, true);
+    dropdownFilter.removeClass("open");
+  });
+
+  // —— Funções de modal (delegação) ——
+  // abrir
+  $(document).on("click", ".portifolio-btn-modal button", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var idx = $(this).closest(".portifolio-btn-modal").data("index");
+    var $modal = $("#portifolio-modal-" + idx);
+    if (!$modal.length) return;
+    $modal.removeClass("close").addClass("open").show();
+  });
+  // fechar clicando fora
+  $(document).on("click", function (e) {
+    var $open = $(".portifolio-modal-component.open");
+    if (!$open.length) return;
+    var wrapper = $open.find(".portifolio-modal-wrapper")[0];
+    var clickedIn = wrapper.contains(e.target);
+    var clickedBtn = Boolean(
+      $(e.target).closest(".portifolio-btn-modal button").length
+    );
+    if (!clickedIn && !clickedBtn) {
+      $open.removeClass("open").addClass("close");
+      setTimeout(function () {
+        $open.hide().removeClass("close");
+      }, 500);
+    }
+  });
+  // navegar anterior/próximo
+  function switchModal(targetIdx) {
+    var $openModal = $(".portifolio-modal-component.open");
+    if ($openModal.length) {
+      // fechamento rápido
+      $openModal.addClass("close-fast").removeClass("open").addClass("close");
+      setTimeout(function () {
+        $openModal.hide().removeClass("close close-fast");
+        var $toOpen = $("#portifolio-modal-" + targetIdx);
+        $toOpen.removeClass("close").addClass("open").show();
+      }, 200);
     } else {
-      $(
-        '.btn-portifolio-terms[data-term-slug="' + termSlugToLoad + '"]'
-      ).addClass("active-term");
+      $("#portifolio-modal-" + targetIdx)
+        .removeClass("close")
+        .addClass("open")
+        .show();
     }
-
-    loadPortfolioPosts(termSlugToLoad, false); // false para não adicionar ao histórico novamente
+  }
+  $(document).on("click", ".portifolio-modal-btn-previous", function (e) {
+    e.preventDefault();
+    switchModal($(this).data("prev"));
+  });
+  $(document).on("click", ".portifolio-modal-btn-next", function (e) {
+    e.preventDefault();
+    switchModal($(this).data("next"));
   });
 
-  jQuery(function ($) {
-    $(document).on("click", ".portifolio-btn-modal button", function (e) {
-      e.preventDefault();
-      const idx = $(this).closest(".portifolio-btn-modal").data("index");
-      const modal = document.getElementById(`portifolio-modal-${idx}`);
-      if (!modal) return;
-      modal.classList.remove("close");
-      modal.classList.add("open");
-      modal.style.display = "block";
-    });
-
-    // fechar modal clicando fora
-    $(document).on("click", function (e) {
-      const $open = $(".portifolio-modal-component.open");
-      if (!$open.length) return;
-
-      const wrapper = $open.find(".portifolio-modal-wrapper")[0];
-      const clickedInside = wrapper.contains(e.target);
-      const clickedBtn = Boolean(
-        $(e.target).closest(".portifolio-btn-modal button").length
-      );
-
-      if (!clickedInside && !clickedBtn) {
-        $open.removeClass("open").addClass("close");
-        setTimeout(() => {
-          $open.hide().removeClass("close");
-        }, 500);
-      }
-    });
-
-    function switchModal(targetIdx) {
-      const $openModal = $('.portifolio-modal-component.open');
-
-      if ($openModal.length) {
-        // Aplica animação de fechamento mais rápida
-        $openModal.addClass('close-fast').removeClass('open').addClass('close');
-
-        setTimeout(() => {
-          $openModal.hide().removeClass('close close-fast');
-
-          const $modalToOpen = $(`#portifolio-modal-${targetIdx}`);
-          if ($modalToOpen.length) {
-            $modalToOpen.removeClass('close').addClass('open').show();
-          }
-        }, 200); // tempo correspondente ao .close-fast
-      } else {
-        // Nenhum modal estava aberto
-        const $modalToOpen = $(`#portifolio-modal-${targetIdx}`);
-        if ($modalToOpen.length) {
-          $modalToOpen.removeClass('close').addClass('open').show();
-        }
-      }
-    }
-
-
-    $(document).on('click', '.portifolio-modal-btn-previous', function(e){
-      e.preventDefault();
-      switchModal($(this).data('prev'));
-    });
-
-    $(document).on('click', '.portifolio-modal-btn-next', function(e){
-      e.preventDefault();
-      switchModal($(this).data('next'));
-    });
-
-  });
+  // — Carregamento inicial se vier com query params —
+  (function initFromURL() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var termSlug = urlParams.get("cat_slug") || initialSelectedSlug;
+    var clientVal = urlParams.get("client") || "";
+    // marca categoria ativa
+    $('.btn-portifolio-terms[data-term-slug="' + termSlug + '"]').addClass(
+      "active-term"
+    );
+    loadPortfolioPosts(termSlug, clientVal, false);
+  })();
 });

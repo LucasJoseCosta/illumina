@@ -44,6 +44,35 @@ $current_page_url = get_permalink();
                     <?php esc_html_e('Portfolio', 'text-domain'); ?>
                 <?php endif; ?>
             </h2>
+
+            <div class="portifolio-header-client-filter">
+                <div class="portifolio-header-client-filter-wrapper">
+                    <?php $args_all_posts = array(
+                        'post_type' => 'pag_portifolio',
+                        'lang' => $current_lang,
+                        'posts_per_page' => -1,
+                        'orderby' => 'date',
+                        'order' => 'DESC',
+                    );
+
+                    $all_posts_query = get_posts($args_all_posts);
+                    $all_titles = wp_list_pluck($all_posts_query, 'post_title');
+                    $unique_titles = array_unique($all_titles);
+                    sort($unique_titles); ?>
+
+                    <button type="button" class="client-filter-toggle">
+                        <span class="client-filter-current">Filtrar por Clientes</span>
+                    </button>
+                    <ul class="client-filter-list">
+                        <li data-client="" class="active"> <span>Filtrar por Clientes</span> </li>
+                        <?php foreach ($unique_titles as $title): ?>
+                            <li data-client="<?php echo esc_attr($title); ?>">
+                               <span> <?php echo esc_html($title); ?></span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <div class="portifolio-terms">
