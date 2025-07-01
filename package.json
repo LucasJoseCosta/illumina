@@ -69,6 +69,7 @@
     "lint-fix:scss": "stylelint **/*.scss --fix"
   },
   "dependencies": {
+    "gulp-cli": "^3.1.0",
     "gulp-install": "^1.1.0",
     "gulp-sass": "^5.1.0",
     "gulpfile": "^1.0.2",

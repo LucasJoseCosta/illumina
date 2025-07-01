@@ -9,6 +9,9 @@ function scssCompile() {
     .pipe(sass({ outputStyle: "compressed" }).on("error", sass.logError))
     .pipe(gulp.dest("assets/css"));
 }
+
 function watch() {
   gulp.watch("styles/scss/**/*.scss", scssCompile);
 }
+
+gulp.task("default", gulp.series("watch"));
