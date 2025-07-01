@@ -60,6 +60,45 @@
       }
 
       .owl-home-slider-banner {
+        .banner-item {
+          .banner-item-image,
+          img {
+            overflow: hidden;
+
+            // recorte “orgânico” aproximado via polygon
+            clip-path: polygon(
+              0% 10%,
+              /* esquerda, 10% abaixo do topo */ 5% 3%,
+              /* curva subindo pra 3% */ 12% 0%,
+              /* topo entra para 12% à direita */ 85% 0%,
+              /* topo reto até 85% */ 94% 6%,
+              /* curva do topo direito */ 100% 15%,
+              /* desce para 15% */ 100% 85%,
+              /* desce até 85% */ 93% 94%,
+              /* curva de baixo direito */ 85% 100%,
+              /* canto inferior direito */ 15% 100%,
+              /* base reta até 15% */ 7% 95%,
+              /* curva no canto inferior esquerdo */ 0% 88%
+                /* fecha em 88% acima do bottom-left */
+            );
+            /* suporte WebKit */
+            -webkit-clip-path: polygon(
+              0% 10%,
+              5% 3%,
+              12% 0%,
+              85% 0%,
+              94% 6%,
+              100% 15%,
+              100% 85%,
+              93% 94%,
+              85% 100%,
+              15% 100%,
+              7% 95%,
+              0% 88%
+            );
+          }
+        }
+
         .owl-nav {
           position: absolute;
           top: 20px;
