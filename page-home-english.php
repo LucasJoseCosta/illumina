@@ -333,7 +333,7 @@ if (!empty($initials)) {
         <div class="home-budget-wrapper">
             <div class="home-budget-form">
                 <div class="home-budget-form-wrapper">
-                    <?php echo do_shortcode('[contact-form-7 id="48ada5d" title="Contato en"]'); ?>
+                    <?php echo do_shortcode('[contact-form-7 id="fd7222c" title="Contato"]'); ?>
                 </div>
             </div>
 
@@ -387,6 +387,8 @@ if (!empty($initials)) {
             loop: true,
             nav: true,
             dots: false,
+            autoplay: true,
+            autoplayHoverPause: true,
             responsive: {
                 0: {
                     items: 1

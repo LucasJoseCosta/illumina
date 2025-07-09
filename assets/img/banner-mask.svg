@@ -1,12 +1,17 @@
-      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'>
-        <path fill='%23fff'
-          d='M0,80 
-             C0,24 60,0 144,0 
-             L1024,0 
-             C1104,0 1200,48 1200,120 
-             L1200,680 
-             C1200,752 1116,800 1020,800 
-             L180,800 
-             C84,800 0,752 0,704 
-             Z'/>
-      </svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1184" height="779" viewBox="0 0 1184 779" preserveAspectRatio="none">
+  <defs>
+    <mask id="bannerMask" maskUnits="userSpaceOnUse">
+      <!-- Fundo preto (oculto) -->
+      <rect width="100%" height="100%" fill="black" />
+
+      <!-- Caminho visível da máscara (o recorte que aparece) -->
+      <path
+        d="M291 34C291 15.2223 306.222 0 325 0H1141C1164.75 0 1184 19.2518 1184 43V668C1184 691.748 1164.75 711 1141 711H1039C1020.22 711 1005 726.222 1005 745C1005 763.778 989.778 779 971 779H43C19.2518 779 0 759.748 0 736V111C0 87.2518 19.2518 68 43 68H257C275.778 68 291 52.7777 291 34Z"
+        fill="white"
+      />
+    </mask>
+  </defs>
+
+  <!-- Área mascarada -->
+  <rect width="100%" height="100%" fill="black" mask="url(#bannerMask)" />
+</svg>
