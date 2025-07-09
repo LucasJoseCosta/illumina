@@ -387,6 +387,8 @@ if (!empty($initials)) {
             loop: true,
             nav: true,
             dots: false,
+            autoplay: true,
+            autoplayHoverPause: true,
             responsive: {
                 0: {
                     items: 1
