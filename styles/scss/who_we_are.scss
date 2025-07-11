@@ -1,4 +1,4 @@
-body{
+body {
   overflow-x: hidden;
 }
 
@@ -7,15 +7,32 @@ body{
   height: 2px;
   align-self: center;
   margin-top: 64px;
-  margin-left:40px;
+  margin-left: 40px;
   margin-bottom: 5%;
+}
+
+@media (max-width: 768px) {
+  .section-divider {
+    width: 80%;
+    margin-top: 32px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3%;
+  }
+  .quem-somos {
+    margin-top: 80px !important;
+  }
 }
 
 .quem-somos-section {
   text-align: center;
   padding: 50px 0;
+}
 
-
+@media (max-width: 768px) {
+  .quem-somos-section {
+    padding: 40px 0;
+  }
 }
 
 .title_who_we_are {
@@ -30,11 +47,22 @@ body{
   line-height: 0.9;
 }
 
+@media (max-width: 768px) {
+  .title_who_we_are {
+    font-size: 48px;
+    letter-spacing: 1px;
+  }
+}
 
+@media (max-width: 480px) {
+  .title_who_we_are {
+    font-size: 48px;
+  }
+}
 
-.quem-faz-acontece-section{
+.quem-faz-acontece-section {
   width: 100vw;
-  min-height: 600px; /* Increased height to accommodate more text */
+  min-height: 600px;
   border-radius: 56px;
   text-align: center;
   padding: 50px 0;
@@ -44,80 +72,169 @@ body{
   margin-left: calc(-50vw + 50%);
   left: 0;
   right: 0;
-  z-index:1;
+  z-index: 1;
   box-shadow: 0 -10px 40px 0 rgba(0, 0, 0, 0.25);
 }
 
+@media (max-width: 768px) {
+  .quem-faz-acontece-section {
+    min-height: auto;
+    padding: 30px 0;
+    border-radius: 20px;
+    margin-left: 0;
+    left: 0;
+    right: 0;
+  }
+}
 
 .quem-faz-acontece-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
   max-width: 1200px;
-  padding: 0 40px; /* Limit the content width for better readability */
+  padding: 0 40px;
+  margin: 0 auto;
 }
 
-
-.quem-faz-acontece-section .who-make-it-happen-image img {
-  width: 165px; /* Adjust based on your SVG size */
-  height: 148px;
-  border-radius: 20px; /* Rounded corners to match the shape */
-  padding: 20px;
+@media (max-width: 768px) {
+  .quem-faz-acontece-content {
+    display: block;
+    padding: 0 20px;
+  }
 }
 
-.container-below-image{
+.quem-faz-acontece-section .who-make-it-happen-image {
+  img {
+    width: 165px;
+    height: 148px;
+    border-radius: 20px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .quem-faz-acontece-section .who-make-it-happen-image {
+    float: left;
+    margin-right: 16px;
+
+    img {
+      width: 85px;
+      height: 68px;
+      padding: 0;
+      border-radius: 12px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .quem-faz-acontece-section .who-make-it-happen-image img {
+    width: 85px;
+    height: 68px;
+  }
+}
+
+.container-below-image {
   padding-left: 3%;
   padding-right: 3%;
 }
 
-.text-side-image{
+@media (max-width: 768px) {
+  .container-below-image {
+    padding: 0 20px;
+  }
+}
+
+.text-side-image {
   font-family: 'Noka', sans-serif;
   font-size: 20px;
   color: #3F3B35;
-  max-width: 100%; /* Limits text width for readability */
+  max-width: 100%;
   text-align: left;
   white-space: normal;
-
 }
 
-.text-below-image{
+@media (max-width: 768px) {
+  .text-side-image {
+    font-size: 15px;
+    text-align: justify;
+    margin-bottom: 20px;
+  }
+}
+
+.text-below-image {
   font-family: 'Noka', sans-serif;
   font-size: 18px;
   color: #3F3B35;
   max-width: 100%;
   text-align: left;
   white-space: normal;
-  margin: 0;
-  margin: 0 auto;       /* centraliza dentro do container limitado */
-  max-width: 100%;      /* respeita o padding do parent */
+  margin: 0 auto;
 }
 
-.container-who-make-it-happen-carousel{
+@media (max-width: 768px) {
+  .text-below-image {
+    font-size: 15px;
+    text-align: justify;
+  }
+}
 
+.container-who-make-it-happen-carousel {
   width: 100%;
   min-height: 550px;
-
 }
 
-.title-and-carousel{
+@media (max-width: 768px) {
+  .container-who-make-it-happen-carousel {
+    min-height: auto;
+    padding-bottom: 30px;
+  }
+}
+
+.title-and-carousel {
   padding-right: 3%;
   display: flex;
   justify-content: space-between;
   width: 100%;
   min-height: 350px;
-
 }
 
-.img-and-title{
+@media (max-width: 768px) {
+  .title-and-carousel {
+    flex-direction: column;
+    padding-right: 0;
+    min-height: auto;
+    align-items: center;
+  }
+}
+
+.img-and-title {
   padding-left: 3%;
   padding-right: 3%;
-  align-items: start;
+  align-items: flex-start;
   text-align: left;
   width: 50%;
   min-height: 340px;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
+@media (max-width: 768px) {
+  .img-and-title {
+    min-height: auto;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 20px;
+
+    img {
+      width: 39px;
+      height: 35px;
+    }
+  }
+}
 
 .title-who-we-are-data {
   font-family: 'Noka', 'Arial Black', sans-serif;
@@ -129,41 +246,77 @@ body{
   margin: 0;
 }
 
-.image-carousel{
+@media (max-width: 768px) {
+  .title-who-we-are-data {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-who-we-are-data {
+    font-size: 36px;
+  }
+}
+
+.image-carousel {
   width: 80%;
   margin-right: 1%;
 }
 
-.container-below-image-carousel{
-   padding-left: 3%;
-
+@media (max-width: 768px) {
+  .image-carousel {
+    width: 90%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
 }
 
-.text-below-image-carousel{
+.container-below-image-carousel {
+  padding-left: 3%;
+}
+
+@media (max-width: 768px) {
+  .container-below-image-carousel {
+    padding: 0 20px;
+  }
+}
+
+.text-below-image-carousel {
   font-family: 'Noka', sans-serif;
   font-size: 18px;
   color: #3F3B35;
   max-width: 100%;
   text-align: left;
   white-space: normal;
-  margin: 0;
-  margin: 0 auto;       /* centraliza dentro do container limitado */
-  max-width: 100%;      /* respeita o padding do parent */
+  margin: 0 auto;
 }
 
+@media (max-width: 768px) {
+  .text-below-image-carousel {
+    font-size: 15px;
+    text-align: justify;
+  }
+}
 
-
-.container-bright-ideas{
+.container-bright-ideas {
   background: linear-gradient(86.75deg, #3A4554 0%, #97B1C9 100%);
   width: 100%;
   height: 370px;
   margin-top: -50px;
-  margin-bottom: -50px; /* faz "invadir" a section de cima */
+  margin-bottom: -50px;
   z-index: -1;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 768px) {
+  .container-bright-ideas {
+    height: 200px;
+    margin-top: -30px;
+    margin-bottom: -30px;
+  }
 }
 
 .title-bright-ideas {
@@ -174,4 +327,16 @@ body{
   font-size: 95px;
   color: #F8F0E3;
   margin: 0;
+}
+
+@media (max-width: 768px) {
+  .title-bright-ideas {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-bright-ideas {
+    font-size: 36px;
+  }
 }
