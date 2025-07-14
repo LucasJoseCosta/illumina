@@ -14,9 +14,11 @@ header {
     justify-content: center;
     align-items: center;
     z-index: 9997;
+
     @media screen and (max-width: 1024px) {
       height: 100px;
     }
+
     @media screen and (max-width: 768px) {
       height: 53px;
     }
@@ -25,6 +27,7 @@ header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+
       @media screen and (max-width: 1024px) {
         padding: 0 15px;
       }
@@ -34,10 +37,12 @@ header {
           .logo {
             max-width: 384px;
             width: 100%;
+
             @media screen and (max-width: 1024px) {
               margin-top: 4px;
               max-width: 284px;
             }
+
             @media screen and (max-width: 768px) {
               max-width: 184px;
               margin-top: 5px;
@@ -57,6 +62,7 @@ header {
             display: flex;
             align-items: center;
             gap: 32px;
+
             .menu-item {
               .menu-container {
                 .link {
@@ -65,6 +71,7 @@ header {
                   font-weight: 500;
                   line-height: 100%;
                   color: var(--color-primary);
+
                   &::after {
                     content: "";
                     display: block;
@@ -75,6 +82,7 @@ header {
                     transform: scaleX(0);
                     transition: transform 0.3s ease-in-out;
                   }
+
                   &:hover::after {
                     transform: scaleX(1);
                   }
@@ -89,6 +97,11 @@ header {
         display: flex;
         align-items: center;
         gap: 10px;
+
+        .lang-switcher-wrapper {
+          width: 32px;
+          height: 32px;
+        }
 
         // Dropdown de idiomas
         .lang-dropdown {
@@ -145,6 +158,7 @@ header {
           @media screen and (max-width: 1024px) {
             display: none;
           }
+
           a {
             text-decoration: none;
             font-size: 20px;
@@ -170,6 +184,7 @@ header {
           @media screen and (max-width: 1024px) {
             display: none;
           }
+
           button {
             perspective: 600px;
             background: none;
@@ -179,9 +194,11 @@ header {
             border-radius: 50%;
             padding: 0;
             transition: all 0.3s ease-in-out;
+
             img {
               width: 48px;
               height: 48px;
+
               @media screen and (max-width: 768px) {
                 width: 32px;
                 height: 32px;
@@ -315,6 +332,7 @@ header {
             background: none;
             border: none;
             cursor: pointer;
+
             img {
               width: 32px;
               height: 32px;
@@ -337,6 +355,7 @@ header {
 
     .mobile-menu {
       margin-bottom: 40px;
+
       ul {
         list-style: none;
         margin: 0;
@@ -376,6 +395,7 @@ header {
             background-color: var(--color-primary);
             color: var(--color-white);
           }
+
           &.dark {
             background-color: var(--color-primary);
             color: var(--color-white);
