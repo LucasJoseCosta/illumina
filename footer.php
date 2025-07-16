@@ -156,43 +156,39 @@ $redes_sociais = get_field('redes_socias', $initial_footer->ID);
         </div>
       </div>
       <div class="footer-itens">
-      <div class="contatos-footer">
-        <div class="contact-details">
-          <?php if (is_array($contatos) && count($contatos) > 0): ?>
-            <?php foreach ($contatos as $contato): ?>
-              <div class="contact-detail">
-                <a href="<?php echo $contato["link_contato"] ?>">
-                  <span class="contact-detail-text"><?php echo $contato["contato"] ?></span>
-                </a>
-              </div>
-            <?php endforeach; ?>
-          <?php else: ?>
-            <p><?php pll_e('Nenhum contato disponível.'); ?></p>
-          <?php endif; ?>
+        <div class="contatos-footer">
+          <div class="contact-details">
+            <div class="contact-detail">
+              <span class="contact-detail-text">+55 45 99101-6622</span>
+            </div>
+            <div class="contact-detail">
+              <span class="contact-detail-text">illuminadesingstudio<br>@gmail.com</span>
+            </div>
+          </div>
+        </div>
+        <div class="icons-footer">
+          <h3 class="text-footer"><?php pll_e('SEGUE A GENTE'); ?></h3>
+          <ul class="socials-list">
+            <?php if (is_array($redes_sociais) && count($redes_sociais) > 0): ?>
+              <?php foreach ($redes_sociais as $rede): ?>
+                <li>
+                  <a href="<?php echo esc_url($rede['link_social']); ?>" target="_blank" rel="noopener noreferrer">
+                    <?php if (!empty($rede['icone_social'])): ?>
+                      <picture>
+                        <source src="<?php echo esc_url($rede['icone_social']); ?>">
+                        <img src="<?php echo esc_url($rede['icone_social']); ?>">
+                      </picture>
+                    <?php endif; ?>
+                  </a>
+                </li>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <p><?php pll_e('Nenhuma rede social disponível.'); ?></p>
+            <?php endif; ?>
+          </ul>
         </div>
       </div>
-      <div class="icons-footer">
-        <h3 class="text-footer"><?php pll_e('SEGUE A GENTE'); ?></h3>
-        <ul class="socials-list">
-          <?php if (is_array($redes_sociais) && count($redes_sociais) > 0): ?>
-            <?php foreach ($redes_sociais as $rede): ?>
-              <li>
-                <a href="<?php echo esc_url($rede['link_social']); ?>" target="_blank" rel="noopener noreferrer">
-                  <?php if (!empty($rede['icone_social'])): ?>
-                    <picture>
-                      <source src="<?php echo esc_url($rede['icone_social']); ?>">
-                      <img src="<?php echo esc_url($rede['icone_social']); ?>">
-                    </picture>
-                  <?php endif; ?>
-                </a>
-              </li>
-            <?php endforeach; ?>
-          <?php else: ?>
-            <p><?php pll_e('Nenhuma rede social disponível.'); ?></p>
-          <?php endif; ?>
-        </ul>
-      </div>
-    </div>
+
     </div>
     <div class="info-company">
       <h4 class="text-company">© <?php pll_e('2025 Illumina Design Studio. Todos os direitos reservados.'); ?></h4>
