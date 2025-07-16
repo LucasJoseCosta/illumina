@@ -183,11 +183,15 @@ if (!empty($initials)) {
                 <div class="home-traffic-image-wrapper">
                     <div class="home-traffic-image">
                         <picture>
-                            <source srcset="<?php echo get_template_directory_uri() ?>/assets/img/traffic-paid.svg">
-                            <img src="<?php echo get_template_directory_uri() ?>/assets/img/traffic-paid.svg"
-                                alt="<?php esc_attr_e('Tráfico pago', 'text-domain'); ?>">
-                        </picture>
+                            <source
+                                srcset="<?php echo get_template_directory_uri(); ?>/assets/img/traffic-paid-dark.svg"
+                                media="(prefers-color-scheme: dark)">
 
+                            <!-- Imagem padrão (modo claro) -->
+                            <img
+                                src="<?php echo get_template_directory_uri(); ?>/assets/img/traffic-paid.svg"
+                                alt="<?php esc_attr_e('Tráfego pago', 'text-domain'); ?>">
+                        </picture>
                     </div>
                     <div class="home-traffic-text-mobile">
                         <h2 class="home-traffic-title">

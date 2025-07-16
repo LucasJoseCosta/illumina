@@ -98,34 +98,46 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
 
                     <div class="header-actions">
                         <div class="lang-switcher-wrapper">
-                            <?php if (function_exists('pll_the_languages')):
-                                // Pega dados brutos de cada idioma
-                                $langs = pll_the_languages([
-                                    'raw' => 1,
-                                    'hide_if_empty' => 0
-                                ]);
-                                $current = pll_current_language();  // slug do idioma atual, ex: "pt" ou "en"
-                                ?>
-                                <div class="lang-dropdown">
-                                    <button class="lang-dropdown-toggle" aria-label="Mudar idioma">
-                                        <img src="<?php echo esc_url($langs[$current]['flag']); ?>"
-                                            alt="<?php echo esc_attr($langs[$current]['name']); ?>" width="16" height="11">
-                                    </button>
-                                    <ul class="lang-dropdown-menu">
-                                        <?php foreach ($langs as $lang_slug => $lang): ?>
-                                            <?php if ($lang_slug === $current)
-                                                continue; // pula o atual ?>
-                                            <li>
-                                                <a href="<?php echo esc_url($lang['url']); ?>">
-                                                    <img src="<?php echo esc_url($lang['flag']); ?>"
-                                                        alt="<?php echo esc_attr($lang['name']); ?>" width="16" height="11">
-                                                </a>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </div>
-                            <?php endif; ?>
+                        <?php if (function_exists('pll_the_languages')):
+                            $langs = pll_the_languages([
+                                'raw' => 1,
+                                'hide_if_empty' => 0
+                            ]);
+                            $current = pll_current_language();
+
+                            // Mapeia os ícones para cada idioma
+                            $icon_map = [
+                                'pt' => 'icone_idioma_pt_br',
+                                'en' => 'icone_idioma_en',
+                            ];
+                        ?>
+                        <div class="lang-dropdown">
+                            <button class="lang-dropdown-toggle" aria-label="Mudar idioma">
+                                <picture>
+                                    <source srcset="<?php echo get_template_directory_uri() . '/assets/img/' . $icon_map[$current] . '_dark.svg'; ?>" media="(prefers-color-scheme: dark)">
+                                    <img src="<?php echo get_template_directory_uri() . '/assets/img/' . $icon_map[$current] . '.svg'; ?>"
+                                        alt="<?php echo esc_attr($langs[$current]['name']); ?>" width="32" height="32">
+                                </picture>
+                            </button>
+                            <ul class="lang-dropdown-menu">
+                                <?php foreach ($langs as $lang_slug => $lang): ?>
+                                    <?php if ($lang_slug === $current) continue; ?>
+                                    <li>
+                                        <a href="<?php echo esc_url($lang['url']); ?>">
+                                            <picture>
+                                                <source srcset="<?php echo get_template_directory_uri() . '/assets/img/' . $icon_map[$lang_slug] . '_dark.svg'; ?>" media="(prefers-color-scheme: dark)">
+                                                <img src="<?php echo get_template_directory_uri() . '/assets/img/' . $icon_map[$lang_slug] . '.svg'; ?>"
+                                                    alt="<?php echo esc_attr($lang['name']); ?>" width="32" height="32">
+                                            </picture>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
                         </div>
+                        <?php endif; ?>
+                    </div>
+
+
                         <div class="header-button">
                             <a href="#orcamento">
                                 <span><?php pll_e('Entre em contato'); ?></span>
@@ -170,34 +182,44 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
                     </div> -->
                     <div class="mobile-drawer-header-actions">
                         <div class="lang-switcher-wrapper">
-                            <?php if (function_exists('pll_the_languages')):
-                                // Pega dados brutos de cada idioma
-                                $langs = pll_the_languages([
-                                    'raw' => 1,
-                                    'hide_if_empty' => 0
-                                ]);
-                                $current = pll_current_language();  // slug do idioma atual, ex: "pt" ou "en"
-                                ?>
-                                <div class="lang-dropdown">
-                                    <button class="lang-dropdown-toggle" aria-label="Mudar idioma">
-                                        <img src="<?php echo esc_url($langs[$current]['flag']); ?>"
-                                            alt="<?php echo esc_attr($langs[$current]['name']); ?>" width="16" height="11">
-                                    </button>
-                                    <ul class="lang-dropdown-menu">
-                                        <?php foreach ($langs as $lang_slug => $lang): ?>
-                                            <?php if ($lang_slug === $current)
-                                                continue; // pula o atual ?>
-                                            <li>
-                                                <a href="<?php echo esc_url($lang['url']); ?>">
-                                                    <img src="<?php echo esc_url($lang['flag']); ?>"
-                                                        alt="<?php echo esc_attr($lang['name']); ?>" width="16" height="11">
-                                                </a>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </div>
-                            <?php endif; ?>
+                        <?php if (function_exists('pll_the_languages')):
+                            $langs = pll_the_languages([
+                                'raw' => 1,
+                                'hide_if_empty' => 0
+                            ]);
+                            $current = pll_current_language();
+
+                            // Mapeia os ícones para cada idioma
+                            $icon_map = [
+                                'pt' => 'icone_idioma_pt_br',
+                                'en' => 'icone_idioma_en',
+                            ];
+                        ?>
+                        <div class="lang-dropdown">
+                            <button class="lang-dropdown-toggle" aria-label="Mudar idioma">
+                                <picture>
+                                    <source srcset="<?php echo get_template_directory_uri() . '/assets/img/' . $icon_map[$current] . '_dark.svg'; ?>" media="(prefers-color-scheme: dark)">
+                                    <img src="<?php echo get_template_directory_uri() . '/assets/img/' . $icon_map[$current] . '.svg'; ?>"
+                                        alt="<?php echo esc_attr($langs[$current]['name']); ?>" width="32" height="32">
+                                </picture>
+                            </button>
+                            <ul class="lang-dropdown-menu">
+                                <?php foreach ($langs as $lang_slug => $lang): ?>
+                                    <?php if ($lang_slug === $current) continue; ?>
+                                    <li>
+                                        <a href="<?php echo esc_url($lang['url']); ?>">
+                                            <picture>
+                                                <source srcset="<?php echo get_template_directory_uri() . '/assets/img/' . $icon_map[$lang_slug] . '_dark.svg'; ?>" media="(prefers-color-scheme: dark)">
+                                                <img src="<?php echo get_template_directory_uri() . '/assets/img/' . $icon_map[$lang_slug] . '.svg'; ?>"
+                                                    alt="<?php echo esc_attr($lang['name']); ?>" width="32" height="32">
+                                            </picture>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
                         </div>
+                        <?php endif; ?>
+                    </div>
                         <div class="header-button-ld">
                             <button>
                                 <div class="theme-toggle-flip">
