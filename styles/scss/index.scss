@@ -11,7 +11,7 @@
   --color-secundary: #f8f0e3;
   --color-light-brown: #989084;
   --color-white: #fff;
-  --color-primary-p: #000;
+  --color-primary-p: #3F3B35;
   // divider
   --divider: #989084;
   // shadow
@@ -23,9 +23,11 @@
 .dark {
   display: none;
 }
+
 body.light-mode .light {
   display: block;
 }
+
 body.light-mode .dark {
   display: none;
 }
@@ -42,6 +44,7 @@ body.dark-mode {
   --color-secundary: #eae0d5;
   --color-light-brown: #a8a094;
   --color-white: #2b2a28;
+  --color-primary-p: #D6CFC3;
   // divider
   --divider: #504a44;
   // shadow
@@ -53,6 +56,7 @@ body.dark-mode {
 body.dark-mode .dark {
   display: block;
 }
+
 body.dark-mode .light {
   display: none;
 }
@@ -100,6 +104,7 @@ body.dark-mode .home-budget-content-button {
     }
   }
 }
+
 // Animação toggle theme
 .theme-toggle-flip {
   position: relative;
@@ -107,6 +112,7 @@ body.dark-mode .home-budget-content-button {
   height: 48px;
   transition: transform 0.6s;
   transform-style: preserve-3d;
+
   @media screen and (max-width: 1024px) {
     width: 32px;
     height: 32px;
@@ -132,4 +138,15 @@ body.dark-mode .home-budget-content-button {
 body.dark-mode .theme-toggle-flip {
   transform: rotateY(180deg);
 }
+
 // end Animação toggle theme
+
+// Loading portifolio
+body.dark-mode {
+  .loading-portfolio-items {
+    .spinner {
+      border: 4px solid #444;
+      border-top-color: #fff;
+    }
+  }
+}

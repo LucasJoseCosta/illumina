@@ -183,13 +183,11 @@ if (!empty($initials)) {
                 <div class="home-traffic-image-wrapper">
                     <div class="home-traffic-image">
                         <picture>
-                            <source
-                                srcset="<?php echo get_template_directory_uri(); ?>/assets/img/traffic-paid-dark.svg"
-                                media="(prefers-color-scheme: dark)">
-
-                            <!-- Imagem padrão (modo claro) -->
-                            <img
+                            <img class="light"
                                 src="<?php echo get_template_directory_uri(); ?>/assets/img/traffic-paid.svg"
+                                alt="<?php esc_attr_e('Tráfego pago', 'text-domain'); ?>">
+                            <img class="dark"
+                                src="<?php echo get_template_directory_uri(); ?>/assets/img/traffic-paid-dark.svg"
                                 alt="<?php esc_attr_e('Tráfego pago', 'text-domain'); ?>">
                         </picture>
                     </div>

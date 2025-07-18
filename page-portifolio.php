@@ -67,7 +67,7 @@ $current_page_url = get_permalink();
                         <li data-client="" class="active"> <span>Filtrar por Clientes</span> </li>
                         <?php foreach ($unique_titles as $title): ?>
                             <li data-client="<?php echo esc_attr($title); ?>">
-                               <span> <?php echo esc_html($title); ?></span>
+                                <span> <?php echo esc_html($title); ?></span>
                             </li>
                         <?php endforeach; ?>
                     </ul>

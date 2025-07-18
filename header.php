@@ -47,6 +47,7 @@ $initial_menus = $menus[0] ?? null;
 $initial_misc = $misc[0] ?? null;
 
 $logo_header = get_field('logo_header', $initial_misc->ID);
+$logo_header_dark = get_field('logo_header_dark', $initial_misc->ID);
 $menus_header = get_field('menus', $initial_menus->ID);
 $whatsapp_text = get_field('texto_botao', $initial_misc->ID);
 $whatsapp_link = get_field('link_botao', $initial_misc->ID);
@@ -63,7 +64,8 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
                 <div class="header-container container">
                     <div class="header-logo">
                         <a href="<?php echo get_home_url(); ?>" class="link-logo">
-                            <img src="<?php echo $logo_header; ?>" alt="logo" class="logo">
+                            <img src="<?php echo $logo_header; ?>" alt="logo" class="light logo">
+                            <img src="<?php echo $logo_header_dark; ?>" alt="logo" class="dark logo">
                         </a>
                     </div>
 
@@ -98,44 +100,46 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
 
                     <div class="header-actions">
                         <div class="lang-switcher-wrapper">
-                        <?php if (function_exists('pll_the_languages')):
-                            $langs = pll_the_languages([
-                                'raw' => 1,
-                                'hide_if_empty' => 0
-                            ]);
-                            $current = pll_current_language();
+                            <?php if (function_exists('pll_the_languages')):
+                                $langs = pll_the_languages([
+                                    'raw' => 1,
+                                    'hide_if_empty' => 0
+                                ]);
+                                $current = pll_current_language();
 
-                            // Mapeia os ícones para cada idioma
-                            $icon_map = [
-                                'pt' => 'icone_idioma_pt_br',
-                                'en' => 'icone_idioma_en',
-                            ];
-                        ?>
-                        <div class="lang-dropdown">
-                            <button class="lang-dropdown-toggle" aria-label="Mudar idioma">
-                                <picture>
-                                    <source srcset="<?php echo get_template_directory_uri() . '/assets/img/' . $icon_map[$current] . '_dark.svg'; ?>" media="(prefers-color-scheme: dark)">
-                                    <img src="<?php echo get_template_directory_uri() . '/assets/img/' . $icon_map[$current] . '.svg'; ?>"
-                                        alt="<?php echo esc_attr($langs[$current]['name']); ?>" width="32" height="32">
-                                </picture>
-                            </button>
-                            <ul class="lang-dropdown-menu">
-                                <?php foreach ($langs as $lang_slug => $lang): ?>
-                                    <?php if ($lang_slug === $current) continue; ?>
-                                    <li>
-                                        <a href="<?php echo esc_url($lang['url']); ?>">
-                                            <picture>
-                                                <source srcset="<?php echo get_template_directory_uri() . '/assets/img/' . $icon_map[$lang_slug] . '_dark.svg'; ?>" media="(prefers-color-scheme: dark)">
-                                                <img src="<?php echo get_template_directory_uri() . '/assets/img/' . $icon_map[$lang_slug] . '.svg'; ?>"
-                                                    alt="<?php echo esc_attr($lang['name']); ?>" width="32" height="32">
-                                            </picture>
-                                        </a>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
+                                // Mapeia os ícones para cada idioma
+                                $icon_map = [
+                                    'pt' => 'icone_idioma_pt_br',
+                                    'en' => 'icone_idioma_en',
+                                ];
+                                ?>
+                                <div class="lang-dropdown">
+                                    <button class="lang-dropdown-toggle" aria-label="Mudar idioma">
+                                        <img class="lang-icon"
+                                            src="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$current]; ?>.svg"
+                                            data-src-light="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$current]; ?>.svg"
+                                            data-src-dark="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$current]; ?>_dark.svg"
+                                            alt="<?php echo esc_attr($langs[$current]['name']); ?>" width="32" height="32">
+                                    </button>
+                                    <ul class="lang-dropdown-menu">
+                                        <?php foreach ($langs as $lang_slug => $lang): ?>
+                                            <?php if ($lang_slug === $current)
+                                                continue; ?>
+                                            <li>
+                                                <a href="<?php echo esc_url($lang['url']); ?>">
+                                                    <img class="lang-icon"
+                                                        src="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$lang_slug]; ?>.svg"
+                                                        data-src-light="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$lang_slug]; ?>.svg"
+                                                        data-src-dark="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$lang_slug]; ?>_dark.svg"
+                                                        alt="<?php echo esc_attr($lang['name']); ?>" width="32" height="32">
+                                                </a>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                        <?php endif; ?>
-                    </div>
+
 
 
                         <div class="header-button">
@@ -182,44 +186,46 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
                     </div> -->
                     <div class="mobile-drawer-header-actions">
                         <div class="lang-switcher-wrapper">
-                        <?php if (function_exists('pll_the_languages')):
-                            $langs = pll_the_languages([
-                                'raw' => 1,
-                                'hide_if_empty' => 0
-                            ]);
-                            $current = pll_current_language();
+                            <?php if (function_exists('pll_the_languages')):
+                                $langs = pll_the_languages([
+                                    'raw' => 1,
+                                    'hide_if_empty' => 0
+                                ]);
+                                $current = pll_current_language();
 
-                            // Mapeia os ícones para cada idioma
-                            $icon_map = [
-                                'pt' => 'icone_idioma_pt_br',
-                                'en' => 'icone_idioma_en',
-                            ];
-                        ?>
-                        <div class="lang-dropdown">
-                            <button class="lang-dropdown-toggle" aria-label="Mudar idioma">
-                                <picture>
-                                    <source srcset="<?php echo get_template_directory_uri() . '/assets/img/' . $icon_map[$current] . '_dark.svg'; ?>" media="(prefers-color-scheme: dark)">
-                                    <img src="<?php echo get_template_directory_uri() . '/assets/img/' . $icon_map[$current] . '.svg'; ?>"
-                                        alt="<?php echo esc_attr($langs[$current]['name']); ?>" width="32" height="32">
-                                </picture>
-                            </button>
-                            <ul class="lang-dropdown-menu">
-                                <?php foreach ($langs as $lang_slug => $lang): ?>
-                                    <?php if ($lang_slug === $current) continue; ?>
-                                    <li>
-                                        <a href="<?php echo esc_url($lang['url']); ?>">
-                                            <picture>
-                                                <source srcset="<?php echo get_template_directory_uri() . '/assets/img/' . $icon_map[$lang_slug] . '_dark.svg'; ?>" media="(prefers-color-scheme: dark)">
-                                                <img src="<?php echo get_template_directory_uri() . '/assets/img/' . $icon_map[$lang_slug] . '.svg'; ?>"
-                                                    alt="<?php echo esc_attr($lang['name']); ?>" width="32" height="32">
-                                            </picture>
-                                        </a>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
+                                // Mapeia os ícones para cada idioma
+                                $icon_map = [
+                                    'pt' => 'icone_idioma_pt_br',
+                                    'en' => 'icone_idioma_en',
+                                ];
+                                ?>
+                                <div class="lang-dropdown">
+                                    <button class="lang-dropdown-toggle" aria-label="Mudar idioma">
+                                        <img class="lang-icon"
+                                            src="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$current]; ?>.svg"
+                                            data-src-light="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$current]; ?>.svg"
+                                            data-src-dark="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$current]; ?>_dark.svg"
+                                            alt="<?php echo esc_attr($langs[$current]['name']); ?>" width="32" height="32">
+                                    </button>
+                                    <ul class="lang-dropdown-menu">
+                                        <?php foreach ($langs as $lang_slug => $lang): ?>
+                                            <?php if ($lang_slug === $current)
+                                                continue; ?>
+                                            <li>
+                                                <a href="<?php echo esc_url($lang['url']); ?>">
+                                                    <img class="lang-icon"
+                                                        src="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$lang_slug]; ?>.svg"
+                                                        data-src-light="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$lang_slug]; ?>.svg"
+                                                        data-src-dark="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$lang_slug]; ?>_dark.svg"
+                                                        alt="<?php echo esc_attr($lang['name']); ?>" width="32" height="32">
+                                                </a>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                        <?php endif; ?>
-                    </div>
+
                         <div class="header-button-ld">
                             <button>
                                 <div class="theme-toggle-flip">
@@ -286,7 +292,7 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
         const body = document.body;
         const toggleButton = document.querySelectorAll('.header-button-ld button');
 
-        // 1) Inicializa o tema a partir do localStorage (ou default para light)
+        // 1) Inicializa o tema a partir do localStorage
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {
             body.classList.add('dark-mode');
@@ -296,16 +302,30 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
             body.classList.remove('dark-mode');
         }
 
-        // 2) Ao clicar, alterna e salva no localStorage
-        toggleButton.forEach(element => {
-            element.addEventListener('click', () => {
-                if (body.classList.contains('dark-mode')) {
-                    body.classList.replace('dark-mode', 'light-mode');
-                    localStorage.setItem('theme', 'light');
-                } else {
-                    body.classList.replace('light-mode', 'dark-mode');
-                    localStorage.setItem('theme', 'dark');
-                }
+        // Atualiza os ícones
+        function updateThemeIcons(theme) {
+            const icons = document.querySelectorAll('.lang-icon');
+            icons.forEach(icon => {
+                const lightSrc = icon.getAttribute('data-src-light');
+                const darkSrc = icon.getAttribute('data-src-dark');
+                icon.setAttribute('src', theme === 'dark' ? darkSrc : lightSrc);
+            });
+        }
+
+        // Chama no carregamento
+        updateThemeIcons(savedTheme === 'dark' ? 'dark' : 'light');
+
+        // 2) Alterna tema e atualiza ícones
+        toggleButton.forEach(button => {
+            button.addEventListener('click', () => {
+                const isDark = body.classList.contains('dark-mode');
+                const newTheme = isDark ? 'light' : 'dark';
+
+                body.classList.toggle('dark-mode', newTheme === 'dark');
+                body.classList.toggle('light-mode', newTheme === 'light');
+
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcons(newTheme);
             });
         });
 

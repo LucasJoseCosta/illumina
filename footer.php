@@ -15,6 +15,7 @@ if (!$initial_footer) {
   return;
 }
 $logo_footer = get_field('logo_footer', $initial_footer->ID);
+$logo_footer_dark = get_field('logo_footer_dark', $initial_footer->ID);
 $contatos = get_field('contatos', $initial_footer->ID);
 $redes_sociais = get_field('redes_socias', $initial_footer->ID);
 ?>
@@ -25,8 +26,9 @@ $redes_sociais = get_field('redes_socias', $initial_footer->ID);
         <?php if (!empty($logo_footer)): ?>
           <a href="<?php echo get_home_url() ?>">
             <picture>
-              <source src="<?php echo esc_url($logo_footer); ?>">
-              <img src="<?php echo esc_url($logo_footer); ?>" alt="Logo Ilumina Design Studio" class="logo-footer">
+              <img src="<?php echo esc_url($logo_footer); ?>" alt="Logo Ilumina Design Studio" class="logo-footer light">
+              <img src="<?php echo esc_url($logo_footer_dark); ?>" alt="Logo Ilumina Design Studio"
+                class="logo-footer dark">
             </picture>
           </a>
         <?php endif; ?>

@@ -3,8 +3,11 @@ jQuery(document).ready(function ($) {
   var dropdownFilter = $(
     ".portifolio-header-client-filter .portifolio-header-client-filter-wrapper"
   );
-  var loadingHtml =
-    '<div class="loading-portfolio-items" style="text-align:center; padding:20px;">Carregando portfólio...</div>';
+  var loadingHtml = `
+  <div class="loading-portfolio-items" role="status" aria-label="Carregando">
+    <div class="spinner"></div>
+  </div>
+`;
   var initialSelectedSlug =
     $(".btn-portifolio-terms.active-term").first().data("term-slug") || "";
 
