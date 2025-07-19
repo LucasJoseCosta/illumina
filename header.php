@@ -69,7 +69,6 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
                         </a>
                     </div>
 
-
                     <div class="header-menu-wrapper">
                         <div class="header-menu">
                             <?php if (isset($menus_header) && count($menus_header) > 0): ?>
@@ -79,7 +78,8 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
                                             <li class="menu-item">
                                                 <div class="menu-container">
                                                     <?php if ($menu['tipo_de_link'] == 'ID'): ?>
-                                                        <a href="<?php echo esc_url($menu['link_id']); ?>" class="link">
+                                                        <a href="<?php echo esc_url(home_url('/')); ?>" class="link scroll-home"
+                                                            data-target="<?php echo esc_attr(ltrim($menu['link_id'], '#')); ?>">
                                                             <?php echo esc_html($menu['titulo_menu']); ?>
                                                         </a>
                                                     <?php elseif ($menu['tipo_de_link'] == 'Link de pagina'): ?>
@@ -377,7 +377,6 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
             const startY = window.pageYOffset;
             const diff = targetY - startY;
             let start;
-
             const easingFn = window.BezierEasing(...easing);
 
             function step(timestamp) {
@@ -393,22 +392,39 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
 
         function getScrollOffset(id) {
             const width = window.innerWidth;
-            if (width < 768) return id != 'orcamento' ? 153 : -20;
-            if (width <= 1024) return id != 'orcamento' ? 200 : 20;
-            return id != 'orcamento' ? 220 : 50;
+            if (width < 768) return id !== 'orcamento' ? 153 : -20;
+            if (width <= 1024) return id !== 'orcamento' ? 200 : 20;
+            return id !== 'orcamento' ? 220 : 50;
         }
 
-        document.querySelectorAll('a[href^="#"]').forEach(link => {
+        document.querySelectorAll('a.scroll-home').forEach(link => {
             link.addEventListener("click", function (e) {
+                const targetId = this.dataset.target;
+                const target = document.getElementById(targetId);
+
+                if (!target) {
+                    sessionStorage.setItem('scrollTarget', targetId);
+                    window.location.href = "<?php echo esc_url(home_url('/')); ?>";
+                    return;
+                }
+
                 e.preventDefault();
-                const targetId = this.getAttribute("href").substring(1);
+                scrollToElementWithOffset(target, getScrollOffset(target.id));
+                if (typeof closeBtn !== 'undefined' && closeBtn) closeBtn.click();
+            });
+        });
+
+        const targetId = sessionStorage.getItem('scrollTarget');
+        console.log('Target ID from sessionStorage:', targetId);
+        if (targetId) {
+            setTimeout(() => {
                 const target = document.getElementById(targetId);
                 if (target) {
                     scrollToElementWithOffset(target, getScrollOffset(target.id));
-                    if (closeBtn) closeBtn.click();
                 }
-            });
-        });
-    });
+                sessionStorage.removeItem('scrollTarget');
+            }, 300);
+        }
 
+    });
 </script>
