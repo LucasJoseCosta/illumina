@@ -3,7 +3,7 @@ name: Deploy via FTP
 on:
   push:
     branches:
-      - main  # ou a branch que você quiser monitorar
+      - master  # ou a branch que você quiser monitorar
 
 jobs:
   ftp-deploy:
