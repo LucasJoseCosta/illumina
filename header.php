@@ -2,7 +2,7 @@
 <html <?php language_attributes(); ?> <?php twentytwentyone_the_html_classes(); ?>>
 
 <head>
-    <!-- teste -->
+    <!-- teste 2 -->
     <title><?php custom_meta_title(); ?></title>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
