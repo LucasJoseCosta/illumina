@@ -19,7 +19,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="<?php bloginfo('charset'); ?>" />
+    <meta charset="UTF-8" />
+    <?php header('Content-Type: text/html; charset=utf-8'); ?>
     <?php wp_head(); ?>
 </head>
 
@@ -143,7 +144,7 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
 
 
                         <div class="header-button">
-                            <a href="#orcamento">
+                            <a class="scroll-home" href="<?php echo esc_url(home_url('/')); ?>" data-target="orcamento">
                                 <span><?php pll_e('Entre em contato'); ?></span>
                             </a>
                         </div>
@@ -399,6 +400,7 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
 
         document.querySelectorAll('a.scroll-home').forEach(link => {
             link.addEventListener("click", function (e) {
+                console.log("Link clicked:", this);
                 const targetId = this.dataset.target;
                 const target = document.getElementById(targetId);
 
@@ -415,7 +417,6 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
         });
 
         const targetId = sessionStorage.getItem('scrollTarget');
-        console.log('Target ID from sessionStorage:', targetId);
         if (targetId) {
             setTimeout(() => {
                 const target = document.getElementById(targetId);

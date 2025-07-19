@@ -335,7 +335,7 @@ if (!empty($initials)) {
         <div class="home-budget-wrapper">
             <div class="home-budget-form">
                 <div class="home-budget-form-wrapper">
-                    <?php echo do_shortcode('[contact-form-7 id="fd7222c" title="Contato"]'); ?>
+                    <?php echo do_shortcode('[contact-form-7 id="48ada5d" title="Contato en"]'); ?>
                 </div>
             </div>
 
@@ -445,9 +445,122 @@ if (!empty($initials)) {
         } else {
             console.error('Choices is not defined yet.');
         }
+
+
+        //Submit form whatsapp
+        const form = document.querySelector('.wpcf7 form');
+        const button = document.querySelectorAll('.btn-home-budget');
+
+        function getWhatsAppLink() {
+            const nome = document.querySelector('#nome-completo')?.value || '';
+            const empresa = document.querySelector('#empresa-marca')?.value || '';
+            const contato = document.querySelector('#email-whatsapp')?.value || '';
+            const assunto = document.querySelector('#assunto')?.value || '';
+            const mensagem = document.querySelector('#mensagem')?.value || '';
+
+            const texto = `
+            *Solicitação de Orçamento:*
+             *Nome:* ${nome}
+             *Empresa:* ${empresa}
+             *Contato:* ${contato}
+             *Assunto:* ${assunto}
+             *Mensagem:* ${mensagem}
+                `;
+
+            const url = `https://wa.me/5544998862639?text=${encodeURIComponent(texto)}`;
+
+            return url;
+        }
+
+        // Ao submeter o formulário (de forma padrão)
+        document.addEventListener('wpcf7submit', function (event) {
+            e.preventDefault();
+            window.open(getWhatsAppLink(), '_blank');
+        });
+
+        // Ao clicar diretamente no botão (sem precisar submeter o formulário)
+        if (button && button[1]) {
+            button[1].addEventListener('click', function (e) {
+                e.preventDefault();
+                window.open(getWhatsAppLink(), '_blank');
+                form?.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+
+                const rootStyles = getComputedStyle(document.documentElement);
+                const bgColor = rootStyles.getPropertyValue('--bg').trim();
+                const textColor = rootStyles.getPropertyValue('--color-primary').trim();
+
+                // Aplica estilos imediatamente
+                button[1].style.backgroundColor = bgColor;
+                button[1].style.color = textColor;
+
+                // Aplica a animação com efeito "spring" (simulado com keyframes)
+                button[1].animate([
+                    { transform: 'scale(1)', offset: 0 },
+                    { transform: 'scale(1.1)', offset: 0.3 },
+                    { transform: 'scale(0.95)', offset: 0.6 },
+                    { transform: 'scale(1)', offset: 1 }
+                ], {
+                    duration: 600,
+                    easing: 'ease-out' // alternativa ao "spring", mais suave
+                });
+                // Atualiza o texto do botão
+                const label = button[1].querySelector('.btn-home-budget-text');
+                if (label) {
+                    label.innerText = 'Orçamento Enviado!';
+                }
+            });
+        }
+        // Máscara de entrada para o campo de email/whatsapp
+        const input = document.getElementById('email-whatsapp');
+
+        input.addEventListener('input', function (e) {
+            let value = input.value.trim();
+
+            // Remove caracteres não numéricos para validação de telefone
+            const onlyNumbers = value.replace(/\D/g, '');
+
+            if (isEmail(value)) {
+                input.setAttribute('type', 'email');
+                input.value = value; // não aplica máscara
+            } else if (isBrazilPhone(onlyNumbers)) {
+                input.setAttribute('type', 'tel');
+                input.value = formatBrazilPhone(onlyNumbers);
+            } else if (isInternationalPhone(onlyNumbers)) {
+                input.setAttribute('type', 'tel');
+                input.value = formatInternationalPhone(onlyNumbers);
+            } else {
+                input.setAttribute('type', 'text'); // neutro enquanto digita
+            }
+        });
+
+        function isEmail(value) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(value);
+        }
+
+        function isBrazilPhone(value) {
+            return value.length >= 10 && value.length <= 11 && value.startsWith('1') === false;
+        }
+
+        function isInternationalPhone(value) {
+            return value.length > 11 && value.startsWith('1'); // Ex: EUA começa com 1
+        }
+
+        function formatBrazilPhone(value) {
+            if (value.length === 11) {
+                return `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+            } else if (value.length === 10) {
+                return `(${value.slice(0, 2)}) ${value.slice(2, 6)}-${value.slice(6)}`;
+            }
+            return value;
+        }
+
+        function formatInternationalPhone(value) {
+            // Exemplo simples: +1 (234) 567-8900
+            return `+${value[0]} (${value.slice(1, 4)}) ${value.slice(4, 7)}-${value.slice(7, 11)}`;
+        }
     });
-
-
 </script>
+
 
 <?php get_footer(); ?>

@@ -684,6 +684,10 @@ endif;
 
 add_filter('show_admin_bar', '__return_false');
 
+add_action('init', function () {
+	header('Content-Type: text/html; charset=UTF-8');
+});
+
 function register_polylang_strings()
 {
 	if (function_exists('pll_register_string')) {
@@ -699,7 +703,7 @@ function register_polylang_strings()
 		pll_register_string('no-item-social', 'Nenhuma rede social disponível.', 'Footer social no item');
 		pll_register_string('no-item-contato', 'Nenhum contato disponível.', 'Footer contato no item');
 		pll_register_string('copyright', '2025 Illumina Design Studio. Todos os direitos reservados.', 'Copyright text');
-
+		pll_register_string('orçamento-enviado', 'Orçamento Enviado!', 'Orçamento Enviado!');
 	}
 }
 add_action('init', 'register_polylang_strings');
