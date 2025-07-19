@@ -162,9 +162,9 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
                         </div>
                         <div class="header-button-burger">
                             <button id="burger" class="burger">
-                                <span></span>
-                                <span></span>
-                                <span></span>
+                                <span class="line line1"></span>
+                                <span class="line line2"></span>
+                                <span class="line line3"></span>
                             </button>
                         </div>
                     </div>
@@ -174,99 +174,91 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
 
         <div class="mobile-drawer" id="mobileDrawer">
             <div class="mobile-drawer-inner">
-                <div class="mobile-drawer-header">
-                    <div class="header-logo">
-                        <a href="<?php echo get_home_url() ?>" class="link-logo">
-                            <img src="<?php echo $logo_header ?>" alt="logo" class="logo light">
-                        </a>
-                    </div>
-                    <!-- <div class="header-button-ld">
-                        <button>
-                            <img src="<?php echo get_template_directory_uri() ?>/assets/img/toggle-mode.svg" alt="" srcset="">
-                        </button>
-                    </div> -->
-                    <div class="mobile-drawer-header-actions">
-                        <div class="lang-switcher-wrapper">
-                            <?php if (function_exists('pll_the_languages')):
-                                $langs = pll_the_languages([
-                                    'raw' => 1,
-                                    'hide_if_empty' => 0
-                                ]);
-                                $current = pll_current_language();
+                <div class="mobile-drawer-top">
+                    <nav class="mobile-menu">
+                        <ul>
+                            <?php foreach ($menus_header as $menu): ?>
+                                <li class="menu-item">
+                                    <div class="menu-container">
+                                        <?php if ($menu['tipo_de_link'] == 'ID'): ?>
+                                            <a href="<?php echo esc_url(home_url('/')); ?>" class="link scroll-home"
+                                                data-target="<?php echo esc_attr(ltrim($menu['link_id'], '#')); ?>">
+                                                <?php echo esc_html($menu['titulo_menu']); ?>
+                                            </a>
+                                        <?php elseif ($menu['tipo_de_link'] == 'Link de pagina'): ?>
+                                            <a href="<?php echo esc_url($menu['link_de_pagina']); ?>" class="link">
+                                                <?php echo esc_html($menu['titulo_menu']); ?>
+                                            </a>
+                                        <?php endif; ?>
+                                    </div>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </nav>
 
-                                // Mapeia os ícones para cada idioma
-                                $icon_map = [
-                                    'pt' => 'icone_idioma_pt_br',
-                                    'en' => 'icone_idioma_en',
-                                ];
-                                ?>
-                                <div class="lang-dropdown">
-                                    <button class="lang-dropdown-toggle" aria-label="Mudar idioma">
-                                        <img class="lang-icon"
-                                            src="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$current]; ?>.svg"
-                                            data-src-light="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$current]; ?>.svg"
-                                            data-src-dark="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$current]; ?>_dark.svg"
-                                            alt="<?php echo esc_attr($langs[$current]['name']); ?>" width="32" height="32">
-                                    </button>
-                                    <ul class="lang-dropdown-menu">
-                                        <?php foreach ($langs as $lang_slug => $lang): ?>
-                                            <?php if ($lang_slug === $current)
-                                                continue; ?>
-                                            <li>
-                                                <a href="<?php echo esc_url($lang['url']); ?>">
-                                                    <img class="lang-icon"
-                                                        src="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$lang_slug]; ?>.svg"
-                                                        data-src-light="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$lang_slug]; ?>.svg"
-                                                        data-src-dark="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$lang_slug]; ?>_dark.svg"
-                                                        alt="<?php echo esc_attr($lang['name']); ?>" width="32" height="32">
-                                                </a>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </div>
-                            <?php endif; ?>
-                        </div>
+                    <div class="mobile-drawer-header">
+                        <div class="mobile-drawer-header-actions">
+                            <div class="header-button-ld">
+                                <button>
+                                    <div class="theme-toggle-flip">
+                                        <img class="light"
+                                            src="<?php echo get_template_directory_uri() ?>/assets/img/light-mode.svg"
+                                            alt="">
+                                        <img class="dark"
+                                            src="<?php echo get_template_directory_uri() ?>/assets/img/dark-mode.svg"
+                                            alt="">
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="lang-switcher-wrapper">
+                                <?php if (function_exists('pll_the_languages')):
+                                    $langs = pll_the_languages([
+                                        'raw' => 1,
+                                        'hide_if_empty' => 0
+                                    ]);
+                                    $current = pll_current_language();
 
-                        <div class="header-button-ld">
-                            <button>
-                                <div class="theme-toggle-flip">
-                                    <img class="light"
-                                        src="<?php echo get_template_directory_uri() ?>/assets/img/light-mode.svg"
-                                        alt="">
-                                    <img class="dark"
-                                        src="<?php echo get_template_directory_uri() ?>/assets/img/dark-mode.svg"
-                                        alt="">
-                                </div>
-                            </button>
-                        </div>
-                        <div class="mobile-drawer-close">
-                            <button id="closeDrawer" class="close-drawer">×</button>
+                                    // Mapeia os ícones para cada idioma
+                                    $icon_map = [
+                                        'pt' => 'icone_idioma_pt_br',
+                                        'en' => 'icone_idioma_en',
+                                    ];
+                                    ?>
+                                    <div class="lang-dropdown">
+                                        <button class="lang-dropdown-toggle" aria-label="Mudar idioma">
+                                            <img class="lang-icon"
+                                                src="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$current]; ?>.svg"
+                                                data-src-light="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$current]; ?>.svg"
+                                                data-src-dark="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$current]; ?>_dark.svg"
+                                                alt="<?php echo esc_attr($langs[$current]['name']); ?>" width="32"
+                                                height="32">
+                                        </button>
+                                        <ul class="lang-dropdown-menu">
+                                            <?php foreach ($langs as $lang_slug => $lang): ?>
+                                                <?php if ($lang_slug === $current)
+                                                    continue; ?>
+                                                <li>
+                                                    <a href="<?php echo esc_url($lang['url']); ?>">
+                                                        <img class="lang-icon"
+                                                            src="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$lang_slug]; ?>.svg"
+                                                            data-src-light="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$lang_slug]; ?>.svg"
+                                                            data-src-dark="<?php echo get_template_directory_uri(); ?>/assets/img/<?php echo $icon_map[$lang_slug]; ?>_dark.svg"
+                                                            alt="<?php echo esc_attr($lang['name']); ?>" width="32" height="32">
+                                                    </a>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <nav class="mobile-menu">
-                    <ul>
-                        <?php if (isset($menus_header) && count($menus_header) > 0): ?>
-                            <?php foreach ($menus_header as $menu): ?>
-                                <li>
-                                    <?php if ($menu['tipo_de_link'] == 'ID'): ?>
-                                        <a href="<?php echo esc_url($menu['link_id']); ?>">
-                                            <?php echo esc_html($menu['titulo_menu']); ?>
-                                        </a>
-                                    <?php elseif ($menu['tipo_de_link'] == 'Link de pagina'): ?>
-                                        <a href="<?php echo esc_url($menu['link_de_pagina']); ?>">
-                                            <?php echo esc_html($menu['titulo_menu']); ?>
-                                        </a>
-                                    <?php endif; ?>
-                                </li>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </ul>
-                </nav>
+
                 <div class="header-drawer-actions">
                     <div class="header-button">
-                        <a href="#orcamento">
+                        <a class="scroll-home" href="<?php echo esc_url(home_url('/')); ?>" data-target="orcamento">
                             <span><?php pll_e('Entre em contato'); ?></span>
                         </a>
                     </div>
@@ -356,18 +348,11 @@ $whatsapp_link = get_field('link_botao', $initial_misc->ID);
         // Manipula drawer mobile
         const burger = document.getElementById("burger");
         const drawer = document.getElementById("mobileDrawer");
-        const closeBtn = document.getElementById("closeDrawer");
 
         burger.addEventListener("click", function () {
             burger.classList.toggle("active");
             drawer.classList.toggle("open");
             document.body.classList.toggle("drawer-open");
-        });
-
-        closeBtn.addEventListener("click", function () {
-            drawer.classList.remove("open");
-            burger.classList.remove("active");
-            document.body.classList.remove("drawer-open");
         });
 
         //------------
