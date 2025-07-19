@@ -391,6 +391,7 @@ if (!empty($initials)) {
             dots: false,
             autoplay: true,
             autoplayHoverPause: true,
+            smartSpeed: 1000,
             responsive: {
                 0: {
                     items: 1
