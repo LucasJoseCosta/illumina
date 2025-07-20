@@ -13,13 +13,25 @@
   box-shadow: 0px -10px 40px 0px rgba(0, 0, 0, 0.25);
   -webkit-box-shadow: 0px -10px 40px 0px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0px -10px 40px 0px rgba(0, 0, 0, 0.25);
+
+  @media screen and (max-width: 1024px) {
+    border-radius: 42px;
+    top: 50px;
+    bottom: 60px;
+    box-sizing: border-box;
+    width: 96%;
+  }
+
+
   &.open {
     // display: block;
     animation: springIn 600ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   }
+
   &.close {
     animation: springOut 500ms ease forwards;
   }
+
   .paid-traffic-modal-wrapper {
     .paid-traffic-modal-header {
       padding: 64px 64px 32px 64px;
@@ -28,9 +40,17 @@
       justify-content: space-between;
       align-items: center;
       background: var(--bg-light-orange);
+
+      @media screen and (max-width: 1024px) {
+        border-radius: 42px 42px 0 0;
+        padding: 32px 24px;
+        align-items: flex-start;
+      }
+
       .paid-traffic-modal-header-title {
         max-width: 804px;
         width: 100%;
+
         h3 {
           margin: 0;
           font-weight: 800;
@@ -38,22 +58,40 @@
           line-height: 100%;
           letter-spacing: 0%;
           text-transform: uppercase;
+
+          @media screen and (max-width: 1024px) {
+            font-size: 24px;
+            text-transform: none;
+          }
         }
       }
+
       .paid-traffic-modal-header-image {
         max-width: 97px;
         height: auto;
         width: 100%;
+
+        @media screen and (max-width: 1024px) {
+          max-width: 39px;
+        }
+
         img {
           width: 100%;
         }
       }
     }
+
     .paid-traffic-modal-body {
       padding: 41px 64px 65px 64px;
       display: flex;
       flex-direction: column;
       gap: 32px;
+
+      @media screen {
+        padding: 24px;
+        gap: 16px;
+      }
+
       .paid-traffic-modal-body-text-content {
         p {
           font-weight: 500;
@@ -62,11 +100,17 @@
           letter-spacing: 0%;
           text-align: justify;
           margin-top: 0;
+
           &:last-child {
             margin-bottom: 0;
           }
+
+          @media screen and (max-width: 1024px) {
+            font-size: 14px;
+          }
         }
       }
+
       .paid-traffic-modal-body-card {
         padding: 48px;
         border: 2px solid var(--color-primary);
@@ -74,20 +118,40 @@
         display: flex;
         justify-content: space-between;
 
+        @media screen and (max-width: 1024px) {
+          border-radius: 27px;
+          flex-direction: column;
+          align-items: center;
+          padding: 20px;
+          gap: 16px;
+        }
+
         .paid-traffic-modal-body-card-title {
           width: 41%;
+
+          @media screen and (max-width: 1024px) {
+            width: 100%;
+          }
+
           h3 {
             margin: 0;
             font-weight: 800;
             font-size: 32px;
-            line-height: 100%;
-            letter-spacing: 0%;
             text-transform: uppercase;
+
+            @media screen and (max-width: 1024px) {
+              font-size: 20px;
+            }
           }
         }
 
         .paid-traffic-modal-body-card-content {
           width: 57%;
+
+          @media screen and (max-width: 1024px) {
+            width: 100%;
+          }
+
           p {
             margin: 0;
             font-weight: 500;
@@ -95,6 +159,10 @@
             line-height: 100%;
             letter-spacing: 0%;
             text-align: justify;
+
+            @media screen and (max-width: 1024px) {
+              font-size: 14px;
+            }
           }
         }
       }
@@ -104,10 +172,37 @@
         justify-content: space-between;
         align-items: stretch;
 
+        @media screen and (max-width: 1024px) {
+          gap: 16px;
+
+        }
+
         .paid-traffic-modal-body-footer-image {
           max-width: 458px;
           width: 100%;
           height: auto;
+
+          @media screen and (max-width: 1024px) {
+            width: 70%;
+          }
+
+          .paid-traffic-modal-body-footer-image-desktop {
+            display: block;
+
+            @media screen and (max-width: 1024px) {
+              display: none;
+            }
+          }
+
+          .paid-traffic-modal-body-footer-image-mobile {
+            display: none;
+
+
+            @media screen and (max-width: 1024px) {
+              display: block;
+            }
+          }
+
           img {
             width: 100%;
           }
@@ -120,16 +215,26 @@
           flex-direction: column;
           justify-content: space-between;
           align-items: flex-end;
+
           .paid-traffic-modal-body-footer-actions-text {
             margin-top: 27px;
+
+            @media screen and (max-width: 1024px) {
+              margin-top: 0;
+
+            }
+
             p {
               margin: 0;
               font-weight: 800;
               font-size: 24px;
-              line-height: 100%;
-              letter-spacing: 0%;
               text-align: right;
               text-transform: uppercase;
+
+              @media screen and (max-width: 1024px) {
+                font-size: 16px;
+
+              }
             }
           }
 
@@ -149,7 +254,8 @@
 
               @media screen and (max-width: 1024px) {
                 font-size: 16px;
-                padding: 8px 12px;
+                padding: 8px 10px;
+                font-weight: 600;
               }
 
               &:hover {
@@ -168,9 +274,11 @@
   0% {
     transform: translateY(100%);
   }
+
   80% {
     transform: translateY(-10%);
   }
+
   100% {
     transform: translateY(0%);
   }
@@ -180,6 +288,7 @@
   0% {
     transform: translateY(0%);
   }
+
   100% {
     transform: translateY(100%);
   }
