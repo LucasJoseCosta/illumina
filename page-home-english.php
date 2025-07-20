@@ -24,12 +24,16 @@ if (!empty($initials)) {
     $conteudo_trafego = get_field('conteudo_trafego', $initial->ID);
     $modal_trafego_pago = get_field('modal_trafego_pago', $initial->ID);
     $img_conteudo_trafego = get_field('imagem_conteudo_trafego', $initial->ID);
+    $img_conteudo_trafego_mobile_1 = get_field('imagem_conteudo_trafego_mobile_1', $initial->ID);
+    $img_conteudo_trafego_mobile_2 = get_field('imagem_conteudo_trafego_mobile_2', $initial->ID);
     $titulo_portifolio = get_field('titulo_portifolio', $initial->ID);
     $termos_portifolio = get_field('termos_portifolio', $initial->ID);
     $imagem_portifolio = get_field('imagem_portifolio', $initial->ID);
+    $imagem_portifolio_mobile = get_field('imagem_portifolio_mobile', $initial->ID);
     $titulo_orcamento = get_field('titulo_orcamento', $initial->ID);
     $texto_orcamento = get_field('texto_orcamento', $initial->ID);
     $banner_final = get_field('banner_final', $initial->ID);
+    $banner_final_mobile = get_field('banner_final_mobile', $initial->ID);
     $link_banner_final = get_field('link_banner_final', $initial->ID);
 } else {
     echo '<p>Nenhum post encontrado para o idioma atual.</p>';
@@ -52,8 +56,10 @@ if (!empty($initials)) {
                             <div class="banner-item">
                                 <div class="banner-item-image">
                                     <picture>
-                                        <source srcset="<?php echo $banner['banner'] ?>">
-                                        <img src="<?php echo $banner['banner'] ?>" alt="<?php echo esc_attr($banner['titulo']) ?>">
+                                        <img class="banner-image" src="<?php echo $banner['banner'] ?>"
+                                            alt="<?php echo esc_attr($banner['titulo']) ?>">
+                                        <img class="banner-image-mobile" src="<?php echo $banner['banner_mobile'] ?>"
+                                            alt="<?php echo esc_attr($banner['titulo']) ?>">
                                     </picture>
                                 </div>
                                 <!-- <div class="banner-item-content">
@@ -151,7 +157,8 @@ if (!empty($initials)) {
                     <?php if (is_array($marcas) && count($marcas) > 0): ?>
                         <div class="owl-home-brands-mobile owl-carousel owl-theme">
                             <?php foreach ($marcas as $marca): ?>
-                                <div class="home-brands-item" style="max-width: <?php echo $marca['largura_img_marca'] ?>px;">
+                                <div class="home-brands-item"
+                                    style="max-width: <?php echo $marca['largura_img_marca_mobile'] ?>px;">
                                     <div class="home-brands-item-image">
                                         <a href="<?php echo esc_url($marca['link_marca']) ?>" class="home-brands-item-link"
                                             target="_blank" rel="noopener noreferrer">
@@ -181,24 +188,39 @@ if (!empty($initials)) {
         <div class="home-traffic-content">
             <div class="home-traffic-content-wrapper">
                 <div class="home-traffic-image-wrapper">
-                    <div class="home-traffic-image">
-                        <picture>
-                            <img class="light"
-                                src="<?php echo get_template_directory_uri(); ?>/assets/img/traffic-paid.svg"
-                                alt="<?php esc_attr_e('Tráfego pago', 'text-domain'); ?>">
-                            <img class="dark"
-                                src="<?php echo get_template_directory_uri(); ?>/assets/img/traffic-paid-dark.svg"
-                                alt="<?php esc_attr_e('Tráfego pago', 'text-domain'); ?>">
-                        </picture>
+                    <div class="home-traffic-image-wrapper-left">
+                        <div class="home-traffic-image">
+                            <picture>
+                                <img class="light"
+                                    src="<?php echo get_template_directory_uri(); ?>/assets/img/traffic-paid.svg"
+                                    alt="<?php esc_attr_e('Tráfego pago', 'text-domain'); ?>">
+                                <img class="dark"
+                                    src="<?php echo get_template_directory_uri(); ?>/assets/img/traffic-paid-dark.svg"
+                                    alt="<?php esc_attr_e('Tráfego pago', 'text-domain'); ?>">
+                            </picture>
+                        </div>
+                        <div class="home-traffic-text-mobile">
+                            <h2 class="home-traffic-title">
+                                <?php if (!empty($titulo_trafego)): ?>
+                                    <?php echo esc_html($titulo_trafego); ?>
+                                <?php else: ?>
+                                    <?php esc_html_e('Traffic', 'text-domain'); ?>
+                                <?php endif; ?>
+                            </h2>
+                        </div>
+                        <div class="home-traffic-content-image-mobile">
+                            <img src="<?php echo esc_url($img_conteudo_trafego_mobile_1) ?>"
+                                alt="<?php esc_attr_e('Tráfico pago', 'text-domain'); ?>">
+                        </div>
                     </div>
-                    <div class="home-traffic-text-mobile">
-                        <h2 class="home-traffic-title">
-                            <?php if (!empty($titulo_trafego)): ?>
-                                <?php echo esc_html($titulo_trafego); ?>
-                            <?php else: ?>
-                                <?php esc_html_e('Traffic', 'text-domain'); ?>
-                            <?php endif; ?>
-                        </h2>
+                    <div class="home-traffic-image-wrapper-right">
+                        <div class="home-traffic-content-image-mobile-2">
+                            <picture>
+                                <source srcset="<?php echo esc_url($img_conteudo_trafego_mobile_2) ?>">
+                                <img src="<?php echo esc_url($img_conteudo_trafego_mobile_2) ?>"
+                                    alt="<?php esc_attr_e('Tráfico pago', 'text-domain'); ?>">
+                            </picture>
+                        </div>
                     </div>
                 </div>
 
@@ -229,6 +251,7 @@ if (!empty($initials)) {
                             'titulo_card_modal_trafego_pago' => $modal_trafego_pago_item['titulo_card_modal_trafego_pago'],
                             'texto_card_modal_trafego_pago' => $modal_trafego_pago_item['texto_card_modal_trafego_pago'],
                             'imagem__modal_trafego_pago' => $modal_trafego_pago_item['imagem__modal_trafego_pago'],
+                            'imagem__modal_trafego_pago_mobile' => $modal_trafego_pago_item['imagem__modal_trafego_pago_mobile'],
                             'texto_destaque_modal_trafego_pago' => $modal_trafego_pago_item['texto_destaque_modal_trafego_pago']
                         );
 
@@ -277,6 +300,8 @@ if (!empty($initials)) {
                                     <a href="<?php echo esc_url($term_link); ?>" class="btn-home-portifolio-terms">
                                         <span
                                             class="btn-home-portifolio-terms-text"><?php echo esc_html($termo['termo']); ?></span>
+                                        <span
+                                            class="btn-home-portifolio-terms-text-mobile"><?php echo esc_html($termo['termo_mobile']); ?></span>
                                     </a>
                                 </div>
                             </div>
@@ -285,7 +310,7 @@ if (!empty($initials)) {
                         <p><?php esc_html_e('No portfolio terms available', 'text-domain'); ?></p>
                     <?php endif; ?>
                 </div>
-                <div class="home-portifolio-terms-content-mobile">
+                <!-- <div class="home-portifolio-terms-content-mobile">
                     <div class="owl-home-portifolio-terms owl-carousel owl-theme">
                         <?php if (is_array($termos_portifolio) && count($termos_portifolio) > 0): ?>
                             <?php foreach ($termos_portifolio as $termo): ?>
@@ -307,15 +332,17 @@ if (!empty($initials)) {
                             <p><?php esc_html_e('No portfolio terms available', 'text-domain'); ?></p>
                         <?php endif; ?>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 
         <div class="home-portifolio-banner">
             <div class="home-portifolio-banner-img">
                 <picture>
-                    <source srcset="<?php echo esc_url($imagem_portifolio) ?>">
-                    <img src="<?php echo esc_url($imagem_portifolio) ?>"
+                    <img class="home-portifolio-banner-img-desktop" src="<?php echo esc_url($imagem_portifolio) ?>"
+                        alt="<?php esc_attr_e('Portfolio', 'text-domain'); ?>">
+                    <img class="home-portifolio-banner-img-desktop-mobile"
+                        src="<?php echo esc_url($imagem_portifolio_mobile) ?>"
                         alt="<?php esc_attr_e('Portfolio', 'text-domain'); ?>">
                 </picture>
             </div>
@@ -333,6 +360,15 @@ if (!empty($initials)) {
 <section id="orcamento" class="home-budget">
     <div class="home-budget-container container">
         <div class="home-budget-wrapper">
+            <div class="home-budget-content-title-mobile">
+                <h2 class="home-budget-content-title-text">
+                    <?php if (!empty($titulo_orcamento)): ?>
+                        <?php echo esc_html($titulo_orcamento); ?>
+                    <?php else: ?>
+                        <?php esc_html_e('Budget', 'text-domain'); ?>
+                    <?php endif; ?>
+                </h2>
+            </div>
             <div class="home-budget-form">
                 <div class="home-budget-form-wrapper">
                     <?php echo do_shortcode('[contact-form-7 id="48ada5d" title="Contato en"]'); ?>
@@ -374,8 +410,9 @@ if (!empty($initials)) {
         <div class="home-last-banner-img">
             <a href="<? echo esc_url($link_banner_final) ?>">
                 <picture>
-                    <source srcset="<?php echo esc_url($banner_final) ?>">
-                    <img src="<?php echo esc_url($banner_final) ?>"
+                    <img class="home-last-banner-img-desktop" src="<?php echo esc_url($banner_final) ?>"
+                        alt="<?php esc_attr_e('Métrica', 'text-domain'); ?>">
+                    <img class="home-last-banner-img-mobile" src="<?php echo esc_url($banner_final_mobile) ?>"
                         alt="<?php esc_attr_e('Métrica', 'text-domain'); ?>">
                 </picture>
             </a>
@@ -387,21 +424,33 @@ if (!empty($initials)) {
     $(document).ready(function () {
         $('.owl-home-slider-banner').owlCarousel({
             loop: true,
-            nav: true,
+            // nav: true,
             dots: false,
             autoplay: true,
             autoplayHoverPause: true,
             smartSpeed: 1000,
             responsive: {
                 0: {
-                    items: 1
+                    items: 1,
+                    nav: false
+                },
+                1025: {
+                    items: 1,
+                    nav: true
                 },
             }
         });
 
         $('.owl-home-brands-mobile').owlCarousel({
+            loop: true,
             nav: false,
             dots: false,
+            autoplay: true,
+            autoplayTimeout: 1000,
+            smartSpeed: 1000,
+            autoplayHoverPause: true,
+            slideTransition: 'linear',
+            margin: 16,
             responsive: {
                 0: {
                     items: 3
@@ -412,19 +461,19 @@ if (!empty($initials)) {
             }
         });
 
-        $('.owl-home-portifolio-terms').owlCarousel({
-            nav: false,
-            dots: false,
-            margin: 10,
-            responsive: {
-                0: {
-                    items: 1
-                },
-                767: {
-                    items: 2
-                }
-            }
-        });
+        // $('.owl-home-portifolio-terms').owlCarousel({
+        //     nav: false,
+        //     dots: false,
+        //     margin: 10,
+        //     responsive: {
+        //         0: {
+        //             items: 1
+        //         },
+        //         767: {
+        //             items: 2
+        //         }
+        //     }
+        // });
 
     });
     document.addEventListener('DOMContentLoaded', function () {
@@ -450,7 +499,7 @@ if (!empty($initials)) {
 
         //Submit form whatsapp
         const form = document.querySelector('.wpcf7 form');
-        const button = document.querySelectorAll('.btn-home-budget');
+        const button = document.querySelector('.btn-home-budget');
 
         function getWhatsAppLink() {
             const nome = document.querySelector('#nome-completo')?.value || '';
@@ -458,6 +507,10 @@ if (!empty($initials)) {
             const contato = document.querySelector('#email-whatsapp')?.value || '';
             const assunto = document.querySelector('#assunto')?.value || '';
             const mensagem = document.querySelector('#mensagem')?.value || '';
+
+            if (!nome || !contato || !assunto || !mensagem) {
+                return '#';
+            }
 
             const texto = `
             *Solicitação de Orçamento:*
@@ -474,28 +527,23 @@ if (!empty($initials)) {
         }
 
         // Ao submeter o formulário (de forma padrão)
-        document.addEventListener('wpcf7submit', function (event) {
-            e.preventDefault();
-            window.open(getWhatsAppLink(), '_blank');
-        });
-
-        // Ao clicar diretamente no botão (sem precisar submeter o formulário)
-        if (button && button[1]) {
-            button[1].addEventListener('click', function (e) {
-                e.preventDefault();
-                window.open(getWhatsAppLink(), '_blank');
-                form?.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            event.stopPropagation();// Impede o envio padrão do formulário
+            const url = getWhatsAppLink();
+            if (url !== '#') {
+                window.open(url, '_blank');
 
                 const rootStyles = getComputedStyle(document.documentElement);
                 const bgColor = rootStyles.getPropertyValue('--bg').trim();
                 const textColor = rootStyles.getPropertyValue('--color-primary').trim();
 
                 // Aplica estilos imediatamente
-                button[1].style.backgroundColor = bgColor;
-                button[1].style.color = textColor;
+                button.style.backgroundColor = bgColor;
+                button.style.color = textColor;
 
                 // Aplica a animação com efeito "spring" (simulado com keyframes)
-                button[1].animate([
+                button.animate([
                     { transform: 'scale(1)', offset: 0 },
                     { transform: 'scale(1.1)', offset: 0.3 },
                     { transform: 'scale(0.95)', offset: 0.6 },
@@ -505,11 +553,22 @@ if (!empty($initials)) {
                     easing: 'ease-out' // alternativa ao "spring", mais suave
                 });
                 // Atualiza o texto do botão
-                const label = button[1].querySelector('.btn-home-budget-text');
+                const label = button.querySelector('.btn-home-budget-text');
                 if (label) {
                     label.innerText = 'Orçamento Enviado!';
                 }
-            });
+            }
+        });
+
+        // Ao clicar diretamente no botão (sem precisar submeter o formulário)
+
+        if (button) {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Dispara o evento submit do formulário, que será tratado pelo CF7
+                form?.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+            })
         }
         // Máscara de entrada para o campo de email/whatsapp
         const input = document.getElementById('email-whatsapp');
@@ -562,6 +621,5 @@ if (!empty($initials)) {
         }
     });
 </script>
-
 
 <?php get_footer(); ?>
