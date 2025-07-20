@@ -238,17 +238,17 @@ header {
             }
 
             .line2 {
-              top: 10px; // 3px + 7px
+              top: 10px;
             }
 
             .line3 {
-              top: 20px; // 3px + 7px + 3px + 7px
+              top: 20px;
             }
 
             &.active {
               .line1 {
                 top: 10px;
-                transform: rotate(45deg);
+                transform: rotate(-45deg);
               }
 
               .line2 {
@@ -258,7 +258,7 @@ header {
 
               .line3 {
                 top: 10px;
-                transform: rotate(-45deg);
+                transform: rotate(45deg);
               }
             }
           }

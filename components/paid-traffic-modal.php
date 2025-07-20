@@ -14,7 +14,7 @@ if (isset($args) && !empty($args)) {
     <span class="btn-home-traffic-text"><?php pll_e('Quero Saber Mais'); ?> →</span>
 </a>
 
-<div id="paid-traffic-modal" class="paid-traffic-modal-component container">
+<div id="paid-traffic-modal" class="paid-traffic-modal-component container open">
     <div class="paid-traffic-modal-wrapper">
         <div class="paid-traffic-modal-header">
             <div class="paid-traffic-modal-header-title">
@@ -47,8 +47,11 @@ if (isset($args) && !empty($args)) {
             <div class="paid-traffic-modal-body-footer">
                 <div class="paid-traffic-modal-body-footer-image">
                     <picture>
-                        <source srcset="<?php echo $args['imagem__modal_trafego_pago'] ?>">
-                        <img src="<?php echo $args['imagem__modal_trafego_pago'] ?>"
+                        <img class="paid-traffic-modal-body-footer-image-desktop"
+                            src="<?php echo $args['imagem__modal_trafego_pago'] ?>"
+                            alt="<?php esc_attr_e('Tráfico pago', 'text-domain'); ?>">
+                        <img class="paid-traffic-modal-body-footer-image-mobile"
+                            src="<?php echo $args['imagem__modal_trafego_pago_mobile'] ?>"
                             alt="<?php esc_attr_e('Tráfico pago', 'text-domain'); ?>">
                     </picture>
                 </div>

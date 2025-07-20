@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="430" viewBox="0 0 390 430" preserveAspectRatio="none">
+  <defs>
+    <mask id="bannerMask" maskUnits="userSpaceOnUse">
+      <!-- Fundo preto (oculto) -->
+      <rect width="100%" height="100%" fill="black" />
+
+      <!-- Caminho visível da máscara (o recorte que aparece) -->
+      <path
+        d="M390 361C390 375.912 377.912 388 363 388H313C301.402 388 292 397.402 292 409C292 420.598 282.598 430 271 430H27C12.0883 430 0 417.912 0 403V69C0 54.0883 12.0883 42 27 42H133C144.598 42 154 32.598 154 21C154 9.40202 163.402 0 175 0H363C377.912 0 390 12.0883 390 27V361Z"
+        fill="white"
+      />
+    </mask>
+  </defs>
+
+  <!-- Área mascarada -->
+  <rect width="100%" height="100%" fill="black" mask="url(#bannerMask)" />
+</svg>
