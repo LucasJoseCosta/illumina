@@ -28,37 +28,51 @@ $post_category = !empty($args['post_category']) ? (string) $args['post_category'
                     <div class="portifolio-modal-title">
                         <h2><?php echo $post_title ?></h2>
                     </div>
-                    <div class="portifolio-modal-category">
+
+                    <div class="portfolio-modal-title-and-arrows">
+ <div class="portifolio-modal-category">
                         <h3><?php echo $post_category ?></h3>
                     </div>
-                </div>
-                <div class="portifolio-modal-content-text">
-                    <h3><?php pll_e("Sobre:"); ?></h3>
-                    <?php echo $post_content ?>
-                </div>
-            </div>
-            <div class="portifolio-modal-date-actions">
-                <div class="portifolio-modal-date">
-                    <h4><?php echo $post_data ?></h4>
-                </div>
                 <div class="portifolio-modal-actions">
                     <?php if ($idx > 0): // só exibe voltar se não for o primeiro ?>
                         <div class="portifolio-modal-btn-previous-wrapper">
                             <button class="portifolio-modal-btn-previous" data-prev="<?php echo $idx - 1; ?>">
-                                Voltar
+                                <img src="<?php echo get_template_directory_uri(); ?>../assets/img/arrow-left.svg" alt="Seta para a direita" />
                             </button>
                         </div>
                     <?php endif; ?>
 
                     <?php if ($idx < $max_idx): // só exibe próximo se não for o último ?>
                         <div class="portifolio-modal-btn-next-wrapper">
-                            <button class="portifolio-modal-btn-next" data-next="<?php echo $idx + 1; ?>">
-                                Próximo
-                            </button>
-                        </div>
+                                <button class="portifolio-modal-btn-next" data-next="<?php echo $idx + 1; ?>">
+                                 
+                                   <img src="<?php echo get_template_directory_uri(); ?>../assets/img/arrow-rigth.svg" alt="Seta para a direita" />
+
+                                </button>
+                            </div>
+
                     <?php endif; ?>
                 </div>
+                </div>
+                   
+                </div>
+
+                <div class="portfolio-modal-date-and-text">
+                <div class="portifolio-modal-date-actions">
+                    <div class="portifolio-modal-date">
+                        <h4><?php echo $post_data ?></h4>
+                </div>
+                <div class="portifolio-modal-content-text">
+                        <h3 class="portifolio-modal-content-text-about"><?php pll_e("Sobre:"); ?></h3>
+                    <?php echo $post_content ?>
+                </div>
             </div>
+
+
+                </div>
+                
+            </div>
+           
         </div>
     </div>
 </div>

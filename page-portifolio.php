@@ -272,4 +272,6 @@ $current_page_url = get_permalink();
     });
 </script>
 
+
+
 <?php get_footer(); ?>
