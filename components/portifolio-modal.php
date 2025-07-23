@@ -58,16 +58,23 @@ $post_category = !empty($args['post_category']) ? (string) $args['post_category'
                 </div>
 
                 <div class="portfolio-modal-date-and-text">
-                <div class="portifolio-modal-date-actions">
-                    <div class="portifolio-modal-date">
-                        <h4><?php echo $post_data ?></h4>
-                </div>
+                
                 <div class="portifolio-modal-content-text">
                         <h3 class="portifolio-modal-content-text-about"><?php pll_e("Sobre:"); ?></h3>
                     <?php echo $post_content ?>
                 </div>
-            </div>
 
+                <div class="portfolio-date-and-rotate">
+                <div class="portifolio-modal-date-actions">
+                    <div class="portifolio-modal-date">
+                        <h4><?php echo $post_data ?></h4>
+                </div>
+            </div>
+<button class="rotate-toggle-btn" aria-label="Girar imagem 360°">
+  <img src="<?php echo get_template_directory_uri(); ?>/assets/img/icon-rotate.svg" alt="Girar imagem" />
+</button>
+
+             </div>           
 
                 </div>
                 
@@ -76,3 +83,28 @@ $post_category = !empty($args['post_category']) ? (string) $args['post_category'
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+  const rotateButtons = document.querySelectorAll('.rotate-toggle-btn');
+
+  rotateButtons.forEach(btn => {
+    btn.addEventListener('click', function () {
+      const modal = btn.closest('.portifolio-modal-component');
+      const img = modal.querySelector('.portifolio-modal-img img');
+      
+      if (!img) return;
+
+      // Armazena o ângulo atual usando dataset
+      const currentAngle = parseInt(img.dataset.rotate || '0');
+      const newAngle = currentAngle + 90;
+
+      img.style.transform = `rotate(${newAngle}deg)`;
+      img.style.transition = 'transform 0.5s ease';
+      img.dataset.rotate = newAngle % 360;
+    });
+  });
+});
+
+
+</script>
