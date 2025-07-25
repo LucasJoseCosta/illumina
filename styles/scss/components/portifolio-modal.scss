@@ -70,11 +70,34 @@
       }
       .portifolio-modal-date-actions {
         width: 15.9%;
+        display: flex;
+  align-items: center; // alinha verticalmente ao centro
+  gap: 12px;  
       }
     }
   }
 }
 
+
+.rotate-toggle-btn {
+  position: static; // <-- remova o `absolute` para alinhar com flex
+  background-color: var(--bg-light-brown);
+  border: none;
+  border-radius: 50%;
+  padding: 12px;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease;
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
 @keyframes springIn {
   0% {
     transform: translateY(100%);
@@ -157,7 +180,17 @@
 .portfolio-date-and-rotate{
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  
+   @media screen and (max-width: 375px) and (max-width: 767px) {
+       display: flex;
+  justify-content: space-between;
+    width: 70%;
+  
+
+    }
 }
+
 
 .rotate-toggle-btn {
   position: absolute;
@@ -180,3 +213,37 @@
     transform: scale(1.1);
   }
 }
+
+.portifolio-modal-date{
+    @media screen and (max-width: 375px) and (max-width: 767px) {
+      width: 200px;
+      height: 20px;
+      line-height: 100%;
+      size: 16px;
+    }
+}
+
+.portifolio-modal-date-text {
+  white-space: nowrap;      // força o texto a não quebrar linha
+  overflow: hidden;         // esconde o que ultrapassar a largura
+  text-overflow: ellipsis;  // adiciona "..." se o texto for muito longo
+  font-size: 10px;
+  line-height: 1;
+  @media screen and (max-width: 375px) and (max-width: 767px) {
+      width: 150px;
+      height: 19px;
+      line-height: 100%;
+      size: 16px;
+       font-size: 16px;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+    }
+
+
+
+}
+
+
