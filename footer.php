@@ -146,8 +146,11 @@ $redes_sociais = get_field('redes_socias', $initial_footer->ID);
           <?php if (!empty($logo_footer)): ?>
             <a href="<?php echo get_home_url() ?>">
               <picture>
-                <source src="<?php echo esc_url($logo_footer); ?>">
-                <img src="<?php echo esc_url($logo_footer); ?>" alt="Logo Ilumina Design Studio" class="logo-footer">
+                <picture>
+                  <img src="<?php echo esc_url($logo_footer); ?>" alt="Logo Ilumina Design Studio" class="logo-footer light">
+                  <img src="<?php echo esc_url($logo_footer_dark); ?>" alt="Logo Ilumina Design Studio"
+                    class="logo-footer dark">
+                </picture>
               </picture>
             </a>
           <?php endif; ?>
@@ -161,10 +164,10 @@ $redes_sociais = get_field('redes_socias', $initial_footer->ID);
         <div class="contatos-footer">
           <div class="contact-details">
             <div class="contact-detail">
-              <span class="contact-detail-text">+55 45 99101-6622</span>
+              <a class="contact-detail-text">+55 45 99101-6622</a>
             </div>
             <div class="contact-detail">
-              <span class="contact-detail-text">illuminadesingstudio<br>@gmail.com</span>
+              <a class="contact-detail-text">illuminadesingstudio<br>@gmail.com</a>
             </div>
           </div>
         </div>

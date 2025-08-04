@@ -9,7 +9,12 @@ if (isset($args) && !empty($args)) {
 
 <div class="whatsapp-btn-container">
     <button id="whatsapp-btn" class="btn">
-        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/whatsapp.svg" alt="" srcset="">
+        <span>
+            <img class="light" src="<?php echo get_template_directory_uri(); ?>/assets/img/whatsapp.svg" alt=""
+                srcset="">
+            <img class="dark" src="<?php echo get_template_directory_uri(); ?>/assets/img/whatsapp-dark.svg" alt=""
+                srcset="">
+        </span>
     </button>
     <div id="group" class="group whatsapp-btn-group">
         <div class="whatsapp-btn-link">

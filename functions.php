@@ -861,7 +861,7 @@ function meu_tema_ajax_filter_portfolio_posts_handler()
 		foreach ($all_posts as $idx => $p) {
 			$args_modal = [
 				'index' => $idx,
-				'titulo_portifolio' => get_the_title($p->ID),
+				'titulo_post' => get_the_title($p->ID),
 				'post_content' => get_post_field('post_content', $p->ID),
 				'post_img_modal_highlight' => get_field('imagem_destaque_modal', $p->ID),
 				'post_data' => get_field('data_execucao', $p->ID),
