@@ -5,10 +5,13 @@
   z-index: 9999;
 
   .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     width: 64px;
     height: 64px;
-    background-color: var(--color-secundary);
+    background-color: var(--bg-whatsapp);
     border: none;
     border-radius: 50%;
     cursor: pointer;

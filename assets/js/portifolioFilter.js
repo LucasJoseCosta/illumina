@@ -176,6 +176,50 @@ jQuery(document).ready(function ($) {
     switchModal($(this).data("next"));
   });
 
+  $(document).on("click", ".rotation-button", function (e) {
+    e.preventDefault();
+    const $wrapper = $(this).closest(".portifolio-modal-wrapper");
+    const $imgWidth = $wrapper.width();
+    const $imgHeight = $wrapper.height();
+    const $imgWrapper = $wrapper.find(".portifolio-modal-img");
+    const $imgHeader = $wrapper.find(".portifolio-modal-header");
+    const $img = $imgWrapper.find("img");
+    const $bodyWrapper = $wrapper.find(".portifolio-modal-body");
+    const $controls = $wrapper.find(".floating-rotation-controls");
+
+    $imgWrapper.toggleClass("rotated");
+
+    if ($imgWrapper.hasClass("rotated")) {
+      $bodyWrapper.hide()
+      $img.width($imgHeight).height($imgWidth);
+      $imgHeader.css({
+        height: '100%',
+      });
+      $imgWrapper.css({
+        height: '100%',
+      });
+      $img.css({
+        maxWidth: 'unset',
+      });
+      $controls.css({
+        display: 'flex',
+      });
+    } else {
+      $img.css({
+        width: '100%',
+        height: 'auto',
+      });
+      $imgHeader.css({
+        height: 'auto',
+      });
+      $imgWrapper.css({
+        height: 'auto',
+      });
+      $controls.hide();
+      $bodyWrapper.show();
+    }
+  });
+
   // — Carregamento inicial se vier com query params —
   (function initFromURL() {
     var urlParams = new URLSearchParams(window.location.search);
