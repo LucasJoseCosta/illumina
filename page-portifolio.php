@@ -69,7 +69,8 @@ $current_page_url = get_permalink();
                         </span>
                     </button>
                     <ul class="client-filter-list">
-                        <li data-client="" class="active"> <span>Filtrar por Clientes</span> </li>
+                        <li data-client="" class="active"> <span><?php echo pll_e('Filtrar por Clientes') ?></span>
+                        </li>
                         <?php foreach ($unique_titles as $title): ?>
                             <li data-client="<?php echo esc_attr($title); ?>">
                                 <span> <?php echo esc_html($title); ?></span>
@@ -204,13 +205,14 @@ $current_page_url = get_permalink();
         foreach ($final_posts_to_display as $post_item) {
             $post_display = is_object($post_item) ? get_post($post_item->ID) : get_post($post_item);
 
-            if (!$post_display) continue;
+            if (!$post_display)
+                continue;
 
             $titulo_post = $post_item->post_title;
             $post_content = $post_display->post_content;
             $post_img_modal_highlight = get_field('imagem_destaque_modal', $post_display->ID);
             $post_data = get_field('data_execucao', $post_display->ID);
-             // Corrigido aqui
+            // Corrigido aqui
             $post_category = get_the_terms($post_display->ID, 'category');
             $post_category_name = is_array($post_category) && isset($post_category[0]) ? $post_category[0]->name : '';
             ?>
