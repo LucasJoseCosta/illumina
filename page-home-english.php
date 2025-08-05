@@ -521,7 +521,7 @@ if (!empty($initials)) {
              *Mensagem:* ${mensagem}
                 `;
 
-            const url = `https://wa.me/5544998862639?text=${encodeURIComponent(texto)}`;
+            const url = `https://wa.me/5599999999999?text=${encodeURIComponent(texto)}`;
 
             return url;
         }

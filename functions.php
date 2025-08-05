@@ -704,6 +704,8 @@ function register_polylang_strings()
 		pll_register_string('no-item-contato', 'Nenhum contato disponível.', 'Footer contato no item');
 		pll_register_string('copyright', '2025 Illumina Design Studio. Todos os direitos reservados.', 'Copyright text');
 		pll_register_string('orçamento-enviado', 'Orçamento Enviado!', 'Orçamento Enviado!');
+		pll_register_string('filtrar-clientes', 'Filtrar por Clientes', 'Filtrar por Clientes');
+		pll_register_string('sobre', 'Sobre:', 'Sobre:');
 	}
 }
 add_action('init', 'register_polylang_strings');
